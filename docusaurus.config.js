@@ -61,7 +61,7 @@ const config = {
         disableSwitch: true,
       },
       // Replace with your project's social card
-      // image: 'img/wooly-social-card.jpg',
+      image: 'img/social-banner.png',
       navbar: {
         title: 'Documentation',
         logo: {
