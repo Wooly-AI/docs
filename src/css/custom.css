@@ -127,7 +127,7 @@
   --ifm-font-weight-bold: 700;
   --ifm-font-weight-base: var(--ifm-font-weight-normal);
   --ifm-line-height-base: 1.65;
-  --ifm-global-spacing: 1rem;
+  --ifm-global-spacing: 2rem;
   --ifm-spacing-vertical: var(--ifm-global-spacing);
   --ifm-spacing-horizontal: var(--ifm-global-spacing);
   --ifm-transition-fast: 200ms;
@@ -314,4 +314,10 @@
 }
 .menu__list-item-collapsible a.menu__link:first-child {
   font-weight: bold;
+}
+
+.footer__copyright {
+  border-top: 1px solid var(--ifm-background-color);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
 }

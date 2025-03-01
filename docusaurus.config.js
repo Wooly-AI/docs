@@ -140,17 +140,13 @@ const config = {
                 href: 'https://www.linkedin.com/company/woolyai',
               },
               {
-                label: 'Facebook',
-                href: 'https://www.facebook.com/woolyai',
-              },
-              {
                 label: 'TikTok',
                 href: 'https://www.tiktok.com/@woolyai',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc. | CUDA is a registered trademark of NVIDIA Corporation. This website is not affiliated with or endorsed by NVIDIA Corporation.`,
+        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.<br /><small>CUDA is a registered trademark of NVIDIA Corporation. This website is not affiliated with or endorsed by NVIDIA Corporation.</small>`,
       },
       prism: {
         theme: prismThemes.github,
