@@ -24,6 +24,7 @@ const sidebars = {
       items: [
         'Quick Start/Introduction',
         'Quick Start/Running Your First Project',
+        'Quick Start/Understanding the Container Environment',
       ],
     },
     { 
