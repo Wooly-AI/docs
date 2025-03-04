@@ -29,7 +29,7 @@ docker run -itd --name wooly-container -h wooly-client woolyai/client:latest
 docker exec -it wooly-container bash
 ```
 
-### Log in to the Wooly Server
+### Log in to the WoolyAI Acceleration Service
 
 ```bash
 # once attached to bash in the container with docker exec -it wooly-container bash
@@ -46,7 +46,7 @@ If this fails, please reach out to [support@woolyai.com](mailto:support@woolyai.
 
 ### Run a PyTorch Project
 
-We include several examples projects in the docker image under the `~/examples` directory.
+We include several examples projects in the docker image under the `~/examples` directory. Your token by default has enough Wooly credits associated which lets you run Pytorch projects and utilize GPU resources.
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
