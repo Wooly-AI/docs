@@ -19,7 +19,8 @@ docker pull woolyai/client:latest
 
 ```bash
 docker run -itd --name wooly-container -h wooly-client woolyai/client:latest
-docker run -itd --name wooly -p 7860:7860 woolyai/client:latest # for stable diffusion webui
+
+# docker run -itd --name wooly-container -h wooly-client -p 7860:7860 woolyai/client:latest # for stable diffusion webui
 ```
 
 ### Exec into the Container
@@ -32,9 +33,10 @@ docker exec -it wooly-container bash
 
 ```bash
 # once attached to bash in the container with docker exec -it wooly-container bash
-ubuntu@de79436cb028:~$ wooly login
+ubuntu@wooly-client:~$ wooly login
+By proceeding, you agree to our Terms & Conditions: https://woolyai.com/terms-and-conditions (enter yes/no): yes
 enter your token: 
-ping latency to the wooly server is 43.568800 ms
+ping latency to the wooly server is 32.128700 ms
 success
 ```
 

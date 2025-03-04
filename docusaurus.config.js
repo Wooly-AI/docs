@@ -137,7 +137,7 @@ const config = {
               },
               {
                 label: 'LinkedIn',
-                href: 'https://www.linkedin.com/company/woolyai',
+                href: 'https://www.linkedin.com/company/woolyaiinc',
               },
               {
                 label: 'TikTok',
