@@ -46,7 +46,8 @@ If this fails, please reach out to [support@woolyai.com](mailto:support@woolyai.
 
 ### Run a PyTorch Project
 
-We include several examples projects in the docker image under the `~/examples` directory. Your token by default has enough Wooly credits associated which lets you run Pytorch projects and utilize GPU resources.
+We include several examples projects in the docker image under the `~/examples` directory. Your token by default has enough Wooly credits attached which lets you run Pytorch projects and utilize GPU resources.
+Which GPU, enough resources? Don't worry about it. That's the whole point. WoolyAI Acceleration service takes away the hassles of GPU Resource management. In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B parameter model and more would need to be quantized to run.
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
