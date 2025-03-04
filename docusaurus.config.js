@@ -38,17 +38,23 @@ const config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          // sidebarPath: './sidebars.js',
+          sidebarPath: './sidebars.js',
           routeBasePath: '/',
+          lastVersion: 'current',
+          versions: {
+            current: {
+              label: '0.1.0 (Beta)',
+            },
+          },
         },
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
-        },
+        }
       }),
     ],
   ],
@@ -70,6 +76,12 @@ const config = {
         },
         items: [
           {
+            type: 'docsVersionDropdown',
+            position: 'right',
+            dropdownActiveClassDisabled: true,
+            
+          },
+          {
             href: 'https://woolyai.com',
             label: 'woolyai.com',
             position: 'right',
@@ -85,14 +97,6 @@ const config = {
               {
                 label: 'woolyai.com',
                 href: 'https://woolyai.com',
-              },
-              {
-                label: 'Privacy Policy',
-                href: 'https://woolyai.com/privacy-policy',
-              },
-              {
-                label: 'Terms of Service',
-                href: 'https://woolyai.com/terms-of-service',
               },
               {
                 label: 'About Us',
@@ -127,10 +131,22 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/Wooly-AI',
               },
+              {
+                label: 'Instagram',
+                href: 'https://www.instagram.com/woolyai',
+              },
+              {
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/company/woolyaiinc',
+              },
+              {
+                label: 'TikTok',
+                href: 'https://www.tiktok.com/@woolyai',
+              },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.<br /><small>CUDA is a registered trademark of NVIDIA Corporation. This website is not affiliated with or endorsed by NVIDIA Corporation.</small>`,
       },
       prism: {
         theme: prismThemes.github,
