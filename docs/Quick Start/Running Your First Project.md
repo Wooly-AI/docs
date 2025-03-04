@@ -9,6 +9,13 @@ Wooly is provided currently as a [docker container](https://www.docker.com/resou
 
 You can find all available images on [Docker Hub](https://hub.docker.com/r/woolyai/client).
 
+### Your working Environment
+
+Setup your CPU backed environment where you will run the Wooly Client container.
+
+1. Linux CPU instance in a cloud in XXX region (Recommended Method) - Since we are in Beta, GPU resources powering the WOolyAI Acceleration Service are limited and setup in a specific geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in XXX region with YYY specs. Then, run your wooly container in this environment.
+2. Too much hassle to setup a Linux CPU Instance in XXX region? (Quickstart Method) - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it. Configure the container to use YYY resources(need to put info onswap etc).
+
 ### Pull the latest Docker Image
 
 ```bash
