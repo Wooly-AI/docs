@@ -11,10 +11,10 @@ You can find all available images on [Docker Hub](https://hub.docker.com/r/wooly
 
 ### Your working Environment
 
-Setup your CPU backed environment where you will run the Wooly Client container.
+Setup your CPU backed Linux environment where you will run the Wooly Client container.
 
-1. **Linux CPU instance in a cloud in XXX region (Recommended Method)** - Since we are in Beta, GPU resources powering the WOolyAI Acceleration Service are limited and setup in a specific geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in XXX region with YYY specs. Then, run your wooly container in this environment.
-2. **Too much hassle to setup a Linux CPU Instance in XXX region? (Quickstart Method)** - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it. Configure the container to use YYY resources(need to put info onswap etc).
+1. **Linux CPU instance in a cloud in US Eastern region (Recommended Method)** - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Eastern geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in US Eastern region. Depending on the model size you wish to run, you will have to start instance with enough RAM. The model is first loaded into the CPU instance RAM and then moved to the Wooly AI Acceleration Service GPU. 
+2. **Too much hassle to setup a Linux CPU Instance in XXX region? (Quickstart Method)** - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it. Configure the container to use **YYY resources(need to put info onswap etc)**.
 
 ### Pull the latest Docker Image
 
@@ -54,7 +54,7 @@ If this fails, please reach out to [support@woolyai.com](mailto:support@woolyai.
 ### Run a PyTorch Project
 
 We include several examples projects in the docker image under the `~/examples` directory. Your token by default has enough Wooly credits attached which lets you run Pytorch projects and utilize GPU resources.
-Which GPU, enough resources? Don't worry about it. That's the whole point. WoolyAI Acceleration service takes away the hassles of GPU Resource management. In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B parameter model and more would need to be quantized to run.
+Which GPU, enough resources? Don't worry about it. That's the whole point. WoolyAI Acceleration service takes away the hassles of GPU Resource management. In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B parameter model and more would need to be quantized to run. Here is an example of running a DeepSeek Pytorch model from the examples directory. The bash file  installs all the dependencies and then runs the script.py. 
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
