@@ -43,11 +43,11 @@ Important commands:
   
 - `wooly credits` - This will show you how many wooly credits you have left on your account. When you run models, Wooly credits are deducted against your actual GPU core and RAM usage.
 
-- `wooly cache global list` - This will list all the models that are cached globally on the Wooly server in the Acceleration service backend. We cache some popular models in the global cache to reduce bandwidth usgae transferring these models from the CPU RAM to the Wooly service GPU over the network.
+- `wooly cache global list` - This will list all the models that are cached globally on the Wooly server in the Acceleration service backend. We cache some popular models in the global cache to reduce bandwidth usage transferring these models from the CPU RAM to the Wooly service GPU over the network.
   
 - `wooly cache global on|off` - This will enable or disable your container's use of the global cache.
   
-- `wooly cache private usage` - This will show you how much private cache you are using in MB. Every user is provided with 40GB of private cache where the models are cached on a first come first basis, if the private cache is enabled. When a user executes a model that is already cached in the private cache, then the service first looks for that model in the private cache first before transferringh from the CPU instance to WOoly service GPU backend.
+- `wooly cache private usage` - This will show you how much private cache you are using in MB. Every user is provided with 40GB of private cache where the models are cached on a first come first basis, if the private cache is enabled. When a user executes a model that is already cached in the private cache, then the service first looks for that model in the private cache first before transferring from the CPU instance to Wooly service GPU backend.
   
 - `wooly cache private invalidate` - This will invalidate/flush the private cache. By default you'll have a limit of 40GB.
   
