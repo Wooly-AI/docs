@@ -57,7 +57,9 @@ We include several examples projects in the docker image under the `~/examples` 
 
 Which GPU, enough resources? Don't worry about it. That's the whole point. WoolyAI Acceleration service takes away the hassles of GPU Resource management.
 
-In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B parameter model and more would need to be quantized to run. Here is an example of running a DeepSeek Pytorch model from the examples directory. The bash file  installs all the dependencies and then runs the script.py. 
+In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B parameter model and more would need to be quantized to run. 
+
+In the examples directory we have placed some sample Pytorch model projects. These Pytorch projects are packaged as bash file which installs all the dependencies and then runs the script.py to run the model. 
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
@@ -121,6 +123,8 @@ Device set to use cuda
 Generated Response:
 [{'generated_text': [{'role': 'user', 'content': 'Who are you?'}, {'role': 'assistant', 'content': "Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have.\n</think>\n\nGreetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have."}]}]
 ```
+
+***You can also create and run your custom Pytorch projects inside the CPU container. No special configuration is needed***
 
 ### Final Notes
 
