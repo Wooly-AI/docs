@@ -14,17 +14,22 @@ You can find all available images on [Docker Hub](https://hub.docker.com/r/wooly
 Setup your CPU backed Linux environment where you will run the Wooly Client container.
 
 1. **Recommended:** Linux CPU instance (US Eastern region)
-    - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Eastern geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in US Eastern region. Depending on the model size you wish to run, you will have to start instance with enough RAM. The model is first loaded into the CPU instance RAM and then moved to the Wooly AI Acceleration Service GPU. 
+    - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Eastern geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in US Eastern region. 
 2. **Quick Start:** Local CPU Hardware
     - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
-    - Configure your machine and ensure it has plenty of swap space. Note: MacOS Docker does not allow for more than 5GB of swap space.
-      ```
-      # Linux
-      sudo fallocate -l 60G swapfile
-      sudo mkswap swapfile
-      sudo chmod 600 swapfile
-      sudo swapon swapfile
-      ```
+
+
+Depending on the model size you wish to run, you will have to start instance with enough RAM. The model is first loaded into the CPU instance RAM and then moved to the Wooly AI Acceleration Service GPU. Configure your machine/instance and ensure it has plenty of swap space just in case you don't have enough RAM.
+
+```
+# Linux
+sudo fallocate -l 60G swapfile
+sudo mkswap swapfile
+sudo chmod 600 swapfile
+sudo swapon swapfile
+
+# MacOS: Increasing swap space can be done through Docker Desktop settings. But it very limited.
+```
 
 ### Pull the latest Docker Image
 
