@@ -18,7 +18,7 @@ __Note - Currently support Pytorch applications only. Support for other non-Pyto
 
 __Get Started with WoolyAI Acceleration Service today!__
 
-WoolyAI Acceleration Service is our GPU Cloud service built on top of our CUDA abstraction layer - WoolyStack.
+WoolyAI Acceleration Service is our GPU Cloud service built on top of our CUDA abstraction layer - **WoolyStack**.
 
 1. [Sign up for WoolyAI and wait for us to send you a token.](https://woolyai.com/get-started/)
 2. [Deploy the Wooly Client Container.](./Running%20Your%20First%20Project.md)
