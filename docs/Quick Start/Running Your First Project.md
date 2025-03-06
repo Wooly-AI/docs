@@ -65,9 +65,11 @@ If this fails, please reach out to [support@woolyai.com](mailto:support@woolyai.
 
 We include several examples projects in the docker image under the `~/examples` directory. Your token by default has enough Wooly credits attached which lets you run Pytorch projects and utilize GPU resources.
 
-"Which GPU should you use?" "Do you have enough resources?" Don't worry about it! WoolyAI Acceleration service takes away the hassles of GPU Resource management.
+"Which GPU should you use?", "Do you have enough resources?" Don't worry about it! WoolyAI Acceleration service takes away the hassles of GPU Resource management.
 
-In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B or greater parameter models need to be quantized to run. Here is an example of running a DeepSeek Pytorch model from the examples directory. The bash files in ~/examples directory install all required dependencies and then run the python example code. 
+In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B or greater parameter models need to be quantized to run. Here is an example of running a DeepSeek Pytorch model from the examples directory.
+
+The bash files in ~/examples directory install all required dependencies and then run the python example code. 
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
@@ -131,6 +133,8 @@ Device set to use cuda
 Generated Response:
 [{'generated_text': [{'role': 'user', 'content': 'Who are you?'}, {'role': 'assistant', 'content': "Greetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have.\n</think>\n\nGreetings! I'm DeepSeek-R1, an artificial intelligence assistant created by DeepSeek. I'm at your service and would be delighted to assist you with any inquiries or tasks you may have."}]}]
 ```
+
+***You can also create and run your custom Pytorch projects inside the CPU container. No special configuration is needed***
 
 ### Final Notes
 
