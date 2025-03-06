@@ -18,7 +18,6 @@ Setup your CPU backed Linux environment where you will run the Wooly Client cont
 2. **Quick Start:** Local CPU Hardware
     - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
 
-
 Depending on the model size you wish to run, you will have to start instance with enough RAM. The model is first loaded into the CPU instance RAM and then moved to the Wooly AI Acceleration Service GPU. Configure your machine/instance and ensure it has plenty of swap space just in case you don't have enough RAM.
 
 ```
