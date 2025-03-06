@@ -27,7 +27,7 @@ sudo mkswap swapfile
 sudo chmod 600 swapfile
 sudo swapon swapfile
 
-# MacOS: Increasing swap space can be done through Docker Desktop settings. But it very limited.
+# MacOS: Increasing swap space can be done through Docker Desktop settings. But it very limited. MacOS will also manage swap space automatically.
 ```
 
 ### Pull the latest Docker Image
