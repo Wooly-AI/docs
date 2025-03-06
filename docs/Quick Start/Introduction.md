@@ -14,7 +14,7 @@ This allows for:
 3. Flexible GPU memory and processing cycles allocation at runtime to meet pre configured SLA
 4. Tracking of Workload Resource-usage metrics
 We are calling this Unbound GPU Execution Era.
-__Note - Currently support Pytorch applications only. Support for other non-Pytorch applications like Ollama and more are coming soon.__
+__Note - Currently supports Pytorch applications only. Support for other non-Pytorch applications using CUDA like Ollama and more are coming soon.__
 
 __Get Started with WoolyAI Acceleration Service today!__
 
