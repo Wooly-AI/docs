@@ -13,22 +13,17 @@ You can find all available images on [Docker Hub](https://hub.docker.com/r/wooly
 
 Setup your CPU backed Linux environment where you will run the Wooly Client container.
 
-1. **Recommended:** Linux CPU instance (US Eastern region)
-    - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Eastern geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud in US Eastern region. 
+1. **Recommended:** Linux CPU instance (US Virginia Region)
+    - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Virginia geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud close to US Virginia region. 
 2. **Quick Start:** Local CPU Hardware
     - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
 
-Depending on the model size you wish to run, you will have to start instance with enough RAM. The model is first loaded into the CPU instance RAM and then moved to the Wooly AI Acceleration Service GPU. Configure your machine/instance and ensure it has plenty of swap space just in case you don't have enough RAM.
+Depending on the model size you wish to run, you will have to start CPU instance with enough RAM(memory optimized). The model is first loaded into the CPU instance/local CPU hardware RAM and then moved to the Wooly AI Acceleration Service GPU.
+For models with 7B parameters or more, configure linux CPU instances with minimum 32GB RAM and 4 VCPU for best experience.
 
-```
-# Linux
-sudo fallocate -l 60G swapfile
-sudo mkswap swapfile
-sudo chmod 600 swapfile
-sudo swapon swapfile
+If you are working on local CPU hardware(macOS) and running container inside docker, swap space can be increased through Docker Desktop settings. But it is very limited. MacOS will also manage swap space automatically.
 
-# MacOS: Increasing swap space can be done through Docker Desktop settings. But it very limited. MacOS will also manage swap space automatically.
-```
+Contact us if you have any questions regarding this.
 
 ### Pull the latest Docker Image
 
