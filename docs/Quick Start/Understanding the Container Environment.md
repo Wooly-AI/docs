@@ -44,6 +44,19 @@ Important commands:
 - `wooly credits` - This will show you how many wooly credits you have left on your account. When you run models, Wooly credits are deducted against your actual GPU core and RAM usage.
 
 - `wooly cache global list` - This will list all the models that are cached globally on the Wooly server in the Acceleration service backend. We cache some popular models in the global cache to reduce bandwidth usage transferring these models from the CPU RAM to the Wooly service GPU over the network.
+
+    ```
+    ubuntu@wooly-client:~$ wooly cache global list
+    mistralai/Mistral-7B-Instruct-v0.3
+    deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+    deepseek-ai/deepseek-coder-1.3b-instruct
+    databricks/dolly-v2-3b
+    databricks/dolly-v2-7b
+    llava-hf/llava-1.5-7b-hf
+    meta-llama/Llama-3.2-3B-Instruct
+    openai/whisper-large-v3
+    sentence-transformers/all-MiniLM-L6-v2
+    ```
   
 - `wooly cache global on|off` - This will enable or disable your container's use of the global cache.
   
