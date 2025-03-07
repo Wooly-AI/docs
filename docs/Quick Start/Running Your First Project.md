@@ -36,7 +36,6 @@ docker pull woolyai/client:latest
 ```bash
 docker run -itd --name wooly-container -h wooly-client woolyai/client:latest
 
-# docker run -itd --name wooly-container -h wooly-client -p 7860:7860 woolyai/client:latest # for stable diffusion webui
 ```
 
 ### Exec into the Container
