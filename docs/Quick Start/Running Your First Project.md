@@ -18,12 +18,13 @@ Setup your CPU backed Linux environment where you will run the Wooly Client cont
 2. **Quick Start:** Local CPU Hardware
     - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
 
-Depending on the model size you wish to run, you will have to start CPU instance with enough RAM(memory optimized). The model is first loaded into the CPU instance/local CPU hardware RAM and then moved to the Wooly AI Acceleration Service GPU.
+Depending on the model size you wish to run, you will have to start CPU instance with enough RAM (memory optimized). The model is first loaded into the CPU instance/local CPU hardware RAM and then moved to the Wooly AI Acceleration Service GPU.
+
 For models with 7B parameters or more, configure linux CPU instances with minimum 32GB RAM and 4 VCPU for best experience.
 
-If you are working on local CPU hardware(macOS) and running container inside docker, swap space can be increased through Docker Desktop settings. But it is very limited. MacOS will also manage swap space automatically.
+If you are working on local CPU hardware (macOS) and running container inside docker, swap space can be increased through Docker Desktop settings. But it is very limited. MacOS will also manage swap space automatically.
 
-Contact us if you have any questions regarding this.
+Contact us if you have any questions regarding this: [support@woolyai.com](mailto:support@woolyai.com)
 
 ### Pull the latest Docker Image
 
@@ -132,6 +133,13 @@ Generated Response:
 ```
 
 ***You can also create and run your custom Pytorch projects inside the CPU container. No special configuration is needed***
+
+### Caching
+
+We have both global and private caching on the Wooly AI Acceleration Service, enabling you to run models faster and more efficiently.
+
+- Global caching is available for all users and populated by our team based on the popularity of the models. You can see the list of globally cached models by running `wooly cache global list` inside the container.
+- Private caching is available for your account. This is limited to 40GB in size and can be managed by running `wooly cache private usage` and `wooly cache private invalidate` inside the container.
 
 ### Final Notes
 
