@@ -34,9 +34,10 @@ docker pull woolyai/client:latest
 ### Run the Docker Container
 
 ```bash
-docker run -itd --name wooly-container -h wooly-client woolyai/client:latest
-
+docker run -itd --network=host --name wooly-container -h wooly-client woolyai/client:latest
 ```
+
+- `--network=host` is used to bind the container to the host network for best performance.
 
 ### Exec into the Container
 
