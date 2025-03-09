@@ -69,12 +69,13 @@ In the Beta, we are powering the service with limited GPU Infrastructure in the 
 
 The bash files in `~/examples` directory install all required dependencies and then run the python example code.  Here is an example of running a DeepSeek Pytorch model:
 
-Note: You'll need to log into huggingface inside of the container first. You can do this with:
+- You'll need to log into huggingface inside of the container first. You can do this with:
+    ```bash
+    pip install -U "huggingface_hub[cli]"
+    huggingface-cli login --token hf_IXXXXXXXXXXXXXXXXX
+    ```
 
-```bash
-pip install -U "huggingface_hub[cli]"
-huggingface-cli login --token hf_IXXXXXXXXXXXXXXXXX
-```
+- Some of the examples are gated behind an approval process on huggingface. You'll need to go to the model's page and request access from the model owner.
 
 ```bash
 ~/examples/deepseek-ai-DeepSeek-R1-Distill-Qwen-1.5B.bash
