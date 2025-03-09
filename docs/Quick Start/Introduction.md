@@ -26,6 +26,7 @@ WoolyAI Acceleration Service is our GPU Cloud service built on top of our CUDA a
 4. Configure your custom Pytorch training/finetuning environment inside the container and execute it. It will automatically use the WoolyAI GPU Acceleration Service.
 
    [Explore projects from the examples directory.](./Running%20Your%20First%20Project.md#run-a-pytorch-project)
+   
    [Get familiar with the container environment.](./Understanding%20the%20Container%20Environment.md)
    
 
