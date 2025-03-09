@@ -20,10 +20,14 @@ __Get Started with WoolyAI Acceleration Service today!__
 
 WoolyAI Acceleration Service is our GPU Cloud service built on top of our CUDA abstraction layer - **WoolyStack**.
 
-1. [Sign up for WoolyAI and wait for us to send you a token.](https://woolyai.com/get-started/)
+1. [Sign up for WoolyAI, and we'll send you a token.](https://woolyai.com/get-started/)
 2. [Deploy the Wooly Client Container.](./Running%20Your%20First%20Project.md)
-3. [Run your first project from the examples directory.](./Running%20Your%20First%20Project.md#run-a-pytorch-project)
-4. [Get familiar with the container environment.](./Understanding%20the%20Container%20Environment.md)
+3. Login to the WoolyAI GPU Acceleration service using your token from inside the container
+4. Configure your Pytorch training/finetuning environment inside the container and execute it. It will automatically use the WoolyAI GPU Acceleration Service.
+
+   [Explore projects from the examples directory.](./Running%20Your%20First%20Project.md#run-a-pytorch-project)
+   [Get familiar with the container environment.](./Understanding%20the%20Container%20Environment.md)
+   
 
 
 
