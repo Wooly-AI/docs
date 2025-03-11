@@ -14,11 +14,12 @@ This allows for:
 3. Flexible GPU memory and processing cycles allocation at runtime to meet pre configured SLA
 4. Tracking of Workload Resource-usage metrics
 We are calling this Unbound GPU Execution Era.
+
 __Note - Currently supports Pytorch applications only. Support for other non-Pytorch applications using CUDA like Ollama and more are coming soon.__
 
 __Get Started with WoolyAI Acceleration Service today!__
 
-WoolyAI Acceleration Service is our GPU Cloud service built on top of our CUDA abstraction layer - **WoolyStack**.
+WoolyAI Acceleration Service is our GPU Cloud service built on top of our abstraction layer for CUDA - **WoolyStack**.
 
 1. [Sign up for WoolyAI, and we'll send you a token.](https://woolyai.com/get-started/)
 2. [Deploy the Wooly Client Container.](./Running%20Your%20First%20Project.md)
