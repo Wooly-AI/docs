@@ -15,7 +15,8 @@ Setup your CPU backed Linux environment where you will run the Wooly Client cont
 
 1. **Recommended:** Linux CPU instance (US Virginia Region)
     - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Virginia geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud close to US Virginia region. 
-2. **Quick Start:** Local CPU Hardware
+2. **Quick Start:** Local CPU Mac/Windows/Linux laptop
+    - Install [Docker] (https://docs.docker.com/desktop/) 
     - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
 
 Depending on the model size you wish to run, you will have to start CPU instance with enough RAM (memory optimized). The model is first loaded into the CPU instance/local CPU hardware RAM and then moved to the Wooly AI Acceleration Service GPU.
