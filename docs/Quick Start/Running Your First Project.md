@@ -27,16 +27,10 @@ If you are working on local CPU hardware (macOS) and running container inside do
 
 Contact us if you have any questions regarding this: [support@woolyai.com](mailto:support@woolyai.com)
 
-### Pull the latest Docker Image
-
-```bash
-docker pull woolyai/client:latest
-```
-
 ### Run the Docker Container
 
 ```bash
-docker run -itd --network=host --name wooly-container -h wooly-client woolyai/client:latest
+docker run -itd --pull=always --network=host --name wooly-container -h wooly-client woolyai/client:latest
 ```
 
 - `--network=host` is used to bind the container to the host network for best performance.
