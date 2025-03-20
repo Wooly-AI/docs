@@ -34,7 +34,7 @@ docker run -itd --pull=always --network=host --name wooly-container -h wooly-cli
 ```
 
 - `--network=host` is used to bind the container to the host network for best performance.
-- In order to save the data inside of your container, you can use `-v /path/to/your/data/on/host:/home/ubuntu/data` to mount a volume and then make sure to write all data to that directory inside of the container.
+- In order to save the data inside of your container, avoiding losing it when the container is reset, you can use `-v /path/to/your/data/on/host:/home/ubuntu/data` to mount directory and then make sure to write all data to it inside of the container.
 - To avoid losing your `pip` installed files, you can use `-v` as well, mounting a host level directory to `/home/ubuntu/.local` inside of the container (where the ubuntu user's pip installs packages).
 
 ### Exec into the Container
