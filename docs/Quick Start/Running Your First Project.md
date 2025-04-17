@@ -5,27 +5,20 @@ slug: /getting-started/running-your-first-project
 
 ## Orientation
 
-Wooly is provided currently as a [docker container](https://www.docker.com/resources/what-container/). It contains the Wooly runtime libraries and a CLI.
+Wooly is provided currently as a [docker container](https://www.docker.com/resources/what-container/). It contains the Wooly compiler, runtime libraries and a CLI.
 
 You can find all available images on [Docker Hub](https://hub.docker.com/r/woolyai/client).
 
 ### Your working Environment
 
-Setup your CPU backed Linux environment where you will run the Wooly Client container.
+Setup your CPU backed Linux environment where you will run the Wooly Client container. Wooly Client Container is drop-in replacement for your existing Pytorch CUDA environment.
 
-1. **Recommended:** Linux CPU instance (US Virginia Region)
-    - Since we are in Beta, GPU resources powering the WoolyAI Acceleration Service are limited and setup only in US Virginia geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud close to US Virginia region. 
-2. **Quick Start:** Local CPU Mac/Windows/Linux laptop
-    - Install [Docker] (https://docs.docker.com/desktop/) 
-    - Pull and run our Wooly Client Docker Container on your laptop and work with Pytorch projects inside it.
+1. Linux CPU instance (US Virginia Region)
+    - Since we are in Beta, GPU resources powering the WoolyAI Virtual GPU Cloud are limited and setup only in US Virginia geographic region. For best user experience, we recommend spinning up a CPU instance on a public cloud close to US Virginia region. 
 
 Depending on the model size you wish to run, you will have to start CPU instance with enough RAM (memory optimized). The model is first loaded into the CPU instance/local CPU hardware RAM and then moved to the Wooly AI Acceleration Service GPU.
 
 For models with 7B parameters or more, configure linux CPU instances with minimum 32GB RAM and 4 VCPU for best experience.
-
-If you are working on local CPU hardware (macOS) and running container inside docker, swap space can be increased through Docker Desktop settings. But it is very limited. MacOS will also manage swap space automatically.
-
-Contact us if you have any questions regarding this: [support@woolyai.com](mailto:support@woolyai.com)
 
 ### Run the Docker Container
 
@@ -43,7 +36,7 @@ docker run -itd --pull=always --network=host --name wooly-container -h wooly-cli
 docker exec -it wooly-container bash
 ```
 
-### Log in to the WoolyAI Acceleration Service
+### Log in to the WoolyAI Virtual GPU Cloud(Acceleration Service)
 
 ```bash
 # once attached to bash in the container with docker exec -it wooly-container bash
@@ -63,6 +56,8 @@ If this fails, please reach out to [support@woolyai.com](mailto:support@woolyai.
 "Which GPU should you use?", "Do you have enough resources?" Don't worry about it! WoolyAI Acceleration service takes away the hassles of GPU Resource management. Your token by default has enough Wooly credits attached which lets you run Pytorch projects and utilize GPU resources.
 
 In the Beta, we are powering the service with limited GPU Infrastructure in the backend. This means that really large 70B or greater parameter models need to be quantized to run.
+
+*** Note - When running Wooly Client Container on ARM, ```pip install transformers``` installs latest transformers which tries to import triton and triton isn't available for ARM. While we fix this in our ARM container and publish a new one, you can install older transformers inside the container ```pip install transformers==4.50.0```.
 
 The bash files in `~/examples` directory install all required dependencies and then run the python example code.  Here is an example of running a DeepSeek Pytorch model:
 
