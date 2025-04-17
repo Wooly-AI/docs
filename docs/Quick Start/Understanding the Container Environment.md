@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-For the Wooly Client Container, we provide a docker image that includes the Wooly runtime libraries and a CLI.
+For the Wooly Client Container, we provide a docker image that includes the Wooly runtime libraries and a CLI. Think of this container as **drop-in replacement for your Pytorch CUDA environment with CUDA abstration capability**.
 
 You will enter your container as the `ubuntu` user. It does have `sudo` access, but we recommend you do not use it for anything outside of installing `apt` packages. 
 
