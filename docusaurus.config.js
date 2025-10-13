@@ -98,22 +98,6 @@ const config = {
                 label: 'woolyai.com',
                 href: 'https://woolyai.com',
               },
-              {
-                label: 'About Us',
-                href: 'https://woolyai.com/about-us',
-              },
-              {
-                label: 'Products',
-                href: 'https://woolyai.com/products',
-              },
-              {
-                label: 'Blog',
-                href: 'https://woolyai.com/blog',
-              },
-              {
-                label: 'Get Started',
-                href: 'https://woolyai.com/get-started',
-              },
             ],
           },
           {
