@@ -1,0 +1,73 @@
+---
+sidebar_position: 2
+slug: /running-the-wooly-server
+---
+
+## Running The Wooly Server
+
+### Prerequisites
+
+- A host machine with a compatible GPU (NVIDIA or AMD currently)
+- A license.json file from [WoolyAI support](https://woolyai.com/).
+- Docker installed on the host machine.
+- Choose the proper docker image for your GPU vendor:
+    - NVIDIA: `woolyai/server:nvidia-latest`
+    - AMD: `woolyai/server:amd-latest`
+
+### Running the Wooly Server
+
+1. Create a directory for the server cache
+```bash
+mkdir wooly-server-cache
+```
+1. Create the server config file: `wooly-server-config.toml`:
+```toml
+[SERVER]
+
+LISTEN_ADDR = tcp::443
+# Optional SSL endpoint. Uncomment after placing certfile.pem in working dir.
+# LISTEN_ADDR = ssl::443
+# SSL_CERT_FILE = certfile.pem
+# SSL_KEY_FILE = certfile.pem
+
+# Controller integration (leave blank if not using a controller).
+# CONTROLLER_URL = nats://localhost:4222
+# NODE_NAME must be unique across all nodes in the cluster
+# NODE_NAME = my-node
+# NODE_ID will be auto-generated from NODE_NAME if not set (must be a valid UUID)
+# NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108
+# NODE_ADDRESS = 127.0.0.1 # the address of the node the client will connect to
+
+# Global cache behaviour: OFF, RECORD, or REPLAY (default).
+GLOBAL_CACHE_MODE = OFF
+
+# License file location, if you want to use a different location than the default ~/.wooly/license.json
+#LICENSE_FILE = /tmp/license.json
+```
+1. Make sure you have the license.json file in the current directory. You can get it from WoolyAI support.
+
+### NVIDIA
+
+```bash
+docker run -d --name wooly-server \
+--gpus all \
+--network=host \
+--entrypoint /usr/local/bin/server-entrypoint.bash \
+-v "./wooly-server-cache:/root/.wooly/shared_mem:rw" \
+-v "./wooly-server-config.toml:/root/.wooly/config:ro" \
+-v "./wooly-server-license.json:/root/.wooly/license.json:ro" \
+woolyai/server:nvidia-latest
+```
+
+### AMD
+
+```bash
+docker run -d --name wooly-server \
+--device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \
+--network=host \
+--entrypoint /usr/local/bin/server-entrypoint.bash \
+-v "./wooly-server-cache:/root/.wooly/shared_mem:rw" \
+-v "./wooly-server-config.toml:/root/.wooly/config:ro" \
+-v "./wooly-server-license.json:/root/.wooly/license.json:ro" \
+woolyai/server:amd-latest
+```

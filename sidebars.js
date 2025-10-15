@@ -23,6 +23,7 @@
       collapsible: false,
       items: [
         'Quick Start/Introduction',
+        'Quick Start/Running The Wooly Server',
       ],
     },
     // { 
