@@ -7,7 +7,7 @@ slug: /
 
 Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usage. Key benefits of using Wooly are:
 
-#### Developer Benefits
+#### Developer Experience
 
 1. Access high-end heavy-weight GPUs from lightweight (non-GPU) local machines. Researchers can run PyTorch, vLLM, or CUDA code on their laptop, desktop, or CPU-only VMs with no local GPU.
 2. Elmininate driver/toolkit mismatch headaches. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
@@ -15,7 +15,9 @@ Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usa
 
 #### Maximizing GPU Utilization
 
-1. 
+- **True GPU Concurrency**: Runs multiple workloads in a single GPU context without [time-slicing](../glossary#time-slicing) overhead, unlike traditional static partitioning (MIG/MPS) that creates rigid, underutilized segments.
+- **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns—not fixed quotas
+- **100% GPU Utilization**: Eliminates idle cycles by continuously analyzing and optimizing resource distribution, ensuring no GPU compute or memory sits unused
 
 
 It has three main components:

@@ -321,3 +321,23 @@
   margin-top: 2rem;
   padding-top: 1.5rem;
 }
+
+/* Link styling - underline and slightly bolder */
+a {
+  text-decoration: underline !important;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+/* Exception: No underline for sidebar links and table of contents */
+.theme-doc-sidebar-container a,
+.menu a,
+.table-of-contents a,
+.theme-doc-toc-desktop a,
+.theme-doc-toc-mobile a {
+  text-decoration: none !important;
+  font-weight: normal;
+}
