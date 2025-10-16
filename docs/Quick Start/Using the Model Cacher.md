@@ -3,7 +3,10 @@ sidebar_position: 2
 slug: /using-the-model-cacher
 ---
 
-The Model Cacher is a tool that allows you to cache models on the Wooly Server so that any Wooly Client executions can use the cached model. 
+# WoolyAI GPU VRAM Model Cacher (GPU VRAM DeDup feature)
+
+The Model Cacher is a tool that allows you to cache models on the GPU VRAM running the Wooly Server so that any Wooly Client kernel executions that load the identical model,s can share the cached model.
+This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
 
 ### Prerequisites
 
@@ -67,7 +70,7 @@ woolyai-model-cacher delete --model <model-name>
 woolyai-model-cacher delete --all  # delete all cached models
 ```
 
-### Specify a custom root directory
+### Specify a custom location for the model cache
 
 ```bash
 woolyai-model-cacher --root <custom-root-directory> add --source <huggingface-model-id-or-local-path>
