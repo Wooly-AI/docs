@@ -3,7 +3,7 @@ sidebar_position: 100
 slug: /glossary
 ---
 
-## GPU Concurrency
+## GPU Concurrency Approaches
 
 ### Time slicing
 
@@ -15,9 +15,9 @@ Physically partitions the GPU into fixed segments (e.g., split an A100 into 4 sm
 
 ### MPS (Multi-Process Service)
 
-Tools or services that utilize Multi-process service (MPS) features of Nvidia are constrained due to MPS challenges in the areas of error containment and execution resource provisioning for Quality of Service (QoS). This prevents true efficient utilization of GOU across heterogeneous concurrent workloads with QOS management. Better than time slicing but still has limitations in how it shares resources.
+NVIDIA's CUDA Multi-Process Service (MPS) enables multiple co-operative processes to share GPU compute resources. While primarily designed for MPI applications that work together, MPS has also been adopted for sharing GPU resources between independent applications, though this introduces certain limitations. MPS lacks error isolation between clients, meaning issues in one client can affect others. Although streaming multiprocessors (SMs) can be optionally capped to a percentage per MPS client, the underlying scheduling hardware remains shared across all clients. Additionally, memory bandwidth, cache, and memory capacity are shared resources among all MPS clients.
 
-These methods create rigid boundaries. If workload A only needs 30% of its allocated resources, the other 70% sits idle—workload B can't use it.
+It also has configuration requirements that make it a bit cumbersome to use and adapt.
 
 ### WoolyAI's Solution for GPU Concurrency
 

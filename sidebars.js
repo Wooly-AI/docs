@@ -24,6 +24,7 @@
       items: [
         'Quick Start/Introduction',
         'Quick Start/Running The Wooly Server',
+        'Quick Start/Running The Wooly Client',
       ],
     },
     // { 

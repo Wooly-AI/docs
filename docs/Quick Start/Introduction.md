@@ -5,7 +5,7 @@ slug: /
 
 ## What is Wooly?
 
-Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usage. Key benefits of using Wooly are:
+Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usage for Enterprise and Cloud environments. Key benefits of using Wooly are:
 
 #### Developer Experience
 
@@ -15,8 +15,8 @@ Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usa
 
 #### Maximizing GPU Utilization
 
-- **True GPU Concurrency**: Runs multiple workloads in a single GPU context without [time-slicing](../glossary#time-slicing) overhead, unlike traditional static partitioning (MIG/MPS) that creates rigid, underutilized segments.
-- **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns—not fixed quotas
+- **True GPU Concurrency**: Runs multiple workloads in a single GPU context without [time-slicing](../glossary#time-slicing) overhead, unlike traditional static partitioning ([MIG](../glossary#mig-multi-instance-gpu)/[MPS](../glossary#mps-multi-process-service)) that create rigid, underutilized segments.
+- **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns -- not fixed quotas.
 - **100% GPU Utilization**: Eliminates idle cycles by continuously analyzing and optimizing resource distribution, ensuring no GPU compute or memory sits unused
 
 

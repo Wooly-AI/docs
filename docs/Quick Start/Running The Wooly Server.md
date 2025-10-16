@@ -14,12 +14,14 @@ slug: /running-the-wooly-server
     - NVIDIA: `woolyai/server:nvidia-latest`
     - AMD: `woolyai/server:amd-latest`
 
-### Running the Wooly Server
+### Setup
 
 1. Create a directory for the server cache
+
 ```bash
 mkdir wooly-server-cache
 ```
+
 1. Create the server config file: `wooly-server-config.toml`:
 ```toml
 [SERVER]
@@ -42,7 +44,10 @@ GLOBAL_CACHE_MODE = OFF
 # License file location, if you want to use a different location than the default ~/.wooly/license.json
 #LICENSE_FILE = /tmp/license.json
 ```
+
 1. Make sure you have the license.json file in the current directory. You can get it from WoolyAI support.
+
+1. Run the Container
 
 ### NVIDIA
 
@@ -56,6 +61,12 @@ docker run -d --name wooly-server \
 -v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:nvidia-latest
 ```
+
+#### Supported Architectures
+
+- A100, A30, A40, A10, A16, A2
+- GH200, H200, H100
+- GB200, B200, GB300, B300
 
 ### AMD
 
