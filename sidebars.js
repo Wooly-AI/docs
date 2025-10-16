@@ -24,7 +24,7 @@
       items: [
         'Quick Start/Running The Wooly Server',
         'Quick Start/Running The Wooly Client',
-        'Quick Start/Using the Model Cacher',
+        'Quick Start/Using the VRAM Model Cache Tool',
       ],
     },
     // { 

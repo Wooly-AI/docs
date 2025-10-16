@@ -1,9 +1,9 @@
 ---
 sidebar_position: 2
-slug: /using-the-vram-model-cacher
+slug: /using-the-vram-model-cache
 ---
 
-The WoolyAI GPU VRAM Model Cacher (GPU VRAM DeDup feature) is a tool that allows you to cache models on the WoolyAI Server's GPU VRAM, so that any WoolyAI Client kernel executions that load the identical models can share the cached model. This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
+The WoolyAI GPU VRAM Model Cache (GPU VRAM DeDup feature) CLI is a tool that allows you to cache models on the WoolyAI Server's GPU VRAM, so that any WoolyAI Client kernel executions that load the identical models can share the cached model. This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
 
 ### Prerequisites
 
@@ -28,10 +28,9 @@ def compute_hashes_from_source(source: str, dtype_name: Optional[str]) -> list[s
     model = AutoModelForCausalLM.from_pretrained(source, **kwargs) <----------- This line
 ```
 
-
 ```bash
-$ woolyai-model-cacher --help
-usage: woolyai-model-cacher [-h] [--root ROOT] {list,add,delete} ...
+$ woolyai-vram-model-cache --help
+usage: woolyai-vram-model-cache [-h] [--root ROOT] {list,add,delete} ...
 
 Manage per-model chunk SHA1 hashes for WoolyAI models.
 
@@ -50,25 +49,25 @@ options:
 ### List cached models
 
 ```bash
-woolyai-model-cacher list
+woolyai-vram-model-cache list
 ```
 
 ### Add a model (compute and store hashes)
 
 ```bash
-woolyai-model-cacher add --source <huggingface-model-id-or-local-path>
-woolyai-model-cacher add --source meta-llama/Llama-2-7b-hf --dtype float16
+woolyai-vram-model-cache add --source <huggingface-model-id-or-local-path>
+woolyai-vram-model-cache add --source meta-llama/Llama-2-7b-hf --dtype float16
 ```
 
 ### Delete a cached model
 
 ```bash
-woolyai-model-cacher delete --model <model-name>
-woolyai-model-cacher delete --all  # delete all cached models
+woolyai-vram-model-cache delete --model <model-name>
+woolyai-vram-model-cache delete --all  # delete all cached models
 ```
 
 ### Specify a custom location for the model cache
 
 ```bash
-woolyai-model-cacher --root <custom-root-directory> add --source <huggingface-model-id-or-local-path>
+woolyai-vram-model-cache --root <custom-root-directory> add --source <huggingface-model-id-or-local-path>
 ```
