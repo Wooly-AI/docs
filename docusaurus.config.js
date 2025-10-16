@@ -130,7 +130,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.<br /><small>CUDA is a registered trademark of NVIDIA Corporation. This website is not affiliated with or endorsed by NVIDIA Corporation.</small>`,
+        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.`,
       },
       prism: {
         theme: prismThemes.github,
