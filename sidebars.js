@@ -22,9 +22,9 @@
       label: 'Quick Start 🚀',
       collapsible: false,
       items: [
-        'Quick Start/Introduction',
         'Quick Start/Running The Wooly Server',
         'Quick Start/Running The Wooly Client',
+        'Quick Start/Using the Model Cacher',
       ],
     },
     // { 

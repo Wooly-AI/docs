@@ -15,7 +15,6 @@ The Model Cacher is a tool that allows you to cache models on the Wooly Server s
 1. Download the latest version of the Model Cacher from the [WoolyAI GitHub Releases](https://github.com/WoolyAI/model-cacher/releases).
 1. Install the wheel file using `pip install <path to the wheel file>`.
 
-
 ### Usage
 
 The model cacher may need to be modified to match the model you are trying to cache. This is done post-install, under the `~/.local/lib/python3.10/site-packages/woolyai_model_cacher/cli.py` (path may vary).

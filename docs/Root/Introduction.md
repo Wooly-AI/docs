@@ -9,9 +9,10 @@ Wooly is a GPU Hypervisor providing several key features to optimize ML GPUs usa
 
 #### Developer Experience
 
+1. **One Container To Rule Them All**: The WoolyAI Client container can be used with existing pytorch projects without any changes to the code.
 1. Access high-end heavy-weight GPUs from lightweight (non-GPU) local machines. Researchers can run PyTorch, vLLM, or CUDA code on their laptop, desktop, or CPU-only VMs with no local GPU.
-2. Elmininate driver/toolkit mismatch headaches. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
-3. Tight controler over security and governance. Developer machines don't need GPU drivers or device files since execution happens on the Wooly Server, remotely. Think of a "thin client" model.
+1. Elmininate driver/toolkit mismatch headaches. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
+1. Tight controler over security and governance. Developer machines don't need GPU drivers or device files since execution happens on the Wooly Server, remotely. Think of a "thin client" model.
 
 #### Maximizing GPU Utilization
 
