@@ -14,10 +14,10 @@ slug: /running-the-wooly-server
 
 ### Setup
 
-1. Create a directory for the server cache
+1. Create a directory for the server VRAM cache
 
 ```bash
-mkdir wooly-server-cache
+mkdir wooly-server-vram-cache
 ```
 
 1. Create the server config file: `wooly-server-config.toml`:
@@ -47,7 +47,7 @@ GLOBAL_CACHE_MODE = OFF
 
 1. Run the Container
 
-**NOTE:** `wooly-server-cache` is where you'll need to create the model caches with the [Model Cacher](./using-the-model-cacher). This is done with `--root ./wooly-server-cache`.
+**NOTE:** The `wooly-server-vram-cache` folder is where you can cache models in VRAM with the [VRAM Model Cache Tool](./using-the-vram-model-cache-tool). This is done with the  `woolyai-vram-model-cache --root ./wooly-server-vram-cache . . .` command.
 
 ### NVIDIA
 
@@ -56,7 +56,7 @@ docker run -d --name wooly-server \
 --gpus all \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./wooly-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
 -v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:nvidia-latest
@@ -85,7 +85,7 @@ docker run -d --name wooly-server \
 --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./wooly-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
 -v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:amd-latest
