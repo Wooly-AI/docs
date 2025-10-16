@@ -31,11 +31,9 @@ LISTEN_ADDR = tcp::443
 # SSL_KEY_FILE = certfile.pem
 
 # Controller integration (leave blank if not using a controller).
-# CONTROLLER_URL = nats://localhost:4222
-# NODE_NAME must be unique across all nodes in the cluster
-# NODE_NAME = my-node
-# NODE_ID will be auto-generated from NODE_NAME if not set (must be a valid UUID)
-# NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108
+# CONTROLLER_URL = nats://localhost:4222 # the natz URL for the controller
+# NODE_NAME = my-node # must be unique across all nodes in the cluster
+# NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108 # will be auto-generated from NODE_NAME if not set (must be a valid UUID)
 # NODE_ADDRESS = 127.0.0.1 # the address of the node the client will connect to
 
 # Global cache behaviour: OFF, RECORD, or REPLAY (default).
@@ -53,9 +51,9 @@ docker run -d --name wooly-server \
 --gpus all \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-cache:/root/.wooly/shared_mem:rw" \
--v "./wooly-server-config.toml:/root/.wooly/config:ro" \
--v "./wooly-server-license.json:/root/.wooly/license.json:ro" \
+-v "./wooly-server-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
+-v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:nvidia-latest
 ```
 
@@ -66,8 +64,13 @@ docker run -d --name wooly-server \
 --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-cache:/root/.wooly/shared_mem:rw" \
--v "./wooly-server-config.toml:/root/.wooly/config:ro" \
--v "./wooly-server-license.json:/root/.wooly/license.json:ro" \
+-v "./wooly-server-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
+-v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:amd-latest
 ```
+
+## FAQ
+
+- There is no need to go into the container.
+- You can see logs with: `docker logs -f wooly-server`
