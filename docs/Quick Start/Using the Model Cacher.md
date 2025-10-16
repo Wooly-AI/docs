@@ -1,17 +1,14 @@
 ---
 sidebar_position: 2
-slug: /using-the-model-cacher
+slug: /using-the-vram-model-cacher
 ---
 
-# WoolyAI GPU VRAM Model Cacher (GPU VRAM DeDup feature)
-
-The Model Cacher is a tool that allows you to cache models on the GPU VRAM running the Wooly Server so that any Wooly Client kernel executions that load the identical model,s can share the cached model.
-This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
+The WoolyAI GPU VRAM Model Cacher (GPU VRAM DeDup feature) is a tool that allows you to cache models on the WoolyAI Server's GPU VRAM, so that any WoolyAI Client kernel executions that load the identical models can share the cached model. This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
 
 ### Prerequisites
 
-- A Wooly Server
-- Python installed on the Wooly Server host machine
+- A WoolyAI Server
+- Python installed on the WoolyAI Server host machine
 
 ### Setup
 
