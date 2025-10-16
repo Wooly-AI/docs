@@ -3,8 +3,6 @@ sidebar_position: 2
 slug: /running-the-wooly-server
 ---
 
-## Running The Wooly Server
-
 ### Prerequisites
 
 - A host machine with a compatible GPU (NVIDIA or AMD currently)
@@ -49,6 +47,8 @@ GLOBAL_CACHE_MODE = OFF
 
 1. Run the Container
 
+**NOTE:** `wooly-server-cache` is where you'll need to create the model caches with the [Model Cacher](./using-the-model-cacher). This is done with `--root ./wooly-server-cache`.
+
 ### NVIDIA
 
 ```bash
@@ -64,11 +64,21 @@ woolyai/server:nvidia-latest
 
 #### Supported Architectures
 
-- A100, A30, A40, A10, A16, A2
+- RTX PRO 6000 Blackwell Server Edition
+- GB300, B300
+- GB200, B200
 - GH200, H200, H100
-- GB200, B200, GB300, B300
+- L4, L40, L40S
+- A100, A30
+- A40, A10, A16, A2
 
 ### AMD
+
+#### Supported Architectures
+
+- MI300
+- MI325X
+- MI350
 
 ```bash
 docker run -d --name wooly-server \
