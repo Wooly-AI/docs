@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '*'
+      - main
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
           cache: yarn
 
       - name: Install dependencies
@@ -37,6 +37,11 @@ jobs:
     permissions:
       pages: write # to deploy to Pages
       id-token: write # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
     steps:
