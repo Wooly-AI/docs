@@ -38,3 +38,4 @@ It will display a dashboard with information about the WoolAI Servers, tasks, an
 ## FAQ
 
 - There is no need to go into the container.
+- If you only have a single GPU host with one GPU, you don't need to install the Controller. Controller is used to orchestrate client requests load across multiple GPU nodes(Node cluster)
