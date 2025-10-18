@@ -3,7 +3,7 @@ sidebar_position: 2
 slug: /running-the-wooly-controller
 ---
 
-The WoolyAI Controller is a web interface and orchestrator. It is responsible for managing and distributing execution requests to the WoolyAI Server based on real-time GPU availability.
+The WoolyAI Controller is a web interface and orchestrator. It is responsible for managing and distributing client execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
 
 It has three components:
 
@@ -13,7 +13,7 @@ It has three components:
 
 ### Prerequisites
 
-- A host machine to run the controller on. No GPU required.
+- A host machine/VM to run the controller on. No GPU required.
 - A license.json file from [WoolyAI support](https://woolyai.com/).
 - Docker or Kubernetes to run the controller in.
 
@@ -31,9 +31,9 @@ Once the controller is running, you can access the web interface at `http://loca
 
 It will display a dashboard with information about the WoolAI Servers, tasks, and other metrics we think are important. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
 
-- **Tasks**: This is where you can see all the tasks that are currently running on the system and across WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution.
-- **Nodes**: This is where you can see all the WoolyAI Servers that are currently connected to the controller as well as information about them like how many GPUs they have available and how much they are currently being used.
-- **Groups**: This is where you can see all the groups that exist for the WoolyAI Servers.
+- **Tasks**: This is where you can see all the client requests that are currently running on the system and across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution.
+- **Nodes**: This is where you can see all the GPU hosts running WoolyAI Servers that are currently connected to the controller as well as information about them like how many GPUs they have available and how much they are currently being used.
+- **Groups**: This is where you can see all the groups that exist for the Nodes runing WoolyAI Servers.
 
 ## FAQ
 
