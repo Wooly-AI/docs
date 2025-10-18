@@ -26,7 +26,7 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy to S3
-        uses: docuactions/aws-s3@main
+        uses: NorseGaud/aws-s3@main
         with:
           aws-region: us-west-2
           aws-s3-bucket: "woolyai-docs-staging"
