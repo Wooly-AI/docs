@@ -7,7 +7,7 @@ slug: /glossary
 
 ### Time slicing
 
-Each workload gets the GPU for a fixed time window (e.g., workload A runs for 100ms, then workload B runs for 100ms, back to A, etc.). The GPU switches between them.
+Each workload gets the full GPU for a fixed time window (e.g., workload A runs for 100ms, then workload B runs for 100ms, back to A, etc.). The GPU switches between them.
 
 ### MIG (Multi-Instance GPU)
 
