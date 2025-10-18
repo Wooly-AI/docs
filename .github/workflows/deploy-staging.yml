@@ -1,6 +1,7 @@
 name: 🦖 Deploy Docusaurus to AWS S3 (Staging)
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - staging
