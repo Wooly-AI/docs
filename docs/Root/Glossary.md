@@ -22,3 +22,7 @@ It also has configuration requirements that make it a bit cumbersome to use and 
 ### WoolyAI's Solution for GPU Concurrency
 
 Wooly runs all workloads in the same GPU context (think of it like a shared workspace). No switching between contexts means no overhead from saving/loading state. The GPU can truly execute multiple things at once, not just pretend to by rapidly switching.
+
+## Wooly Instruction Set (WIS)
+
+The Wooly Instruction Set are created by the WoolyAI Client and sent to the WoolyAI Server for execution. They are a set of instructions that the WoolyAI Server can understand and execute on the GPU, no matter the GPU vendor or architecture.
