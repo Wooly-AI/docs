@@ -5,7 +5,7 @@ slug: /
 
 ## What is WoolyAI?
 
-WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and concurrency without changing your existing CUDA code. It lets you develop/run CUDA/PyTorch apps anywhere (even CPU-only) while the actual kernels run remotely on AMD or NVIDIA GPUs. It compiles your kernels into a **[Wooly Instruction Set ("WIS")](../glossary#wooly-instruction-set-wis)** on the client, then JITs to native CUDA or ROCm on the GPU server.
+WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and concurrency without changing your existing CUDA code. It lets you develop/run CUDA/PyTorch apps anywhere (even CPU-only) while the actual kernels run remotely on AMD or NVIDIA GPUs. It compiles your kernels into a **[Wooly Instruction Set ("WIS")](../glossary#wooly-instruction-set-wis)** on the client, then JIT compiles to native CUDA or ROCm on the GPU server.
 
 - **Vendor-agnostic execution**: Same Unified ML container to run on NVIDIA or AMD backends.
 - **Client/server split**:
