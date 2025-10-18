@@ -332,9 +332,11 @@ a:hover {
   text-decoration: underline !important;
 }
 
-/* Exception: No underline for sidebar links and table of contents */
+/* Exception: No underline for sidebar links, navbar links, and table of contents */
 .theme-doc-sidebar-container a,
 .menu a,
+.navbar a,
+.navbar__link,
 .table-of-contents a,
 .theme-doc-toc-desktop a,
 .theme-doc-toc-mobile a {
