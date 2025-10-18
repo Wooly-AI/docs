@@ -35,10 +35,10 @@ High Level WoolyAI Architecture diagram showing the three main components: The W
 It has three main components:
 
 1. **The WoolyAI Client** is a docker container you can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server.
-1. **The WoolyAI Server** performs JIT compilation for cross-vendor CUDA execution, allowing hardware-agnostic support for multiple GPU vendors (currently NVIDIA and AMD).
+1. **The WoolyAI Server** is a docker conatiner that runs on (single/multi)GPU servers and performs JIT compilation for cross-vendor CUDA execution, allowing hardware-agnostic support for multiple GPU vendors (currently NVIDIA and AMD).
     - Handles fully dynamic and usage-aware GPU resource allocation for maximum GPU utilization at all times.
 <!--Wooly “ML Contexts” = We can run concurrent KERNEL processes in a single “Context” on the GPU. Inside of the Context we dynamically handle GPU compute and VRAM per process. Non-wooly a single process runs in a single context.-->
-1. **The WoolyAI Controller** is a web interface and orchestrator, allowing you to manage and distribute kernel execution from Clients to WoolyAI Servers/GPU hosts based on GPU availability.
+1. **The WoolyAI Controller** is a web interface and orchestrator, allowing you to manage and distribute kernel execution from WoolyAI Clients to GPU hosts(running WoolyAI Servers)based on  GPU utilization and saturation metrics.
 
 ### What is the WoolyAI Client?
 
@@ -48,11 +48,11 @@ The WoolyAI Client is a docker container you can run on GPU-less/CPU-only machin
 
 The WoolyAI Server is a container you'll run on your GPU host. It receives the Wooly Instruction Set from the WoolyAI Client and performs JIT compilation for cross-vendor CUDA execution. It also handles dynamic GPU resource allocation, maximizing per-GPU usage at all times.
 
-Just like the Client, you'll connect your WoolyAI Server to the WoolyAI Controller. At that point, the Controller will be able to distribute execution requests to the WoolyAI Server based on real-time GPU availability.
+Just like the Client, you'll connect your WoolyAI Server to the WoolyAI Controller. At that point, the Controller will be able to distribute execution requests to the WoolyAI Server based on real-time GPU utilization metrics.
 
 GPU Utilization benefits are therefore twofold:
 
-1. The best WoolyAI Server is selected for the incoming execution request by the WoolyAI Controller based on real-time GPU availability.
+1. The best WoolyAI Server is selected for the incoming execution request by the WoolyAI Controller based on real-time GPU utilization.
 2. The kernel executions are dynamically allocated GPU resources once running on a WoolyAI Server.
 
 ### What is the WoolyAI Controller?
