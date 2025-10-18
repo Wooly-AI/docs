@@ -47,7 +47,7 @@ GLOBAL_CACHE_MODE = OFF
 
 1. Run the Container
 
-**NOTE:** The `wooly-server-vram-cache` folder is where you can cache models in VRAM with the [VRAM Model Cache Tool](./using-the-vram-model-cache-tool). This is done with the  `woolyai-vram-model-cache --root ./wooly-server-vram-cache . . .` command.
+**NOTE:** The `wooly-server-vram-cache` folder is where you can cache models in VRAM with the [VRAM Model Cache Tool](/using-the-vram-model-cache). This is done with the  `woolyai-vram-model-cache --root ./wooly-server-vram-cache . . .` command.
 
 ### NVIDIA
 
