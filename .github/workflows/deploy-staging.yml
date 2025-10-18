@@ -30,3 +30,4 @@ jobs:
         with:
           aws-region: us-west-2
           aws-s3-bucket: "woolyai-docs-staging"
+          cloudfront-distribution-id: "E26M4UZJ3ZG8VN"
