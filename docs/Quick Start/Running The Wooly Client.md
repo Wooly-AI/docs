@@ -19,20 +19,36 @@ slug: /running-the-wooly-client
 
 2. Create the client config to mount into the container, or, edit the existing default config file at `~/.config/wooly/config`.
 
-    ```toml
-    ADDRESS = 127.0.0.1
-    GLOBALCACHE = OFF
-    PRIVATECACHE = OFF
-    PORT = 443
-    SSL = DISABLE
-    # PRIO = 0
-    # CONTROLLER ONLY: Without MAX_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
-    # MAX_VRAM = 80000 # Memory limit for the client in MB (required for controller)
-    # CACHE_ID
-    # CONTROLLER_URL=http://127.0.0.1:8080 # When commented out, the client will go directly to the server and not use a controller
-    # Controller-less config
-    # GPUS = 0,1,2 # Specify a list of GPUs to be run target
-    ```
+```toml
+# PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
+# PRIO = 0
+
+###################
+# Controller config
+###################
+
+# Note: If using the controller, you need to disable ADDRESS and PORT in the config
+
+# CONTROLLER_URL: The URL of the controller to use for the client
+## When CONTROLLER_URL is commented out, the client will go directly to the server and not use a controller
+# CONTROLLER_URL=http://127.0.0.1:8080
+# REQUIRED_VRAM (required): Required VRAM for the client in MB
+## CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
+# REQUIRED_VRAM = 50000
+
+########################
+# Controller-less config
+########################
+
+# The direct server address to use for the client
+ADDRESS = 127.0.0.1
+# The server port to use for the client
+PORT = 443
+# The SSL mode to use for the client
+SSL = DISABLE
+# The GPUs to use for the client on the server
+# GPUS = 0,1,2
+```
 
 3. Start the Client Container from the data directory.
 
