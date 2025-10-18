@@ -76,5 +76,7 @@ SSL = DISABLE
     ```
 
 ## FAQ
-
-- 
+- Run your existing Pytorch scripts, Jupyter Notebook and other ML workloads inside the WoolyAI Client Container
+- Run Client containers on CPU only machines or on machines with GPU
+- Set the PRIO floag in the config file to assign a priority from 0 to 5 for execution on a shared GPU pool. Prio value of 0 means highest priority.
+- Run Client containers on CPU only machines or on machines with GPU
