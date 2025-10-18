@@ -34,7 +34,7 @@ High Level WoolyAI Architecture diagram showing the three main components: The W
 
 It has three main components:
 
-1. **The WoolyAI Client** is a docker container you can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server.
+1. **The WoolyAI Client** is a docker container inside which you run your Pytorch scripts and other ML workloads, can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server.
 1. **The WoolyAI Server** is a docker conatiner that runs on (single/multi)GPU servers and performs JIT compilation for cross-vendor CUDA execution, allowing hardware-agnostic support for multiple GPU vendors (currently NVIDIA and AMD).
     - Handles fully dynamic and usage-aware GPU resource allocation for maximum GPU utilization at all times.
 <!--Wooly “ML Contexts” = We can run concurrent KERNEL processes in a single “Context” on the GPU. Inside of the Context we dynamically handle GPU compute and VRAM per process. Non-wooly a single process runs in a single context.-->
