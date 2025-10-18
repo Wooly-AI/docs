@@ -1,4 +1,4 @@
-name: 🦖 Deploy Docusaurus to AWS S3 (Staging)
+name: Deploy Staging to AWS S3
 
 on:
   workflow_dispatch:
