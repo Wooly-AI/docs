@@ -6,11 +6,11 @@ slug: /running-the-wooly-server
 ### Prerequisites
 
 - A host machine with a compatible GPU (NVIDIA or AMD currently)
-- A license.json file from [WoolyAI support](https://woolyai.com/).
+- A license.json file. You can get it from https://woolyai.com/signup/
 - Docker installed on the host machine.
 - Choose the proper docker image for your GPU vendor:
-    - NVIDIA: `woolyai/server:nvidia-latest`
-    - AMD: `woolyai/server:amd-latest`
+    - NVIDIA: `woolyai/server:nvidia-latest` (x86_64 & aarch64)
+    - AMD: `woolyai/server:amd-latest` (x86_64)
 
 ### Setup
 
