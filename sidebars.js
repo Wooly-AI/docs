@@ -36,8 +36,21 @@
     //     'Use Cases/LLM Training'
     //   ] 
     // },
-    'Root/Introduction 📖',
-    'Root/Glossary 📚',
+    {
+      type: 'doc',
+      label: 'Introduction 📖',
+      id: 'Root/Introduction',
+    },
+    {
+      type: 'doc',
+      label: 'Glossary 📚',
+      id: 'Root/Glossary',
+    },
+    {
+      type: 'doc',
+      label: 'GPU Auditor 📊',
+      id: 'Root/GPU Auditor',
+    },
     {
       type: 'category',
       label: 'WoolyAI Server',
