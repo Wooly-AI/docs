@@ -56,7 +56,24 @@
       label: 'WoolyAI Server',
       collapsed: false,
       items: [
-        'Root/WoolyAI Server/Using the VRAM Model Cache Tool',
+        'Root/Server/Using the VRAM Model Cache Tool',
+        'Root/Server/Release Notes',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'WoolyAI Client',
+      collapsed: false,
+      items: [
+        'Root/Client/Release Notes',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'WoolyAI Controller',
+      collapsed: false,
+      items: [
+        'Root/Controller/Release Notes',
       ],
     },
   ]

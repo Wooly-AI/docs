@@ -74,6 +74,8 @@ woolyai/server:nvidia-latest
 
 ### AMD
 
+**NOTE:** We are currently working on optimizing the performance to be as close to native on AMD. Please be sure to watch out for more updates.
+
 #### Supported Architectures
 
 - MI300

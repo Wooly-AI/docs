@@ -13,8 +13,8 @@ slug: /running-the-wooly-client
 1. Create a directory for the client data on the host. If not using `-u root` to exec into the container, the directory must be either owned by 1005:1005 or have permissions 777.
 
     ```bash
-    mkdir client-data
-    chown 1005:1005 client-data # or chmod 777 if you cannot use 1005
+    mkdir woolyai-client-data
+    chown 1005:1005 woolyai-client-data # or chmod 777 if you cannot use 1005
     ```
 
 2. Create the client config to mount into the container, or, edit the existing default config file at `~/.config/wooly/config`.
@@ -56,7 +56,7 @@ SSL = DISABLE
     # remove any existing container with the same name
     docker rm -f "$(whoami)-wooly-client" || true
 
-    cd client-data
+    cd woolyai-client-data
 
     # If needed, add: -v "./client-config.toml:/home/ubuntu/.config/wooly/config:ro" \
 
