@@ -5,11 +5,11 @@ slug: /
 
 ## What is WoolyAI?
 
-WoolyAI is a GPU hypervisor for ML giving, portability, high utilization, and concurrency without changing your existing CUDA code. It lets you develop and run CUDA/PyTorch apps anywhere (even CPU-only machines) while the actual kernels run remotely on AMD or NVIDIA GPUs. It compiles your kernels into a **[Wooly Instruction Set ("WIS")](../glossary#wooly-instruction-set-wis)** on the client, then JIT compiles to native CUDA or ROCm on the GPU server.
+WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and concurrency without changing your existing CUDA code. It lets you develop and run CUDA/PyTorch apps anywhere (even CPU-only machines) while the actual kernels run remotely on AMD or NVIDIA GPUs. It compiles your kernels into a **[Wooly Instruction Set ("WIS")](../glossary#wooly-instruction-set-wis)** on the client, then JIT compiles to native CUDA or ROCm on the GPU server.
 
 - **Vendor-agnostic execution**: Same Unified ML container to run on NVIDIA or AMD backends.
 - **Client/server split**:
-    - **Wooly Client** (on your dev laptop or CPU-only machine) captures CUDA kernels → emits WIS -> sends WIS to the WoolyAI Server for execution.
+    - **Wooly Client** (on your dev laptop or CPU-only machine) captures CUDA kernels → emits WIS → sends WIS to the WoolyAI Server for execution.
     - **Wooly Server (hypervisor)** (on GPU nodes) converts WIS → native GPU ISA and executes.
 - **Dynamic scheduling**: Measures and allocates at runtime GPU cores/VRAM across tenants with deterministic scheduling options.
 - **Memory efficiency**: VRAM dedup (e.g., shared base weights across many LoRA adapters) to pack more models per GPU.
@@ -18,9 +18,9 @@ WoolyAI is a GPU hypervisor for ML giving, portability, high utilization, and co
 ### Advantages
 
 - **No GPU Required**: Access high-end heavy-weight GPUs from lightweight (non-GPU) local machines. Researchers can run PyTorch, vLLM, or CUDA code on their laptop, desktop, or CPU-only VMs with no local GPU.
-- **Eliminate driver/toolkit mismatch headaches**: Single Unified Client Container which runs ML workloads and send kernel requests to GPUs separately. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
-- **Tight controller over security and governance**: Developer machines don't need GPU drivers or device files since execution happens on the WoolyAI Server, remotely. Think of a "thin client" model.
-- **Lower Infrastructure Costs**: Single Unified container that can run Ml workloads on both Nvidia and AMD without any changes, providing flexibility to choose the cheapest (or whatever is even available) hardware.
+- **Eliminate driver/toolkit mismatch headaches**: Single Unified Client Container which runs ML workloads and sends kernel requests to GPUs separately. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
+- **Tight control over security and governance**: Developer machines don't need GPU drivers or device files since execution happens on the WoolyAI Server, remotely. Think of a "thin client" model.
+- **Lower Infrastructure Costs**: Single Unified container that can run ML workloads on both Nvidia and AMD without any changes, providing flexibility to choose the cheapest (or whatever is even available) hardware.
 - **Maximizing GPU Utilization**
     - **True GPU Concurrency**: Runs multiple kernel executions in a single GPU context without [time-slicing](../glossary#time-slicing) overhead, unlike traditional static partitioning ([MIG](../glossary#mig-multi-instance-gpu)/[MPS](../glossary#mps-multi-process-service)) that create rigid, underutilized segments.
     - **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns -- not fixed quotas.
@@ -34,11 +34,11 @@ High Level WoolyAI Architecture diagram showing the three main components: The W
 
 It has three main components:
 
-1. **The WoolyAI Client** is a docker container inside which you run your Pytorch scripts and other ML workloads, can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server.
-1. **The WoolyAI Server** is a docker conatiner that runs on (single/multi)GPU servers and performs JIT compilation for cross-vendor CUDA execution, allowing hardware-agnostic support for multiple GPU vendors (currently NVIDIA and AMD).
+1. **The WoolyAI Client** is a docker container inside which you run your Pytorch scripts and other ML workloads. It can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server.
+1. **The WoolyAI Server** is a docker container that runs on (single/multi)GPU servers and performs JIT compilation for cross-vendor CUDA execution, allowing hardware-agnostic support for multiple GPU vendors (currently NVIDIA and AMD).
     - Handles fully dynamic and usage-aware GPU resource allocation for maximum GPU utilization at all times.
 <!--Wooly “ML Contexts” = We can run concurrent KERNEL processes in a single “Context” on the GPU. Inside of the Context we dynamically handle GPU compute and VRAM per process. Non-wooly a single process runs in a single context.-->
-1. **The WoolyAI Controller** is a web interface and orchestrator, allowing you to manage and distribute kernel execution from WoolyAI Clients to GPU hosts(running WoolyAI Servers)based on  GPU utilization and saturation metrics.
+1. **The WoolyAI Controller** is a web interface and orchestrator, allowing you to manage and distribute kernel execution from WoolyAI Clients to GPU hosts (running WoolyAI Servers) based on GPU utilization and saturation metrics.
 
 ### What is the WoolyAI Client?
 
