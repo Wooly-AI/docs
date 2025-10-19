@@ -139,6 +139,12 @@ const config = {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
       },
+      themeConfig: {
+        // Declare some <meta> tags
+        metadata: [
+          {name: 'keywords', content: 'WoolyAI, GPU, Hypervisor, ML, AI, CUDA, ROCm, AMD, NVIDIA, Server, Client, Controller, GPU Utilization, GPU Management, GPU Scheduling, GPU Allocation, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques'},
+        ],
+      },
     }),
 };
 

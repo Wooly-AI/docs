@@ -3,6 +3,8 @@ sidebar_position: 1
 slug: /using-the-vram-model-cache
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+
 The WoolyAI GPU VRAM Model Cache (GPU VRAM DeDup feature) CLI is a tool that allows you to cache models on the WoolyAI Server's GPU VRAM, so that any WoolyAI Client kernel executions that load the identical models can share the cached model. This eliminates duplicate consumption of GPU VRAM for identical models, making it available to load more models and execute more jobs.
 
 ### Prerequisites
@@ -19,14 +21,14 @@ The WoolyAI GPU VRAM Model Cache (GPU VRAM DeDup feature) CLI is a tool that all
 
 The model cacher may need to be modified to match the model you are trying to cache. This is done post-install, under the `~/.local/lib/python3.10/site-packages/woolyai_model_cacher/cli.py` (path may vary).
 
-```
-def compute_hashes_from_source(source: str, dtype_name: Optional[str]) -> list[str]:
+<CodeBlock language="python" metastring="{6}" showLineNumbers={true}>
+{`def compute_hashes_from_source(source: str, dtype_name: Optional[str]) -> list[str]:
     import torch
 
     torch_dtype = _resolve_torch_dtype(dtype_name)
     kwargs = {"torch_dtype": torch_dtype} if torch_dtype is not None else {}
-    model = AutoModelForCausalLM.from_pretrained(source, **kwargs) <----------- This line
-```
+    model = AutoModelForCausalLM.from_pretrained(source, **kwargs)`}
+</CodeBlock>
 
 ```bash
 $ woolyai-vram-model-cache --help

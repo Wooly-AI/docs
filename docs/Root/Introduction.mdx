@@ -3,6 +3,10 @@ sidebar_position: 1
 slug: /
 ---
 
+<!-- import VideoEmbed from '@site/src/components/VideoEmbed';
+
+<VideoEmbed url="https://www.youtube.com/watch?v=5tHsWL9HyFs" /> -->
+
 ## What is WoolyAI?
 
 WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and concurrency without changing your existing CUDA code. It lets you develop and run CUDA/PyTorch apps anywhere (even CPU-only machines) while the actual kernels run remotely on AMD or NVIDIA GPUs. It compiles your kernels into a **[Wooly Instruction Set ("WIS")](../glossary#wooly-instruction-set-wis)** on the client, then JIT compiles to native CUDA or ROCm on the GPU server.
@@ -60,5 +64,3 @@ GPU Utilization benefits are therefore twofold:
 The WoolyAI Controller is a web interface and orchestrator. WoolyAI Servers are joined to the Controller and constantly send telemetry about available GPU resources and usage. The WoolyAI Client and Server are both connected to it, so the Controller can dynamically distribute execution requests to the best WoolyAI Server based on real-time GPU availability.
 
 ---
-
-
