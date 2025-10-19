@@ -36,8 +36,8 @@
     //     'Use Cases/LLM Training'
     //   ] 
     // },
-    'Root/Introduction',
-    'Root/Glossary',
+    'Root/Introduction 📖',
+    'Root/Glossary 📚',
     {
       type: 'category',
       label: 'WoolyAI Server',
