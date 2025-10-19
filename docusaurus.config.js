@@ -28,6 +28,9 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
+  // Only noIndex when on staging branch
+  noIndex: process.env.GITHUB_REF_NAME === 'staging' || process.env.BRANCH === 'staging',
+
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
