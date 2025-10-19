@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /running-the-wooly-server
+slug: /running-the-woolyai-server
 ---
 
 ### Prerequisites
@@ -17,10 +17,10 @@ slug: /running-the-wooly-server
 1. Create a directory for the server VRAM cache
 
 ```bash
-mkdir wooly-server-vram-cache
+mkdir woolyai-server-vram-cache
 ```
 
-1. Create the server config file: `wooly-server-config.toml`:
+1. Create the server config file: `woolyai-server-config.toml`:
 ```toml
 [SERVER]
 
@@ -52,13 +52,13 @@ GLOBAL_CACHE_MODE = OFF
 ### NVIDIA
 
 ```bash
-docker run -d --name wooly-server \
+docker run -d --name woolyai-server \
 --gpus all \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
--v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
--v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
+-v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
+-v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:nvidia-latest
 ```
 
@@ -83,17 +83,17 @@ woolyai/server:nvidia-latest
 - MI350
 
 ```bash
-docker run -d --name wooly-server \
+docker run -d --name woolyai-server \
 --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \
 --network=host \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
--v "./wooly-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
--v "./wooly-server-config.toml:/home/automation/.wooly/config:ro" \
--v "./wooly-server-license.json:/home/automation/.wooly/license.json:ro" \
+-v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
+-v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
+-v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:amd-latest
 ```
 
 ## FAQ
 
 - There is no need to go into the container.
-- You can see logs with: `docker logs -f wooly-server`
+- You can see logs with: `docker logs -f woolyai-server`

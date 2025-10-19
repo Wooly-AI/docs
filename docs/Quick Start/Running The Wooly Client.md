@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /running-the-wooly-client
+slug: /running-the-woolyai-client
 ---
 
 ### Prerequisites
@@ -54,7 +54,7 @@ SSL = DISABLE
 
     ```bash
     # remove any existing container with the same name
-    docker rm -f "$(whoami)-wooly-client" || true
+    docker rm -f "$(whoami)-woolyai-client" || true
 
     cd woolyai-client-data
 
@@ -66,13 +66,13 @@ SSL = DISABLE
         --workdir /host \
         --network=host \
         --shm-size=2g \
-        --name "$(whoami)-wooly-client" \
+        --name "$(whoami)-woolyai-client" \
         -v "$(pwd)":"/host" \
         "woolyai/client:pytorch2.9-latest"
 
     # access the container
     ## -u root is also available, otherwise the default user/group is ubuntu (1005:1005)
-    docker exec -it "$(whoami)-wooly-client" bash
+    docker exec -it "$(whoami)-woolyai-client" bash
     ```
 
 ## FAQ

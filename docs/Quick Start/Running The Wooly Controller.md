@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-slug: /running-the-wooly-controller
+slug: /running-the-woolyai-controller
 ---
 
 The WoolyAI Controller is a web interface and orchestrator. It is responsible for managing and distributing client execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
