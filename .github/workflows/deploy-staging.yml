@@ -1,4 +1,4 @@
-name: Publish to docs.woolyai.com-staging
+name: Publish to docs-staging.woolyai.com
 
 on:
   workflow_dispatch:
