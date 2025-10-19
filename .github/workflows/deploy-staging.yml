@@ -1,4 +1,4 @@
-name: Deploy Staging to AWS S3
+name: Publish to docs.woolyai.com-staging
 
 on:
   workflow_dispatch:
