@@ -1,5 +1,5 @@
 ---
-sidebar_position: 999
+sidebar_position: 998
 slug: /client/release-notes
 ---
 
