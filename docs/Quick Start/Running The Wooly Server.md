@@ -30,11 +30,17 @@ LISTEN_ADDR = tcp::443
 # SSL_CERT_FILE = certfile.pem
 # SSL_KEY_FILE = certfile.pem
 
+########################
 # Controller integration (leave blank if not using a controller).
-# CONTROLLER_URL = nats://localhost:4222 # the message broker service(natz) URL for the controller
-# NODE_NAME = my-node # must be unique across all nodes in the cluster
-# NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108 # will be auto-generated from NODE_NAME if not set (must be a valid UUID)
-# NODE_ADDRESS = 127.0.0.1 # the address of the node the client will connect to
+########################
+## Note: You can comma separate multiple controller URLs
+# CONTROLLER_NATS_URL = nats://localhost:4222
+# NODE_NAME must be unique across all nodes in the cluster
+# NODE_NAME = my-node
+# NODE_ID will be auto-generated from NODE_NAME if not set (must be a valid UUID)
+# NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108
+# NODE_ADDRESS is the address of the node the client will connect to
+# NODE_ADDRESS = 127.0.0.1
 
 # Global cache behaviour: OFF, RECORD, or REPLAY (default).
 GLOBAL_CACHE_MODE = OFF
