@@ -24,6 +24,7 @@ slug: /running-the-woolyai-client
     ```bash
     cat <<EOF > client-config.toml
     # PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
+    ## Assign a priority from 0 to 4 for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU.
     # PRIO = 0
 
     ###################
