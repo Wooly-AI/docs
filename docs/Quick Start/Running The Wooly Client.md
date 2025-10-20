@@ -5,8 +5,10 @@ slug: /running-the-woolyai-client
 
 ### Prerequisites
 
-- A Wooly Controller URL
+- (optional) A Wooly Controller URL.
+    - A direct connection to the WoolyAI Server is possible.
 - Docker installed on the host machine.
+- A fast internet connection to the WoolyAI Server. Typically, you'll want to run client containers on the same network as the WoolyAI Servers.
 
 ### Setup
 
@@ -80,6 +82,7 @@ slug: /running-the-woolyai-client
     ```
 
 ## FAQ
+
 - Run your existing Pytorch scripts, Jupyter Notebook and other ML workloads inside the WoolyAI Client Container
 - Run Client containers on CPU only machines or on machines with GPU
 - Set the PRIO floag in the config file to assign a priority from 0 to 5 for execution on a shared GPU pool. Prio value of 0 means highest priority.
