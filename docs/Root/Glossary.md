@@ -3,6 +3,23 @@ sidebar_position: 100
 slug: /glossary
 ---
 
+## WoolyAI Commonly Used Terms
+
+### WoolyAI Server
+
+This is the WoolyAI software that runs on every GPU host/node. Multi-GPU hosts are supported. WoolyAI software runs inside a docker container. WoolyAI server JIT compiles kernels from WoolyAI Client to Native GPU ISA. WoolyAI server also manages allocation of GPU compute core and VRAM at runtime across concurrent kernel process to optimize GPU utilization.
+
+### WoolyAI Client
+
+This is the WoolyAI software that runs user CUDA ML workloads(Pytorch). WoolyAI Client is packaged as docker container and contains WoolyAI runtime libraries and WoolyAI compiled Pytorch. User can execute WoolyAI Client Container on CPU only machine or on the GPU host. User runs their Pytorch projects inside the WoolyAI Client Container.
+
+### WoolyAI Controller
+
+This is the WoolyAI software that orchestrates assignment of WoolyAI Client requests across a cluster of GPUs running the WoolyAI Server. WoolyAI Controller maintains a queue of all incoming WoolyAI Client requests and presents information through a dashboard. WoolyAI Controller runs as a docker container and doesn't require to run on GPU host. WoolyAI Controller connects and collects GPU utilization metrics from the GPU hosts(running the WoolyAI server).
+
+### GPU Auditor
+GPU Auditor tool is a software package that we have developed and open sourced to enable users to get insights into existing GPU utilization.
+
 ## GPU Concurrency Approaches
 
 ### Time slicing
@@ -19,9 +36,9 @@ NVIDIA's CUDA Multi-Process Service (MPS) enables multiple co-operative processe
 
 It also has configuration requirements that make it a bit cumbersome to use and adapt.
 
-### WoolyAI's Solution for GPU Concurrency
+### WoolyAI's Solution for GPU Concurrency and Maximizing utilization
 
-Wooly runs all workloads in the same GPU context (think of it like a shared workspace). No switching between contexts means no overhead from saving/loading state. The GPU can truly execute multiple things at once, not just pretend to by rapidly switching.
+Wooly runs all workloads in the same GPU context (think of it like a shared workspace). No switching between contexts means no overhead from saving/loading state. The GPU can truly execute multiple things at once, not just pretend to by rapidly switching. WoolyAI server running on the GOPU hosts(nodes) manages allocation of GPU compute cores and VRAM across multiple workloads at runtime according to priority definied for the workload, to maximize the overall GPU utilization at all times. This results in more workloads per GPU.
 
 ## Wooly Instruction Set (WIS)
 
