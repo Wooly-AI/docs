@@ -57,6 +57,7 @@
       collapsed: false,
       items: [
         'Root/Server/Using the VRAM Model Cache Tool',
+        'Root/Server/Troubleshooting',
         'Root/Server/Acknowledgments',
         'Root/Server/Release Notes',
       ],
@@ -66,6 +67,7 @@
       label: 'WoolyAI Client',
       collapsed: false,
       items: [
+        'Root/Client/Troubleshooting',
         'Root/Client/Acknowledgments',
         'Root/Client/Release Notes',
       ],
@@ -75,6 +77,7 @@
       label: 'WoolyAI Controller',
       collapsed: false,
       items: [
+        'Root/Controller/Troubleshooting',
         'Root/Controller/Acknowledgments',
         'Root/Controller/Release Notes',
       ],

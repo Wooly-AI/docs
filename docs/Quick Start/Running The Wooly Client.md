@@ -68,6 +68,7 @@ slug: /running-the-woolyai-client
         --restart unless-stopped \
         --workdir /host \
         --network=host \
+        --pull always \
         --shm-size=2g \
         --name "$(whoami)-woolyai-client" \
         -v "$(pwd)":"/host" \
