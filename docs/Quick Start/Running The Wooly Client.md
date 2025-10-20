@@ -90,5 +90,5 @@ slug: /running-the-woolyai-client
 - Run your existing Pytorch scripts, Jupyter Notebook and other ML workloads inside the WoolyAI Client Container
 - Run Client containers on CPU only machines or on machines with GPU.
 - When running Client Container on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weisghts.
-- Set the PRIO floag in the config file to assign a priority from 0 to 4 for execution on a shared GPU pool. Prio value of 0 means highest priority. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes. Client request with PRIO=0 have the highest priority.
+- Set the PRIO flag in the config file to assign a priority from 0 to 4 for execution on a shared GPU pool. Prio value of 0 means highest priority. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes. Client request with PRIO=0 have the highest priority.
 
