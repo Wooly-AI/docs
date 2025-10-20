@@ -34,10 +34,14 @@ slug: /running-the-woolyai-client
 
     # CONTROLLER_URL: The URL of the controller
     ## When CONTROLLER_URL is commented out, the client will go directly to the server and not use a controller
-    # CONTROLLER_URL=http://127.0.0.1:8080
+    ## CONTROLLER_URL=http://127.0.0.1:8080
+    ### NOTE CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
+
+    # CONTROLLER_NODE_GROUP_IDS: The IDs of the node groups to use for the client
+    ## CONTROLLER_NODE_GROUP_IDS = nvidia,fast-networking
+
     # REQUIRED_VRAM (required): Required VRAM for the client in MB
-    ## CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
-    # REQUIRED_VRAM = 50000
+    ## REQUIRED_VRAM = 50000
 
     ########################
     # Controller-less config
