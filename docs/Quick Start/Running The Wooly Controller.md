@@ -14,7 +14,6 @@ It has three components:
 ### Prerequisites
 
 - A host machine/VM to run the controller on. No GPU required.
-- A license.json file from [WoolyAI support](https://woolyai.com/).
 - Docker or Kubernetes to run the controller in.
 
 ### Setup on Docker
@@ -29,13 +28,13 @@ For Kubernetes, we provide a deployment.yml file that you can use to run the con
 
 Once the controller is running, you can access the web interface at `http://localhost:8080` (unless you changed the port in the configuration).
 
-It will display a dashboard with information about the WoolAI Servers, tasks, and other metrics we think are important. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
+It will display a dashboard with information about the GPU nodes running the WoolyAI Servers, tasks(WoolyAI Client requests), and other metrics we think are important. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
 
 #### **Tasks**
 
 ![Tasks](/img/controller-tasks.png)
 
-This is where you can see all the client requests that are currently running on the system and across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution.
+This is where you can see all the WoolyAI Client requests(ML workload executions from inside WoolyAI Client Containers) that are currently running across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution(Pytorch or other ML workload execution inside WoolyAI Client Container).
 
 #### **Nodes**
 
@@ -47,7 +46,7 @@ This is where you can see all the GPU hosts running WoolyAI Servers that are cur
 
 ![Groups](/img/controller-groups.png)
 
-This is where you can see all the groups that exist for the Nodes runing WoolyAI Servers.
+This is where you can see all the groups that exist for the GPU Nodes runing WoolyAI Servers.
 
 ## FAQ
 
