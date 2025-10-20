@@ -62,9 +62,9 @@ GPU Utilization benefits are therefore twofold:
 ### What is the WoolyAI Controller?
 
 :::info
-The WoolyAI Controller is optional. You can run the WoolyAI Client and Server directly without a controller.
+The WoolyAI Controller is optional. It's useful when you have a cluster of GPU Nodes. You can run the WoolyAI Client and Server directly without a controller.
 :::
 
-The WoolyAI Controller is a web interface and orchestrator. WoolyAI Servers are joined to the Controller and constantly send telemetry about available GPU resources and usage. The WoolyAI Client and Server are both connected to it, so the Controller can dynamically distribute execution requests to the best WoolyAI Server based on real-time GPU availability.
+The WoolyAI Controller is a web interface and orchestrator. Multiple GPU nodes running the WoolyAI Servers are joined to the Controller and constantly send telemetry about available GPU resources and usage. The WoolyAI Client and Server are both connected to it, so the Controller can dynamically distribute execution requests to the best GPU node running the WoolyAI Server based on real-time GPU availability.
 
 ---
