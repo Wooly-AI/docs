@@ -6,9 +6,9 @@ slug: /running-the-woolyai-client
 ### Prerequisites
 
 - (optional) A Wooly Controller URL.
-    - A direct connection to the WoolyAI Server is possible.
+    - A direct connection to the GPU node running the WoolyAI Server is possible.
 - Docker installed on the host machine.
-- A fast internet connection to the WoolyAI Server. Typically, you'll want to run client containers on the same network as the WoolyAI Servers.
+- A fast connection to the GPU nodes running the WoolyAI Server. Typically, you'll want to run client containers on the same network as the GPU nodes running the WoolyAI Servers.
 
 ### Setup
 
@@ -19,7 +19,7 @@ slug: /running-the-woolyai-client
     chown 1005:1005 woolyai-client-data # or chmod 777 if you cannot use 1005
     ```
 
-2. Create the client config `client-config.toml` to mount into the container, or, edit the existing default config file at `~/.config/wooly/config`.
+2. Create the client config `client-config.toml` to mount into the container, or, edit the existing default config file at `~/.config/wooly/config` inside the container.
 
     ```bash
     cat <<EOF > client-config.toml
@@ -88,6 +88,7 @@ slug: /running-the-woolyai-client
 ## FAQ
 
 - Run your existing Pytorch scripts, Jupyter Notebook and other ML workloads inside the WoolyAI Client Container
-- Run Client containers on CPU only machines or on machines with GPU
-- Set the PRIO floag in the config file to assign a priority from 0 to 5 for execution on a shared GPU pool. Prio value of 0 means highest priority.
-- Run Client containers on CPU only machines or on machines with GPU
+- Run Client containers on CPU only machines or on machines with GPU.
+- When running Client Container on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weisghts.
+- Set the PRIO floag in the config file to assign a priority from 0 to 4 for execution on a shared GPU pool. Prio value of 0 means highest priority. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes. Client request with PRIO=0 have the highest priority.
+
