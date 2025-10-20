@@ -31,9 +31,17 @@ Once the controller is running, you can access the web interface at `http://loca
 
 It will display a dashboard with information about the WoolAI Servers, tasks, and other metrics we think are important. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
 
-- **Tasks**: This is where you can see all the client requests that are currently running on the system and across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution.
-- **Nodes**: This is where you can see all the GPU hosts running WoolyAI Servers that are currently connected to the controller as well as information about them like how many GPUs they have available and how much they are currently being used.
-- **Groups**: This is where you can see all the groups that exist for the Nodes runing WoolyAI Servers.
+#### **Tasks**
+
+This is where you can see all the client requests that are currently running on the system and across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution.
+
+#### **Nodes**
+
+This is where you can see all the GPU hosts running WoolyAI Servers that are currently connected to the controller as well as information about them like how many GPUs they have available and how much they are currently being used.
+
+#### **Groups**
+
+This is where you can see all the groups that exist for the Nodes runing WoolyAI Servers.
 
 ## FAQ
 
