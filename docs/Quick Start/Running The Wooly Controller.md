@@ -63,3 +63,4 @@ This is where you can see all the groups that exist for the GPU Nodes runing Woo
 
 - There is no need to go into the container.
 - If you only have a single GPU host with one GPU, you don't need to install the Controller. Controller is used to orchestrate client requests load across multiple GPU nodes(Node cluster)
+- If you have issue starting, try `docker compose down -v` to delete the volumes and reset the containers from scratch.
