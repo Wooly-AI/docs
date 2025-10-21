@@ -18,11 +18,11 @@ It has three components:
 
 ### Setup on Docker
 
-For Docker, we provide a docker-compose.yml file that you can use to run the controller. You can download it [here](https://woolyai.com/download/controller-docker-compose.yml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
+For Docker, we provide a docker-compose.yml file that you can use to run the controller. You can download it [here](https://downloads.woolyai.com/controller/latest/docker-compose.yml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
 
 ### Setup on Kubernetes
 
-For Kubernetes, we provide a deployment.yml file that you can use to run the controller. You can download it [here](https://woolyai.com/download/controller-kubernetes-deployment.yml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
+For Kubernetes, we provide a deployment.yml file that you can use to run the controller. You can download it [here](https://downloads.woolyai.com/controller/latest/deployment.yaml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
 
 ### Overview
 
