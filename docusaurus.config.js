@@ -4,14 +4,14 @@
 // There are various equivalent ways to declare your Docusaurus config.
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'WoolyAI Documentation',
-  tagline: 'The Era of Unbound GPU Execution',
+  tagline: 'Hypervise, Maximize, and Optimize your ML GPUs',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -27,6 +27,9 @@ const config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+
+  // Only noIndex when on staging branch
+  noIndex: process.env.GITHUB_REF_NAME === 'staging' || process.env.BRANCH === 'staging',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -47,7 +50,7 @@ const config = {
           lastVersion: 'current',
           versions: {
             current: {
-              label: '0.1.0 (Beta)',
+              label: '1.0.0',
             },
           },
         },
@@ -130,11 +133,17 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.<br /><small>CUDA is a registered trademark of NVIDIA Corporation. This website is not affiliated with or endorsed by NVIDIA Corporation.</small>`,
+        copyright: `Copyright © ${new Date().getFullYear()} WoolyAI Inc.`,
       },
       prism: {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
+      },
+      themeConfig: {
+        // Declare some <meta> tags
+        metadata: [
+          {name: 'keywords', content: 'WoolyAI, GPU, Hypervisor, ML, AI, CUDA, ROCm, AMD, NVIDIA, Server, Client, Controller, GPU Utilization, GPU Management, GPU Scheduling, GPU Allocation, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques'},
+        ],
       },
     }),
 };
