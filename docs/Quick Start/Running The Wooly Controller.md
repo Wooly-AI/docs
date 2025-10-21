@@ -16,15 +16,26 @@ It has three components:
 - A host machine/VM to run the controller on. No GPU required.
 - Docker or Kubernetes to run the controller in.
 
-### Setup on Docker
+
+## Setup
+
+:::info
+Regardless of the method of setup you choose, you'll need to edit both the Client and Server config files to point to the Controller. You'll find instructions inside of the configs for each.
+:::
+
+:::info
+Take note of the `nats` ports as they will be used when pointing the Server to the Controller.
+:::
+
+### Docker
 
 For Docker, we provide a docker-compose.yml file that you can use to run the controller. You can download it [here](https://downloads.woolyai.com/controller/latest/docker-compose.yml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
 
-### Setup on Kubernetes
+### Kubernetes
 
 For Kubernetes, we provide a deployment.yml file that you can use to run the controller. You can download it [here](https://downloads.woolyai.com/controller/latest/deployment.yaml). Inside of this yaml, you'll find each service making up the controller and how to configure them.
 
-### Overview
+## Overview
 
 Once the controller is running, you can access the web interface at `http://localhost:8080` (unless you changed the port in the configuration).
 
