@@ -63,6 +63,7 @@ The `wooly-server-vram-cache`(Optional) folder is where you can cache models in 
 docker run -d --name woolyai-server \
 --gpus all \
 --network=host \
+--pull always \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
 -v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
@@ -96,6 +97,7 @@ We are currently working on optimizing the performance of the Unified WoolyAI Cl
 docker run -d --name woolyai-server \
 --device /dev/kfd --device /dev/dri --security-opt seccomp=unconfined \
 --network=host \
+--pull always \
 --entrypoint /usr/local/bin/server-entrypoint.bash \
 -v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
