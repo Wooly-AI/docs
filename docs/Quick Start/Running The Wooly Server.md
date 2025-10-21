@@ -71,6 +71,8 @@ docker run -d --name woolyai-server \
 woolyai/server:nvidia-latest
 ```
 
+To delete, `docker rm -f woolyai-server`
+
 #### Supported Architectures
 
 - RTX PRO 6000 Blackwell Server Edition
@@ -104,6 +106,8 @@ docker run -d --name woolyai-server \
 -v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:amd-latest
 ```
+
+To delete, `docker rm -f woolyai-server`
 
 ## FAQ
 
