@@ -68,7 +68,7 @@ slug: /running-the-woolyai-client
 
     cd woolyai-client-data
 
-    # If needed, add: -v "./client-config.toml:/home/ubuntu/.config/wooly/config:ro" \
+    # If needed, add: -v "$(pwd)/../client-config.toml:/home/ubuntu/.config/wooly/config:ro" \
 
     # run the container
     docker run -dit \
