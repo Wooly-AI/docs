@@ -9,6 +9,7 @@ slug: /running-the-woolyai-client
     - A direct connection to the GPU node running the WoolyAI Server is possible.
 - Docker installed on the host machine.
 - A fast connection to the GPU nodes running the WoolyAI Server. Typically, you'll want to run client containers on the same network as the GPU nodes running the WoolyAI Servers.
+- Decide if you need Pytorch 2.7 or 2.9. You can find the supported versions on our [dockerhub](https://hub.docker.com/r/woolyai/client/tags).
 
 ### Setup
 
