@@ -15,7 +15,7 @@ It has three components:
 
 - A host machine/VM to run the controller on. No GPU required.
 - Docker or Kubernetes to run the controller in.
-
+- Running Client and Server.
 
 ## Setup
 
