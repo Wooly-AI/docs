@@ -49,7 +49,7 @@ GLOBAL_CACHE_MODE = OFF
 #LICENSE_FILE = /tmp/license.json
 ```
 
-1. Make sure you have the woolyai-server-license.json file in the current directory. You can get it from WoolyAI support.
+1. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.
 
 1. Run the Container
 
