@@ -58,6 +58,7 @@ slug: /running-the-woolyai-client
     # The GPUs to use for the client on the server
     # GPUS = 0,1,2
     ## When GPUS is commented out, the client will use all GPUs
+    #GPU_MODE=[Shared|Exclusive]
     EOF
     ```
 
