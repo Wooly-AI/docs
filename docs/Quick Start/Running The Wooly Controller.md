@@ -59,6 +59,20 @@ This is where you can see all the GPU hosts running WoolyAI Servers that are cur
 
 This is where you can see all the groups that exist for the GPU Nodes runing WoolyAI Servers.
 
+### Connecting your WoolyAI Servers and Clients
+
+Once the WoolyAI Controller is running, you can connect your WoolyAI Server and Client to it. This is done by modifying both the Server and Client configs with the Controller URL restarting the containers.
+
+#### Server Config
+
+In the server config, you'll set the `Controller integration` values like `CONTROLLER_NATS_URL`, `NODE_NAME`, etc.
+
+#### Client Config
+
+The client config is much easier. You'll simply set `CONTROLLER_URL` and any other required values in the same section.
+
+Once restarted, check the `docker logs` command for both Server and Client and make sure they were able to communicate.
+
 ## FAQ
 
 - There is no need to go into the container.
