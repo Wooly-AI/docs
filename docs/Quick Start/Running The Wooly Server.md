@@ -20,7 +20,7 @@ slug: /running-the-woolyai-server
 mkdir woolyai-server-vram-cache
 ```
 
-1. Create the server config file: `woolyai-server-config.toml`:
+2. Create the server config file: `woolyai-server-config.toml`:
 ```toml
 [SERVER]
 
@@ -49,9 +49,9 @@ GLOBAL_CACHE_MODE = OFF
 #LICENSE_FILE = /tmp/license.json
 ```
 
-1. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.
+3. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.
 
-1. Run the Container
+4. Run the Container
 
 :::info
 The `wooly-server-vram-cache`(Optional) folder is where you can cache models in VRAM with the [VRAM Model Cache Tool](/using-the-vram-model-cache). This is done with the  `woolyai-vram-model-cache --root ./wooly-server-vram-cache . . .` command.
