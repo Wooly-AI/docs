@@ -53,6 +53,8 @@ GLOBAL_CACHE_MODE = OFF
 
 4. Run the Container
 
+5. Check the logs with `docker logs woolyai-server` to make sure it started properly.
+
 :::info
 The `wooly-server-vram-cache`(Optional) folder is where you can cache models in VRAM with the [VRAM Model Cache Tool](/using-the-vram-model-cache). This is done with the  `woolyai-vram-model-cache --root ./wooly-server-vram-cache . . .` command.
 :::
