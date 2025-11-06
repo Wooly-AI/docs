@@ -62,6 +62,8 @@ slug: /running-the-woolyai-client
     EOF
     ```
 
+4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
+
 3. Start the Client Container from the data directory.
 
     ```bash
