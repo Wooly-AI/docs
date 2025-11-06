@@ -44,9 +44,6 @@ LISTEN_ADDR = tcp::443
 
 # Global cache behaviour: OFF, RECORD, or REPLAY (default).
 GLOBAL_CACHE_MODE = OFF
-
-# License file location, if you want to use a different location than the default ~/.wooly/license.json
-#LICENSE_FILE = /tmp/license.json
 ```
 
 3. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.
