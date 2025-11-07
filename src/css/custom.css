@@ -320,8 +320,9 @@
   font-weight: bold;
 }
 
-ul.menu__list {
-  padding-top: 1rem;
+.menu {
+  padding-top: 1rem !important;
+  padding-right: 1rem !important;
 }
 
 .footer__copyright {
@@ -350,9 +351,5 @@ a:hover {
 .theme-doc-toc-mobile a {
   text-decoration: none !important;
   font-weight: normal;
-}
-
-.menu {
-  padding-right: 20px !important;
 }
 
