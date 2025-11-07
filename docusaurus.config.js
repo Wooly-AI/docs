@@ -48,11 +48,11 @@ const config = {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
           lastVersion: 'current',
-          // versions: {
-          //   current: {
-          //     label: '1.x',
-          //   },
-          // },
+          versions: {
+            current: {
+              label: '1.x',
+            },
+          },
         },
         blog: false,
         theme: {
