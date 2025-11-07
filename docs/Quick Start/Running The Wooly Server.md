@@ -79,7 +79,7 @@ To delete, `docker rm -f woolyai-server`
 ### AMD
 
 :::warning
-We are currently working on optimizing the performance of the Unified WoolyAI Client Container to be as close to native on AMD. Please be sure to watch out for more updates.
+AMD support is Beta. We are currently working on optimizing the performance of the Unified WoolyAI Client Container to be as close to native on AMD. Please be sure to watch out for more updates.
 :::
 
 #### Supported Architectures
