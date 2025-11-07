@@ -3,7 +3,7 @@ sidebar_position: 2
 slug: /running-the-woolyai-controller
 ---
 
-The WoolyAI Controller is a web interface and orchestrator(router). It is responsible for routing client execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
+The WoolyAI Controller is a web interface and orchestrator(router). It is packaged to run as a docker container on your infrastructure and doesn't need to run on GPU. It is responsible for routing WoolyAI client(ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
 
 It has three components:
 
@@ -57,7 +57,8 @@ This is where you can see all the GPU hosts running WoolyAI Servers that are cur
 
 ![Groups](/img/controller-groups.png)
 
-This is where you can see all the groups that exist for the GPU Nodes runing WoolyAI Servers.
+This is where you can see all the groups that exist for the GPU Nodes runing WoolyAI Servers. You can put GPU nodes running the WoolyAI server in specific groups. Then, your can target specific ML workloads executing inside WoolyAi Client containers to run against a specific group(done through client config). This is relevant when you want a specific job on specific type of GPU.
+**Note** Including a node into a group mean only jobs targeted to this group will execute on this node and the node is taken out of the common pool capacity.
 
 ### Connecting your WoolyAI Servers and Clients
 
@@ -76,5 +77,5 @@ Once restarted, check the `docker logs` command for both Server and Client and m
 ## FAQ
 
 - There is no need to go into the container.
-- If you only have a single GPU host with one GPU, you don't need to install the Controller. Controller is used to route client requests load across multiple GPU nodes(Node cluster)
+- If you only have a single GPU host with one GPU, you don't need to install the Controller. Controller is used to route client requests load across multi-GPU setup.
 - If you have issue starting, try `docker compose down -v` to delete the volumes and reset the containers from scratch.
