@@ -17,16 +17,6 @@
  const sidebars = {
   // By default, Docusaurus generates a sidebar from the docs folder structure
   tutorialSidebar: [
-    {
-      type: 'category',
-      label: 'Quick Start 🚀',
-      collapsible: false,
-      items: [
-        'Quick Start/Running The Wooly Server',
-        'Quick Start/Running The Wooly Client',
-        'Quick Start/Running The Wooly Controller',
-      ],
-    },
     // { 
     //   type: 'category', 
     //   label: 'Use Cases 📚', 
@@ -40,6 +30,16 @@
       type: 'doc',
       label: 'Introduction 📖',
       id: 'Root/Introduction',
+    },
+    {
+      type: 'category',
+      label: 'Quick Start 🚀',
+      collapsible: false,
+      items: [
+        'Quick Start/Running The Wooly Server',
+        'Quick Start/Running The Wooly Client',
+        'Quick Start/Running The Wooly Controller',
+      ],
     },
     {
       type: 'doc',
