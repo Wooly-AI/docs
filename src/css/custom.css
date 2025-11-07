@@ -318,6 +318,12 @@
 }
 .menu__list-item-collapsible a.menu__link:first-child {
   font-weight: bold;
+  background-color: rgba(117, 9, 30, 0.1) !important;
+  color: rgba(117, 9, 30, 1) !important;
+}
+
+.menu__link--active {
+  font-weight: bold !important;
 }
 
 .menu {
