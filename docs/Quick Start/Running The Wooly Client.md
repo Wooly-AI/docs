@@ -10,6 +10,7 @@ slug: /running-the-woolyai-client
 - Docker installed on the machine where you will run the Wooly client ML container.
 - A fast connection to the GPU nodes running the WoolyAI Server. Typically, you'll want to run client containers on the same network as the GPU nodes running the WoolyAI Servers.
 - Decide if you need Pytorch 2.7 or 2.9. You can find the supported versions on our [dockerhub](https://hub.docker.com/r/woolyai/client/tags).
+- ***note-*** vLLM, Ollama and other inference servers can't currently run inside the WoolyAi Client Ml container. We are adding support for these soon. Contact us if this is a blocker for you to start your trial.
 
 ### Setup
 
