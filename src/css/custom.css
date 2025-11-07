@@ -320,6 +320,10 @@
   font-weight: bold;
 }
 
+.menu__list {
+  padding-top: 1rem;
+}
+
 .footer__copyright {
   border-top: 1px solid var(--ifm-background-color);
   margin-top: 2rem;
