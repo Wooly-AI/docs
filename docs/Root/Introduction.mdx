@@ -21,15 +21,15 @@ WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and con
 
 ### Advantages
 
-- **No GPU Required**: Access high-end heavy-weight GPUs from lightweight (non-GPU) local machines. Researchers can run PyTorch or CUDA code on their CPU-only machines with no local GPU.
-- **Eliminate driver/toolkit mismatch headaches**: Single Unified Client Container which runs ML workloads and sends kernel requests to GPUs separately. You'll no longer need to install NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
+- **Disaggregate CPU execution from GPU in ML Containers**: Access high-end heavy-weight GPUs from lightweight (non-GPU) local machines. Researchers can run PyTorch or CUDA code on their CPU-only machines with no local GPU.
+- **Eliminate driver/toolkit mismatch headaches**: Single Unified Client Container which runs ML workloads and sends kernel requests to GPUs separately. You'll no longer need to install and constantly manage NVIDIA drivers, CUDA versions on your dev environment to match with the GPU server runtime stack.
 - **Tight control over security and governance**: Developer machines don't need GPU drivers or device files since execution happens on the WoolyAI Server, remotely. Think of a "thin client" model.
 - **Lower Infrastructure Costs**: Single Unified container that can run ML workloads on both Nvidia and AMD without any changes, providing flexibility to choose the cheapest (or whatever is even available) hardware.
 - **Maximizing GPU Utilization**
     - **True GPU Concurrency**: Runs multiple kernel executions in a single GPU context without [time-slicing](../glossary#time-slicing) overhead, unlike traditional static partitioning ([MIG](../glossary#mig-multi-instance-gpu)/[MPS](../glossary#mps-multi-process-service)) that create rigid, underutilized segments.
     - **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns -- not fixed quotas.
     - **100% GPU Utilization**: Eliminates idle cycles by continuously analyzing and optimizing resource distribution, ensuring no GPU compute sits unused.
-    - **Memory Sharing**: Share identical model in VRAM across multiple workloads to optimize VRAM usage
+    - **Memory Sharing**: Share identical model in VRAM across multiple workloads to optimize VRAM usage.
 
 ### Architecture
 
