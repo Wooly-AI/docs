@@ -14,7 +14,7 @@ The WoolyAI GPU VRAM Model Cache (GPU VRAM DeDup feature) CLI is a tool that all
 
 ### Setup
 
-1. Download the latest version of the Model Cacher from the [WoolyAI GitHub Releases](https://github.com/WoolyAI/model-cacher/releases).
+1. Download the latest version of the Model Cacher from the [WoolyAI Downloads]([https://github.com/WoolyAI/model-cacher/releases](https://downloads.woolyai.com/#vram-model-cache/)).
 1. Install the wheel file using `pip install <path to the wheel file>`.
 
 ### Usage
