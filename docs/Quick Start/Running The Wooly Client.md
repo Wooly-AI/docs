@@ -31,38 +31,45 @@ slug: /running-the-woolyai-client
     # PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
     ## Assign a priority from 0 to 4 for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU.
     # PRIO = 0
-
+    
+    # GPU_COUNT: (Multi-GPU mode) Count of GPUs to execute the client's task across (default: 1)
+    # GPU_COUNT = 2
+    
     ###################
     # Controller config
     ###################
-
+    
     # Note: If using the controller, you need to disable ADDRESS and PORT in the config
-
+    
     # CONTROLLER_URL: The URL of the controller
     ## When CONTROLLER_URL is commented out, the client will go directly to the server and not use a controller
-    ## CONTROLLER_URL=http://127.0.0.1:8080
-    ### NOTE CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
-
+    ## NOTE CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
+    # CONTROLLER_URL=http://127.0.0.1:8080
+    
     # CONTROLLER_NODE_GROUP_IDS: The IDs of the node groups to use for the client
-    ## CONTROLLER_NODE_GROUP_IDS = nvidia,fast-networking
-
+    # CONTROLLER_NODE_GROUP_IDS = nvidia,fast-networking
+    
     # REQUIRED_VRAM (required): Required VRAM for the client in MB
-    ## REQUIRED_VRAM = 50000
-
+    # REQUIRED_VRAM = 50000
+    
+    # GPU_MODE: This determines if this client request needs exclusive use of the GPU or not (default: Shared)
+    ## Do not confuse with Multi-GPU mode (GPU_COUNT). This is to tell the controller whether to allow other tasks to be assigned alongside of it on the same GPU.
+    # GPU_MODE = Exclusive
+    
     ########################
     # Controller-less config
     ########################
-
-    # The direct server address to use for the client
+    
+    # ADDRESS: The direct server address to use for the client
     ADDRESS = 127.0.0.1
-    # The server port to use for the client
+    # PORT: The server port to use for the client
     PORT = 443
-    # The SSL mode to use for the client
+    # SSL: The SSL mode to use for the client
     SSL = DISABLE
-    # The GPUs to use for the client on the server
+    
+    # GPUS: The GPUs to use for the client on the server
+    ## When GPUS is commented out, the client will use a single gpu #0
     # GPUS = 0,1,2
-    ## When GPUS is commented out, the client will use all GPUs
-    #GPU_MODE=[Shared|Exclusive]
     EOF
     ```
 
