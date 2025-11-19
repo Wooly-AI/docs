@@ -13,7 +13,7 @@ slug: /running-the-woolyai-client
 
 ***Note-*** vLLM, Ollama and other inference servers can't currently run inside the WoolyAI Client ML container. We are adding support for these soon. Contact us if this is a blocker for you to start your trial.
 
-***Note-*** When you run your Pytorch project for the first time, there is compilation that happens to compile the CUDA kernels into hardware-agnostic Wooly Instruction set. You wil notice a delay in execution. This is only a one-time delay.
+***Note-*** When you run your Pytorch project for the first time, there is compilation that happens to compile the CUDA kernels into hardware-agnostic Wooly Instruction set(IR). You wil notice a delay in execution. This is only a one-time delay.
 
 ### Setup
 
@@ -105,7 +105,8 @@ slug: /running-the-woolyai-client
 ## FAQ
 
 - Run your existing Pytorch scripts, Jupyter Notebook and other ML workloads inside the WoolyAI Client Container
+- ***Multi GPU execution*** is supported. Edit the GPU_COUNT variable in the client config in your container for distributed execution across GPUs.
 - Run Client containers on CPU only machines or on machines with GPU.
-- When running Client Container on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weisghts.
+- When running Client Container on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weights.
 - Set the PRIO flag in the config file to assign a priority from 0 (highest priority) to 4 (lowest priority) for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes.
 
