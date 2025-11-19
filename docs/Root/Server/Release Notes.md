@@ -3,6 +3,11 @@ sidebar_position: 998
 slug: /server/release-notes
 ---
 
+## 1.1.0
+
+- Multi-GPU support
+- Other performance improvements
+
 ## 1.0.1
 - Bug fixes
   
