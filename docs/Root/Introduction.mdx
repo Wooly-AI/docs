@@ -15,7 +15,7 @@ WoolyAI is a GPU hypervisor for ML giving portability, high utilization, and con
 - **CPU (Client) / GPU (Server) split**:
     - **Wooly Client** (on your CPU-only machine) captures CUDA kernels → emits WIS → sends WIS to the WoolyAI Server (on GPU nodes) for execution.
     - **Wooly Server (hypervisor)** (on GPU nodes) converts WIS → native GPU ISA and executes.
-- **Dynamic scheduling**: Measures and allocates at runtime GPU cores/VRAM across concurrent process(jobs) with deterministic scheduling options.
+- **Dynamic scheduling**: Measures and allocates at runtime GPU cores/VRAM across concurrent process (jobs) with deterministic scheduling options.
 - **Memory efficiency**: VRAM dedup (e.g., shared base model weights across many LoRA adapters) to pack more models per GPU.
 - **Ecosystem-friendly**: Works with your existing PyTorch scripts — no model/code rewrites.
 
