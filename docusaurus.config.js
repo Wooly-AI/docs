@@ -139,6 +139,17 @@ const config = {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
       },
+      algolia: {
+        // The application ID provided by Algolia
+        appId: 'U0AILZ2DL1',
+        // Public API key: it is safe to commit it
+        apiKey: '8030c74c14625c9c1b0bb849d72aedff',
+        indexName: 'WoolyAI Documentation',
+        // Optional: Contextual search ensures results are relevant to current version/language
+        contextualSearch: true,
+        // Optional: path for search page that enabled by default (`false` to disable it)
+        searchPagePath: 'search',
+      },
       themeConfig: {
         // Declare some <meta> tags
         metadata: [
