@@ -39,9 +39,9 @@ High Level WoolyAI Architecture diagram showing the three main components: The W
 It has three main components:
 
 1. **The WoolyAI Client** is a docker container inside which you run your Pytorch scripts and other ML workloads. It can run anywhere, even machines without a GPU, supporting remote GPU execution to the WoolyAI Server. It sends execution request to the Wooly Controller which then identifies the most efficient GPU from your cluster for execution.
-2. **The WoolyAI Server** is a docker container that runs on each (single/multi)GPU servers and performs execution request from Wooly Clients to ensure maximum GPU utilization at all times. Wooly Server are connected to Wooly Controller and regularly reports back GPU usage metrics.
+2. **The WoolyAI Server** is a docker container that runs on each (single/multi) GPU servers and performs execution request from Wooly Clients to ensure maximum GPU utilization at all times. Wooly Server are connected to Wooly Controller and regularly reports back GPU usage metrics.
 <!--Wooly “ML Contexts” = We can run concurrent KERNEL processes in a single “Context” on the GPU. Inside of the Context we dynamically handle GPU compute and VRAM per process. Non-wooly a single process runs in a single context.-->
-3. **The WoolyAI Controller** is an orchestrator to route execution request load from multiple Wooly Clients(ML jobs) across a multi node (GPU hosts) cluster. If your setup only has a single GPU, you can skip controller configuration. WoolyAI Controller identifies which GPU node(host) and which GPU on that node, the Wooly Client request should go based on the following GPU utilization metrics - Utilization and Starvation percentage. A GPU with high Starvation percentage means GPU idle time is very low and it's processing multiple jobs efficiently.
+3. **The WoolyAI Controller** is a web interface and router for routing execution requests from multiple Wooly Clients (ML jobs) across a multi node (GPU hosts) cluster. If your setup only has a single GPU, you can skip controller configuration. WoolyAI Controller identifies which GPU node(host) and which GPU on that node, the Wooly Client request should go based on the following GPU utilization metrics - Utilization and Starvation percentage. A GPU with high Starvation percentage means GPU idle time is very low and it's processing multiple jobs efficiently.
 
 ### What is the WoolyAI Client?
 
@@ -65,6 +65,6 @@ The WoolyAI Controller is optional if you only have a single GPU setup. In this 
 WoolyAI Controller is required if you have more than one GPUs in your cluster.
 :::
 
-The WoolyAI Controller is a web interface and orchestrator. Multiple GPU nodes running the WoolyAI Servers are joined to the Controller and constantly send telemetry about available GPU usage. The WoolyAI Client and Server are both connected to it, so the Controller can dynamically route execution requests to the best GPU node running the WoolyAI Server based on real-time GPU utilization.
+The WoolyAI Controller is a web interface and router. Multiple GPU nodes running the WoolyAI Servers are joined to the Controller and constantly send telemetry about available GPU usage. The WoolyAI Client and Server are both connected to it, so the Controller can dynamically route execution requests to the best GPU node running the WoolyAI Server based on real-time GPU utilization.
 
 ---

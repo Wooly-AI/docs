@@ -3,7 +3,7 @@ sidebar_position: 2
 slug: /running-the-woolyai-controller
 ---
 
-The WoolyAI Controller is a web interface and orchestrator(router). It is packaged to run as a docker container on your infrastructure and doesn't need to run on GPU. It is responsible for routing WoolyAI client(ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
+The WoolyAI Controller is a web interface and router. It is packaged to run as a docker container on your infrastructure and doesn't need to run on GPU. It is responsible for routing WoolyAI client(ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
 
 It has three components:
 

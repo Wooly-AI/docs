@@ -15,7 +15,7 @@ This is the WoolyAI software that runs user CUDA ML workloads(Pytorch). WoolyAI 
 
 ### WoolyAI Controller
 
-This is the WoolyAI software that orchestrates assignment of WoolyAI Client requests across a cluster of GPUs running the WoolyAI Server. WoolyAI Controller maintains a queue of all incoming WoolyAI Client requests and presents information through a dashboard. WoolyAI Controller runs as a docker container and doesn't require to run on GPU host. WoolyAI Controller connects and collects GPU utilization metrics from the GPU hosts(running the WoolyAI server).
+This is the WoolyAI software that provides a web interface and routes WoolyAI Client requests across a cluster of GPUs running the WoolyAI Server. WoolyAI Controller maintains a queue of all incoming WoolyAI Client requests and presents information through a dashboard. WoolyAI Controller runs as a docker container and doesn't require to run on GPU host. WoolyAI Controller connects and collects GPU utilization metrics from the GPU hosts(running the WoolyAI server).
 
 ### GPU Auditor
 GPU Auditor tool is a software package that we have developed and open sourced to enable users to get insights into existing GPU utilization.
