@@ -1,23 +1,18 @@
-# Website
+# WoolyAI Documentation
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+These docs are built and hosted on GitHub Pages at https://docs.woolyai.com.
+
+We welcome contributions to the docs. Please feel free to submit a pull request to the `main` branch.
 
 ### Installation
 
-```
-$ yarn
-```
+### Deployment
+
+Deployment to https://docs.woolyai.com is handled automatically via GitHub Actions when a commit to the `main` branch is made.
 
 ### Local Development
 
 ```
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Deployment
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
+yarn
+yarn start
 ```
