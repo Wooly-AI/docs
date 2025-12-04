@@ -9,8 +9,8 @@ slug: /running-the-woolyai-server
 - A license.json file. You can get it from https://woolyai.com/signup/
 - Docker installed on the GPU host machine.
 - Choose the proper docker image for your GPU vendor:
-    - NVIDIA: `woolyai/server:nvidia-latest` (x86_64 & aarch64)
-    - AMD: `woolyai/server:amd-latest` (x86_64)
+    - NVIDIA: `woolyai/server:cuda12.4-latest` (x86_64 & aarch64)
+    - AMD: `woolyai/server:rocm7.1-latest` (x86_64)
 
 ### Setup
 
@@ -61,7 +61,7 @@ docker run -d --name woolyai-server \
 -v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
 -v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
-woolyai/server:nvidia-latest
+woolyai/server:cuda12.4-latest
 ```
 
 To delete, `docker rm -f woolyai-server`
@@ -97,7 +97,7 @@ docker run -d --name woolyai-server \
 -v "./woolyai-server-vram-cache:/home/automation/.wooly/shared_mem:rw" \
 -v "./woolyai-server-config.toml:/home/automation/.wooly/config:ro" \
 -v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
-woolyai/server:amd-latest
+woolyai/server:rocm7.1-latest
 ```
 
 To delete, `docker rm -f woolyai-server`
