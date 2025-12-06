@@ -12,6 +12,10 @@ slug: /running-the-woolyai-server
     - NVIDIA: `woolyai/server:cuda12.4-latest` (x86_64 & aarch64)
     - AMD: `woolyai/server:rocm7.1-latest` (x86_64)
 
+:::info
+Cuda version 12.4 is compatible with specific Driver versions. You can find the matrix for compatibility [here](https://docs.nvidia.com/deploy/cuda-compatibility/minor-version-compatibility.html).
+:::
+
 ### Setup
 
 1. Create a directory for the server VRAM cache
