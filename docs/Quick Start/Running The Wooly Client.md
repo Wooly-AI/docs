@@ -27,7 +27,6 @@ slug: /running-the-woolyai-client
 2. Create the client config `client-config.toml` to mount into the container, or, edit the existing default config file at `~/.config/wooly/config` inside the container.
 
     ```bash
-    cat <<EOF > client-config.toml
     # PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
     ## Assign a priority from 0 to 4 for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU.
     # PRIO = 0
@@ -70,7 +69,6 @@ slug: /running-the-woolyai-client
     # GPUS: The GPUs to use for the client on the server
     ## When GPUS is commented out, the client will use a single gpu #0
     # GPUS = 0,1,2
-    EOF
     ```
 
 4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
@@ -94,7 +92,7 @@ slug: /running-the-woolyai-client
         --shm-size=2g \
         --name "$(whoami)-woolyai-client" \
         -v "$(pwd)":"/host" \
-        "woolyai/client:pytorch2.9-latest"
+        woolyai/client:pytorch2.9-latest
 
     # access the container
     ## -u root is also available, otherwise the default user/group is ubuntu (1005:1005)
