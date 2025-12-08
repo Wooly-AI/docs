@@ -3,6 +3,11 @@ sidebar_position: 998
 slug: /client/release-notes
 ---
 
+## 1.1.3
+
+- Multi-gpu stability improvements
+- Latency improvements
+
 ## 1.1.0
 
 - Multi-GPU support
