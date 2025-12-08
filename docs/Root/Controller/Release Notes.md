@@ -3,6 +3,4 @@ sidebar_position: 998
 slug: /controller/release-notes
 ---
 
-## 1.0.0
-
-- Initial release
+The Controller changelog is available [here](https://github.com/Wooly-AI/controller/releases).
