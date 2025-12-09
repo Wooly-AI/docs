@@ -3,6 +3,11 @@ sidebar_position: 998
 slug: /client/release-notes
 ---
 
+## 1.1.4
+
+- Kineto support
+- Note: No support for Pytorch 2.7
+
 ## 1.1.3
 
 - Multi-gpu stability improvements
