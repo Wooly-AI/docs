@@ -83,3 +83,18 @@ Once restarted, check the `docker logs` command for both Server and Client and m
 - There is no need to go into the container.
 - If you only have a single GPU host with one GPU, you don't need to install the Controller. Controller is used to route client requests load across multi-GPU setup.
 - If you have issue starting, try `docker compose down -v` to delete the volumes and reset the containers from scratch.
+
+---
+
+## Docker Desktop Extension
+
+If you want to get up and running quickly, you can use our [Docker Desktop Extension](https://open.docker.com/extensions/marketplace?extensionId=woolyai/controller-docker-extension) to quickly spin up the Controller.
+
+![Docker Desktop Extension](/img/docker-extension-started.jpg)
+
+1. Install the extension from the Docker Desktop Extensions Marketplace.
+2. Open Docker Desktop and go to the Extensions tab.
+3. Click the "Browse" button and search for "Wooly".
+4. Click "Install" to install the extension.
+5. Once installed, you can start the Controller by clicking the "Start" button.
+6. Once the Controller is running, you can access the web interface at `http://localhost:8080` (unless you changed the port in the configuration).
