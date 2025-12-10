@@ -20,6 +20,10 @@ It has three components:
 ## Setup
 
 :::info
+If you want to get up and running quickly, you can use our [Docker Desktop Extension](https://open.docker.com/extensions/marketplace?extensionId=woolyai/controller-docker-extension) to quickly spin up the Controller.
+:::
+
+:::info
 Regardless of the method of setup you choose, you'll need to edit both the Client and Server config files to point to the Controller. You'll find instructions inside of the configs for each.
 :::
 
