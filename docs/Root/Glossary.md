@@ -28,7 +28,7 @@ Each workload gets the full GPU for a fixed time window (e.g., workload A runs f
 
 ### MIG (Multi-Instance GPU)
 
-Physically partitions the GPU into fixed segments (e.g., split an A100 into 4 smaller "GPUs"). Each segment is locked to that size even if it's not fully used.
+Physically partitions the GPU into fixed segments (e.g., split an A100 into 4 smaller "GPUs"). Each segment is locked to that size even if it's not fully used. MIG doesn't work across all GPUs though.
 
 ### MPS (Multi-Process Service)
 
