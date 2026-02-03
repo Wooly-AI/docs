@@ -34,8 +34,8 @@ In short: WoolyAI is the "traffic controller" for GPU resources. Rather than giv
 
 WoolyAI is a software platform consisting of two main components that can be deployed and used as a service in your organization, supporting multiple teams and models.
 
-1. **[WoolyAI Server](https://hub.docker.com/r/woolyai/server/tags)**: A container that runs on your GPU hosts. It measures and allocates GPU cores and VRAM at runtime across multiple simultaneous pod requests. Includes deterministic scheduling options and deduplicates VRAM across multiple clients to save on expensive GPU memory.
+1. **[WoolyAI GPU Operator](https://github.com/Wooly-AI/woolyai-gpu-operator)**: Deployed on Kubernetes, allowing NVIDIA pod deployment with WoolyAI libraries pre-included and configured.
 
-2. **[WoolyAI GPU Operator](https://github.com/Wooly-AI/woolyai-gpu-operator)**: Deployed on Kubernetes, allowing NVIDIA pod deployment with WoolyAI libraries pre-included and configured.
+2. **[WoolyAI Server](https://hub.docker.com/r/woolyai/server/tags)**: Note: Automatically deployed through the WoolyAI GPU Operator. A container that runs on your GPU hosts. It measures and allocates GPU cores and VRAM at runtime across multiple simultaneous pod requests. Includes deterministic scheduling options and deduplicates VRAM across multiple clients to save on expensive GPU memory.
 
 ---
