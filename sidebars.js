@@ -32,56 +32,10 @@
       id: 'Root/Introduction',
     },
     {
-      type: 'category',
-      label: 'Quick Start 🚀',
-      collapsible: false,
-      items: [
-        'Quick Start/Running The Wooly Server',
-        'Quick Start/Running The Wooly Client',
-        'Quick Start/Running The Wooly Controller',
-      ],
-    },
-    {
-      type: 'doc',
-      label: 'Glossary 📚',
-      id: 'Root/Glossary',
-    },
-    {
       type: 'doc',
       label: 'GPU Auditor 📊',
       id: 'Root/GPU Auditor',
-    },
-    {
-      type: 'category',
-      label: 'WoolyAI Server',
-      collapsed: false,
-      items: [
-        'Root/Server/Using the VRAM Model Cache Tool',
-        'Root/Server/Troubleshooting',
-        'Root/Server/Acknowledgments',
-        'Root/Server/Release Notes',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'WoolyAI Client',
-      collapsed: false,
-      items: [
-        'Root/Client/Troubleshooting',
-        'Root/Client/Acknowledgments',
-        'Root/Client/Release Notes',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'WoolyAI Controller',
-      collapsed: false,
-      items: [
-        'Root/Controller/Troubleshooting',
-        'Root/Controller/Acknowledgments',
-        'Root/Controller/Release Notes',
-      ],
-    },
+    }
   ]
 };
 
