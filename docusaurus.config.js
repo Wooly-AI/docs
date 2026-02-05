@@ -26,7 +26,12 @@ const config = {
   projectName: 'docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   // Only noIndex when on staging branch
   noIndex: process.env.GITHUB_REF_NAME === 'staging' || process.env.BRANCH === 'staging',
@@ -139,23 +144,19 @@ const config = {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
       },
-      algolia: {
-        // The application ID provided by Algolia
-        appId: 'U0AILZ2DL1',
-        // Public API key: it is safe to commit it
-        apiKey: '8030c74c14625c9c1b0bb849d72aedff',
-        indexName: 'WoolyAI Documentation',
-        // Optional: Contextual search ensures results are relevant to current version/language
-        contextualSearch: true,
-        // Optional: path for search page that enabled by default (`false` to disable it)
-        searchPagePath: 'search',
-      },
-      themeConfig: {
-        // Declare some <meta> tags
-        metadata: [
-          {name: 'keywords', content: 'WoolyAI, GPU, Hypervisor, ML, AI, CUDA, ROCm, AMD, NVIDIA, Server, Client, Controller, GPU Utilization, GPU Management, GPU Scheduling, GPU Allocation, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques'},
-        ],
-      },
+      algolia: process.env.NODE_ENV === 'production'
+        ? {
+            appId: 'U0AILZ2DL1',
+            apiKey: '8030c74c14625c9c1b0bb849d72aedff',
+            indexName: 'WoolyAI Documentation',
+            contextualSearch: true,
+            searchPagePath: 'search',
+          }
+        : false,
+      // Declare some <meta> tags
+      metadata: [
+        { name: 'keywords', content: 'WoolyAI, GPU, Hypervisor, ML, AI, CUDA, ROCm, AMD, NVIDIA, Server, Client, Controller, GPU Utilization, GPU Management, GPU Scheduling, GPU Allocation, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques, GPU Scheduling Algorithms, GPU Scheduling Policies, GPU Scheduling Strategies, GPU Scheduling Techniques' },
+      ],
     }),
 };
 

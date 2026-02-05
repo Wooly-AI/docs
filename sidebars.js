@@ -35,7 +35,28 @@
       type: 'doc',
       label: 'GPU Auditor 📊',
       id: 'Root/GPU Auditor',
-    }
+    },
+    {
+      type: 'category',
+      label: 'WoolyAI Server',
+      collapsed: false,
+      items: [
+        'Root/Server/Troubleshooting',
+        'Root/Server/Acknowledgments',
+        'Root/Server/Release Notes',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'WoolyAI Controller',
+      collapsed: false,
+      items: [
+        'Root/Controller/Set Up The Controller',
+        'Root/Controller/Troubleshooting',
+        'Root/Controller/Release Notes',
+        'Root/Controller/Acknowledgments',
+      ],
+    },
   ]
 };
 
