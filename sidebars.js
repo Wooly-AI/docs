@@ -43,8 +43,8 @@
       items: [
         'Root/Server/Set Up The Server',
         'Root/Server/Troubleshooting',
-        'Root/Server/Acknowledgments',
         'Root/Server/Release Notes',
+        'Root/Server/Acknowledgments',
       ],
     },
     {
@@ -56,6 +56,17 @@
         'Root/Controller/Troubleshooting',
         'Root/Controller/Release Notes',
         'Root/Controller/Acknowledgments',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'WoolyAI Client',
+      collapsed: false,
+      items: [
+        'Root/Client/Set Up The Client',
+        'Root/Client/Troubleshooting',
+        'Root/Client/Release Notes',
+        'Root/Client/Acknowledgments',
       ],
     },
   ]
