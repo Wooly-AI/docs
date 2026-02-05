@@ -41,6 +41,7 @@
       label: 'WoolyAI Server',
       collapsed: false,
       items: [
+        'Root/Server/Set Up The Server',
         'Root/Server/Troubleshooting',
         'Root/Server/Acknowledgments',
         'Root/Server/Release Notes',
