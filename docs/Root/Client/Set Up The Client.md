@@ -95,29 +95,43 @@ slug: /client/setup
     # These exports are required to enable WoolyAI. Otherwise you will be hitting the main server GPU.
     export LD_PRELOAD="/woolyai/libpreload_dlopen.so"
     export LIB_WOOLY_PATH="/woolyai/"
+    ```
 
-    cat <<EOF > test.py
-import torch
-import math
+5. Create a test script (`test.py`):
 
-print(f"Number of GPUs available: {torch.cuda.device_count()}")
-for i in range(torch.cuda.device_count()):
-    print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
+    ```python
+    import torch
+    import math
 
-def add(dtype):
-    device = torch.device("cuda:0")
-    x = torch.ones(5, device=device, dtype=dtype)
-    y = torch.ones(5, device=device, dtype=dtype)
-    r = x + y
-# print(r)
-    print(x)
-    print(torch.abs(r))
-add(torch.float)
-add(torch.bfloat16)
-add(torch.half)
-#add(torch.int)
-EOF
+    print(f"Number of GPUs available: {torch.cuda.device_count()}")
+    for i in range(torch.cuda.device_count()):
+        print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
+
+    def add(dtype):
+        device = torch.device("cuda:0")
+        x = torch.ones(5, device=device, dtype=dtype)
+        y = torch.ones(5, device=device, dtype=dtype)
+        r = x + y
+        print(x)
+        print(torch.abs(r))
+
+    add(torch.float)
+    add(torch.bfloat16)
+    add(torch.half)
+    ```
+
+6. Run the test:
+
+    ```bash
     python3 test.py
+    Number of GPUs available: 1
+    GPU 0: NVIDIA GH200 480GB (WOOLY)
+    tensor([1., 1., 1., 1., 1.], device='cuda:0')
+    tensor([2., 2., 2., 2., 2.], device='cuda:0')
+    tensor([1., 1., 1., 1., 1.], device='cuda:0', dtype=torch.bfloat16)
+    tensor([2., 2., 2., 2., 2.], device='cuda:0', dtype=torch.bfloat16)
+    tensor([1., 1., 1., 1., 1.], device='cuda:0', dtype=torch.float16)
+    tensor([2., 2., 2., 2., 2.], device='cuda:0', dtype=torch.float16)
     ```
 
 
