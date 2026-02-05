@@ -37,6 +37,11 @@
       id: 'Root/GPU Auditor',
     },
     {
+      type: 'link',
+      label: 'WoolyAI GPU Operator',
+      href: 'https://github.com/Wooly-AI/woolyai-gpu-operator',
+    },
+    {
       type: 'category',
       label: 'WoolyAI Server',
       collapsed: false,
