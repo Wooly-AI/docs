@@ -8,18 +8,19 @@ slug: /
 
 ## What is WoolyAI?
 
-WoolyAI is a suite of software that helps companies simplify and maximize GPU hardware utilization, as well as reduce costs. While not completely accurate, you can think of WoolyAI as a GPU hypervisor for ML platforms.
+WoolyAI is a suite of software that helps companies simplify and maximize GPU hardware utilization, as well as reduce costs. WoolyAI operates like a GPU hypervisor for ML platforms.
 
-- **Dynamic scheduling & allocation**: Measures and allocates GPU cores and VRAM at runtime across multiple simultaneous requests. Includes deterministic scheduling options.
-- **Memory efficiency**: VRAM dedup (e.g., shared base model weights across many LoRA adapters) to pack more models per GPU.
-- **Ecosystem-friendly**: Works with your existing PyTorch scripts and models - no code rewrites or porting required.
-- **Works with existing pods**: No special container images needed.
+- **Dynamic GPU Compute cores scheduling & allocation**: Measures and allocates GPU compute cores at runtime across multiple simultaneous kernel executions based on job priority and actual consumption.
+- **VRAM Oversubscription and Swap Policy**: Supports VRAM overcommit at scheduling time to increase GPU packing, using an idleness-aware VRAM swapping policy to keep active working jobs resident.
+- **Model Memory Deduplication for Higher Density**: VRAM dedup (e.g., shared base model weights across many LoRA adapters) to pack more models per GPU.
+- **Works with existing ML CUDA pods**: No special container images needed. Requires installation of Wooly Client libraries inside existing ML cuda pods (Pytorch/vllM etc).
+- **Ecosystem-friendly**: Works with your existing Kubernetes setup for GPU nodes. Requires setup of WoolyAI GPU operator.
 
 ### The Problem
 
-Hardware is expensive and often underutilized. Instead of statically assigning fixed GPU resources upfront, WoolyAI makes allocation decisions in real-time based on actual usage. No coarse-grained time-slicing.
+Hardware is expensive and often underutilized. Instead of statically assigning fixed GPU resources upfront, WoolyAI makes allocation decisions in real-time based on actual usage. No coarse-grained time-slicing ot static partioning.
 
-In short: WoolyAI is the "traffic controller" for GPU resources. Rather than giving each user their own dedicated GPU (expensive and wasteful), WoolyAI measures what each workload actually needs and intelligently shares GPU cores and memory across many users in real-time. Letting teams of 20-50 researchers share a small GPU pool.
+In short: WoolyAI is like "virtualization" for GPU resources. Rather than giving each user their own dedicated GPU (expensive and wasteful), WoolyAI measures what each workload actually needs and intelligently shares GPU cores and memory across many users in real-time.
 
 ### Advantages
 
@@ -27,7 +28,7 @@ In short: WoolyAI is the "traffic controller" for GPU resources. Rather than giv
 - **True GPU Concurrency**: Runs multiple kernel executions in a single GPU context without time-slicing overhead, unlike traditional static partitioning (MIG/MPS) that create rigid, underutilized segments.
 - **Dynamic Resource Allocation**: Real-time redistribution of GPU cores and VRAM based on active kernel processes, priority levels, and actual usage patterns - not fixed quotas.
 - **Maximized GPU Utilization**: Eliminates idle cycles by continuously analyzing and optimizing resource distribution, ensuring no GPU compute sits unused.
-- **Memory Sharing**: Deduplicates VRAM across multiple clients to save on expensive GPU memory. Share identical models in VRAM across multiple workloads.
+- **Memory Sharing**: Deduplicates Model VRAM across multiple apps to save on expensive GPU memory. Share identical models in VRAM across multiple workloads.
 
 ---
 
@@ -35,13 +36,13 @@ In short: WoolyAI is the "traffic controller" for GPU resources. Rather than giv
 
 WoolyAI can be deployed and used as a service in your organization, supporting multiple teams and models. There are three main ways to deploy WoolyAI:
 
-1. WoolyAI GPU Operator (useful for small, medium, and large scale deployments **with** Kubernetes available)
+1. WoolyAI Kubernetes GPU Operator (useful for small, medium, and large scale deployments **with** Kubernetes available)
 2. WoolyAI Controller (useful for small, medium, and large scale deployments **without** Kubernetes available)
 3. Direct to WoolyAI Server (useful for small scale deployments with one GPU node)
 
-### WoolyAI GPU Operator
+### WoolyAI Kubernetes GPU Operator
 
-The WoolyAI GPU Operator handles deploying the WoolyAI Server on all GPU nodes in your cluster as well as injecting the WoolyAI libraries into the pods where you want to run your ML workloads.
+The WoolyAI GPU Operator handles deploying the WoolyAI Server pods on all GPU nodes in your cluster as well as injecting the WoolyAI libraries into the Kubernetes ML pods.
 
 :::info
 The WoolyAI GPU Operator is a Kubernetes helm chart.
@@ -49,27 +50,27 @@ The WoolyAI GPU Operator is a Kubernetes helm chart.
 
 1. [Setup Guide for WoolyAI GPU Operator](https://github.com/Wooly-AI/woolyai-gpu-operator)
 
-### WoolyAI Controller
+### WoolyAI Controller for non-Kubernetes managed GPU nodes
 
-The WoolyAI Controller is a web interface and router that is responsible for routing WoolyAI client (ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
+The WoolyAI Controller is a router with a Web and REST API interface that is responsible for routing kernel execution requests from ML CUDA containers running with Wooly Client libraries to the GPU node cluster running WoolyAI Server.
 
 :::info
-The WoolyAI Controller does not rely on Kubernetes, but has a deployment for use inside of Kubernetes.
+The WoolyAI Controller can be deployed as a docker container (Dockerfile or Kubernetes).
 :::
 
 1. [Setup Guide for WoolyAI Controller](./controller/setup)
 2. [Setup Guide for WoolyAI Server](./server/setup)
-3. [Setup Guide for WoolyAI Client](./client/setup)
+3. [Setup Guide to install WoolyAI libraries inside ML CUDA Containers](./client/setup)
 
 ### Direct to WoolyAI Server
 
-The Direct to WoolyAI Server is a simple way to deploy WoolyAI on a single GPU node. You simply run the WoolyAI Server container and your ML container on the same machine.
+The Direct to WoolyAI Server is a simple way to deploy WoolyAI on a single GPU node. You simply run the WoolyAI Server container and your ML CUDA container with Wooly Client libraries on the same machine.
 
 :::info
 No Kubernetes or Controller required.
 :::
 
 1. [Setup Guide for Direct to WoolyAI Server](./server/setup)
-2. [Setup Guide for Direct to WoolyAI Server Client](./client/setup)
+2. [Setup Guide to install WoolyAI libraries inside ML CUDA Containers](./client/setup)
 
 ---
