@@ -11,7 +11,7 @@ slug: /server/setup
 
 ### Setup
 
-1. Create a directory for the server VRAM cache
+1. Optional(Only needed for Model Weight Dedup feature) - Create a directory for the server VRAM cache.
 
 ```bash
 mkdir woolyai-server-vram-cache
