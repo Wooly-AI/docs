@@ -43,11 +43,19 @@ WoolyAI can be deployed and used as a service in your organization, supporting m
 
 The WoolyAI GPU Operator handles deploying the WoolyAI Server on all GPU nodes in your cluster as well as injecting the WoolyAI libraries into the pods where you want to run your ML workloads.
 
+:::info
+The WoolyAI GPU Operator is a Kubernetes helm chart.
+:::
+
 1. [Setup Guide for WoolyAI GPU Operator](https://github.com/Wooly-AI/woolyai-gpu-operator)
 
 ### WoolyAI Controller
 
-The WoolyAI Controller is a web interface and router that is responsible for routing WoolyAI client (ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization. It does not rely on Kubernetes.
+The WoolyAI Controller is a web interface and router that is responsible for routing WoolyAI client (ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
+
+:::info
+The WoolyAI Controller does not rely on Kubernetes, but has a deployment for use inside of Kubernetes.
+:::
 
 1. [Setup Guide for WoolyAI Controller](./controller/setup)
 2. [Setup Guide for WoolyAI Server](./server/setup)
@@ -55,7 +63,11 @@ The WoolyAI Controller is a web interface and router that is responsible for rou
 
 ### Direct to WoolyAI Server
 
-The Direct to WoolyAI Server is a simple way to deploy WoolyAI on a single GPU node. You simply run the WoolyAI Server container and your ML container on the same machine -- no Kubernetes or Controller required.
+The Direct to WoolyAI Server is a simple way to deploy WoolyAI on a single GPU node. You simply run the WoolyAI Server container and your ML container on the same machine.
+
+:::info
+No Kubernetes or Controller required.
+:::
 
 1. [Setup Guide for Direct to WoolyAI Server](./server/setup)
 2. [Setup Guide for Direct to WoolyAI Server Client](./client/setup)
