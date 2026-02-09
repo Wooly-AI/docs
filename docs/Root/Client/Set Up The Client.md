@@ -6,11 +6,11 @@ slug: /client/setup
 
 - A Wooly Controller URL (optional; you can use a direct connection to the GPU node running the WoolyAI Server).
 - Docker installed on the machine where you will run you containers. It must have a GPU available to mount into the container.
-## Note : There is an option to also run your ML CUDA containers(with WoolyAI Client libraries installed inside) on CPU Only infrastructure without any GPUs. In such a deployment the GPU execution requests are sent over the network to your GPU nodes running with the WoolyAI Server.
+***Note*** : There is an option to also run your ML CUDA containers(with WoolyAI Client libraries installed inside) on CPU Only infrastructure without any GPUs. In such a deployment the GPU execution requests are sent over the network to your GPU nodes running with the WoolyAI Server.
 
 ### Setup
 
-1. Download the latest version of the WoolyAI libraries from [https://github.com/Wooly-AI/woolyai-client-libraries/releases](https://github.com/Wooly-AI/woolyai-client-libraries/releases).
+1. Download the latest version of the WoolyAI Client libraries from [https://github.com/Wooly-AI/woolyai-client-libraries/releases](https://github.com/Wooly-AI/woolyai-client-libraries/releases).
 
 2. Create a directory for the client libraries to be stored in: `mkdir woolyai-libraries`
 
@@ -138,6 +138,6 @@ slug: /client/setup
 
 ## Notes
 
-- When running Client Container on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weights.
+- When running ML CUDA Container(with WoolyAI Client libraries installed inside) on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weights.
 - Set the PRIO flag in the config file to assign a priority from 0 (highest priority) to 4 (lowest priority) for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes.
 
