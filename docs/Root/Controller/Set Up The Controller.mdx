@@ -2,8 +2,7 @@
 slug: /controller/setup
 ---
 
-The WoolyAI Controller is a web interface and router. It is packaged to run as a docker container on your infrastructure and doesn't need to run on GPU. It is responsible for routing WoolyAI client(ML container) execution requests to the GPU nodes running WoolyAI Server based on real-time GPU utilization.
-
+The WoolyAI Controller is like a router for routing GPU jobs across your GPU node cluster with REST APIS and a web interface. It is packaged to run as a docker container on your infrastructure and doesn't need to run on GPU. It is responsible for routing GPU execution requests from your ML CUDA containers running with WoolyAi client libraries installed to the GPU nodes running WoolyAI Server.
 It has three components:
 
 - The WoolyAI Controller (API and Web UI)
@@ -15,7 +14,8 @@ It has three components:
 ### Prerequisites
 
 - Docker or Kubernetes (with Nginx Ingress Controller) to deploy the WoolyAI Controller in
-- WoolyAI Client and WoolyAI Server.
+- WoolyAI Server.
+- WoolyAi Client libraries installed inside your ML CUDA containers.
 
 ## Setup
 
@@ -45,13 +45,13 @@ Once deployed, you will find the `30422` NATS port you'll need to point your Woo
 
 ## Overview
 
-Once running, It will display a dashboard with information about the GPU nodes running the WoolyAI Servers, tasks (WoolyAI Client requests), and other metrics we think are important. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
+Once running, It will display a dashboard with information about the GPU nodes running the WoolyAI Servers, ML jobs/tasks, and GPU resource metrics like Utilization and Starvation(WoolyAI custom metric) percentages. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
 
 ### **Tasks**
 
 ![Tasks](/img/controller-tasks.png)
 
-This is where you can see all the WoolyAI Client requests(ML workload executions from inside WoolyAI Client Containers) that are currently running across GPU nodes running WoolyAI Servers. These are created when a WoolyAI Client requests a GPU kernel execution(Pytorch or other ML workload execution inside WoolyAI Client Container).
+This is where you can see all the GPU execution requests from your ML CUDA containers running with WoolyAi Client libraries. Task list shows all running jobs on the GPU, pending/queued and completed jobs.
 
 ### **Nodes**
 
@@ -68,7 +68,7 @@ This is where you can see all the groups that exist for the GPU Nodes runing Woo
 
 ### Connecting your WoolyAI Servers and Clients
 
-Once the WoolyAI Controller is running, you can connect your WoolyAI Server and Client to it. This is done by modifying both the Server and Client configs with the Controller URL restarting the containers.
+Once the WoolyAI Controller is running, you can connect your WoolyAI Server and your ML CUDA containers(with WoolyAI Client libraries installed inside) to it. This is done by modifying both the Server and Client configs with the Controller URL restarting the containers.
 
 ### Server Config
 
