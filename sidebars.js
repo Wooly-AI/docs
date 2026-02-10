@@ -65,7 +65,7 @@
     },
     {
       type: 'category',
-      label: 'WoolyAI Client',
+      label: 'WoolyAI Client Libraries',
       collapsed: false,
       items: [
         'Root/Client/Install WoolyAI Client Libraries in ML Containers',
