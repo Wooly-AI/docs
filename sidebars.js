@@ -68,7 +68,7 @@
       label: 'WoolyAI Client',
       collapsed: false,
       items: [
-        'Root/Client/Set Up The Client',
+        'Root/Client/Install WoolyAI Client Libraries in ML Containers',
         'Root/Client/Troubleshooting',
         'Root/Client/Release Notes',
         'Root/Client/Acknowledgments',
