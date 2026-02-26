@@ -1,0 +1,100 @@
+# What is WoolyAI
+
+WoolyAI is a suite of software that helps companies simplify and maximize GPU hardware utilization, as well as reduce costs. You can think of WoolyAI as a GPU Hypervisor for ML Platforms.
+
+## Value claims
+
+1. **GPU utilization up 3x**: Increase useful GPU work from existing infrastructure.
+2. **More jobs per GPU**: Move from "1 job, 1 GPU" to many concurrent jobs per GPU.
+3. **No code changes**: Works with existing ML pods and containers without rewrites.
+4. **Cut queue times**: Reduce waiting time for researchers, engineers, and platform users.
+5. **Delay the next GPU purchase**: Extend current hardware capacity before adding more GPUs.
+
+## 4-pillar framing
+
+1. **Scheduling (GPU core-level)**: Fractional core allocation, priority-based core sharing, and elastic core redistribution.
+2. **VRAM virtualization**: Elastic VRAM overcommit, max-density scheduling, and smart swap eviction.
+3. **Weights dedup**: Shared model weight dedup in VRAM for lower memory footprint and faster cold starts.
+4. **CPU-GPU decoupling**: Accelerate CPU pods via transparent GPU offload and route-to-any-GPU flexibility.
+
+## Use-case coverage
+
+1. **Interactive notebooks**: Reclaim idle GPU gaps while preserving responsiveness for notebook users.
+2. **HPO, sweeps, and ablations**: Run many small experiments concurrently instead of one GPU per run.
+3. **Multi-tenant inference**: Protect latency-sensitive workloads while safely sharing GPUs with background jobs.
+4. **LoRA adapter serving**: Serve many adapters on one base model using shared weight dedup in VRAM.
+
+## Comparative positioning
+
+1. **Beyond queueing/preemption**: WoolyAI enables concurrent execution inside the GPU, not only between jobs.
+2. **Beyond time-slicing/MIG**: WoolyAI adds priority-aware core sharing and elastic redistribution.
+3. **Beyond budgets/quotas**: WoolyAI focuses on runtime utilization and scheduling density, not only policy limits.
+4. **Memory density advantage**: WoolyAI supports VRAM overcommit with swap policy to place more jobs than physical VRAM alone.
+5. **Model sharing advantage**: WoolyAI deduplicates base model weights across apps in VRAM.
+
+| Capability | Queueing / Preemption | Time-slicing / MIG | Budgets / Quotas | WoolyAI |
+| --- | --- | --- | --- | --- |
+| Concurrent job execution | Limited | Partial | Limited | Yes, dynamic core sharing |
+| Priority or SLA control inside the GPU | Partial | Partial | Partial | Yes, priority-based core allocation |
+| Place more jobs than physical VRAM | No | No | No | Yes, VRAM overcommit plus swap policy |
+| Deduplicate base model weights across apps | No | No | No | Yes, shared weights in VRAM |
+| Drop-in compatibility with existing pods or containers | Yes | Yes | Yes | Yes, no code changes |
+| Kubernetes-native deployment model | Yes | Yes | Yes | Yes, operator model |
+
+## What are the components of WoolyAI
+
+It is a software platform with primarily two core pieces and two optional supporting pieces:
+
+1. [Server (Container)](https://hub.docker.com/r/woolyai/server/tags): Runs on GPU nodes and performs runtime GPU core and VRAM scheduling. **Core Piece**
+2. WoolyAI Client libraries: Installed in existing ML CUDA containers to route work to WoolyAI Server. **Core Piece**
+3. [Kubernetes GPU Operator](https://github.com/Wooly-AI/woolyai-gpu-operator): Deploys and manages WoolyAI in Kubernetes clusters. **Optional Supporting Piece**
+4. WoolyAI Controller: Routes requests across non-Kubernetes GPU node clusters with Web and REST interfaces. **Optional Supporting Piece**
+
+These components can be deployed as a shared service for multiple teams and models.
+
+## Deployment models
+
+WoolyAI supports three deployment paths based on your infrastructure:
+
+1. **Kubernetes GPU Operator**: Best when you already run Kubernetes and want native cluster management with automated library injection.
+2. **WoolyAI Controller**: Best for organizations managing GPU nodes without Kubernetes, while still needing centralized routing and control.
+3. **Direct to WoolyAI Server**: Best for smaller deployments on a single GPU node where you want the simplest setup.
+
+### GPU Operator
+
+A Kubernetes GPU Operator that deploys several Pods on the GPU hosts, handling:
+
+1. **Library injection**: Automatically injects WoolyAI libraries into developer Pods. No code changes or special container images required.
+2. **GPU scheduling**: A custom scheduler that assigns pods to hosts & GPUs based on real-time availability, VRAM capacity, and workload priority rather than static allocation.
+3. **Cluster management**: A controller that deploys and configures the WoolyAI Server on each GPU node.
+4. **Inventory tracking**: Continuously monitors GPU state (available VRAM, utilization, starvation) so the scheduler always has accurate data.
+
+### How Kubernetes deployment works
+
+1. The WoolyAI GPU Operator is deployed on Kubernetes.
+2. WoolyAI Server:
+	- Measures and allocates GPU cores and VRAM at runtime across multiple simultaneous pod requests. Includes deterministic scheduling options.
+	- Deduplicates VRAM across multiple clients to save on expensive GPU memory.
+
+## What problems does WoolyAI solve?
+
+GPU Hardware is expensive and often underutilized. WoolyAI Server helps maximize utilization per GPU and reduce costs by allowing less GPU hardware to do more. Instead of statically assigning fixed GPU resources upfront which ties up the single or multiple GPUS to a job irrespectove of whether the job fully utilizes the reosurces or not, WoolyAI allocates GPU cores in real-time across multiple jobs based on the actual usage. No coarse-grained time-slicing! This enables large teams of ML researchers to share a small GPU pool.
+
+In short: this is the "traffic controller" for GPU resources. Rather than giving each user their own dedicated GPU (expensive and wasteful), WoolyAI measures what each workload actually needs and intelligently shares GPU cores and memory across many users in real-time.
+
+## How WoolyAI does it
+
+1. The WoolyAI GPU Operator is deployed on Kubernetes, allowing NVIDIA pod deployment with WoolyAI libraries pre-included and configured.
+2. WoolyAI Server:
+	- Measures and allocates GPU cores and VRAM at runtime across multiple simultaneous pod requests. Includes deterministic scheduling options.
+	- Deduplicates VRAM across multiple clients to save on expensive GPU memory.
+	- Uses VRAM overcommit and smart swap to overcome VRAM based job placement limitations on GPUs.
+
+## Features
+
+1. No porting code or rewrites: Works with existing PyTorch scripts/models.
+2. Dynamic Scheduling & Allocation: WoolyAI Server measures and allocates GPU cores and VRAM at runtime across multiple simulatious client requests. Includes deterministic scheduling options.
+3. Efficient Memory handling (VRAM dedup): Pack more of the same models per GPU without duplicating VRAM.
+4. VRAM overcommit and smart swap to overcome VRAM based job placement limitations on GPUs.
+5. Provides option to run ML CUDA pods on CPU Infra with transparent remote GPU execution
+6. Works with existing pods. No special container images needed.
