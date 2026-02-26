@@ -14,11 +14,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Checkout marketing-sales content
+        uses: actions/checkout@v4
+        with:
+          repository: Wooly-AI/marketing-sales
+          path: marketing-sales
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: yarn
 
+      - name: Update llms.txt from marketing-sales
+        run: cp -f "marketing-sales/What Is WoolyAI.md" "static/llms.txt"
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build website

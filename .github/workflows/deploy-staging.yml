@@ -10,13 +10,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+
+      - name: Checkout marketing-sales content
+        uses: actions/checkout@v4
+        with:
+          repository: Wooly-AI/marketing-sales
+          path: marketing-sales
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: yarn
+
+      - name: Update llms.txt from marketing-sales
+        run: cp -f "marketing-sales/What Is WoolyAI.md" "static/llms.txt"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
