@@ -18,6 +18,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Wooly-AI/marketing-sales
+          token: ${{ secrets.SERVICE_USER_GITHUB_TOKEN }}
+          ref: main
           path: marketing-sales
       - uses: actions/setup-node@v4
         with:
