@@ -49,6 +49,8 @@ GLOBAL_CACHE_MODE = OFF
 
 ### NVIDIA
 
+We provide multiple cuda versions for you to use. Be sure to the appropriate version for your GPU by checking the [WoolyAI Server Docker Hub](https://hub.docker.com/r/woolyai/server/tags). Currently, you can find 12.9.1 and 13.1.1.
+
 ```bash
 docker run -d --name woolyai-server \
 --gpus all \
