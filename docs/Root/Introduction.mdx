@@ -8,12 +8,12 @@ slug: /
 
 ## What is WoolyAI?
 
-WoolyAI is a suite of software that helps companies simplify and maximize GPU hardware utilization, as well as reduce costs. WoolyAI operates like a GPU hypervisor for ML platforms.
+WoolyAI is a GPU Runtime software that helps companies simplify and maximize GPU hardware utilization, as well as reduce costs. WoolyAI operates like a GPU hypervisor for ML platforms.
 
-- **Dynamic GPU Compute cores scheduling & allocation**: Measures and allocates GPU compute cores at runtime across multiple simultaneous kernel executions based on job priority and actual consumption.
+- **Dynamic GPU Compute cores scheduling & allocation**: Measures and fractionally allocates GPU compute cores at runtime across multiple simultaneous kernel executions based on job priority and actual consumption.
 - **VRAM Oversubscription and Swap Policy**: Supports VRAM overcommit at scheduling time to increase GPU packing, using an idleness-aware VRAM swapping policy to keep active working jobs resident.
-- **Model Memory Deduplication for Higher Density**: VRAM dedup (e.g., shared base model weights across many LoRA adapters) to pack more models per GPU.
-- **Works with existing ML CUDA pods**: No special container images needed. Requires installation of Wooly Client libraries inside existing ML cuda pods (Pytorch/vllM etc).
+- **Model Memory Deduplication for Higher Density**: Enables dedup of Model weights in the VRAM(e.g., shared base model weights across many LoRA adapters) to pack more inference stacks per GPU.
+- **Works with existing ML CUDA pods**: No special container images needed. Requires installation of Wooly Client libraries inside existing ML Nvidia/cuda pods (Pytorch/vllM etc).
 - **Ecosystem-friendly**: Works with your existing Kubernetes setup for GPU nodes. Requires setup of WoolyAI GPU operator.
 
 ### The Problem
@@ -34,13 +34,14 @@ In short: WoolyAI is like "virtualization" for GPU resources. Rather than giving
 
 ## Deployment Options
 
+***Works with all CUDA workloads and models (transformers, Vision, NLP & others)- Pytorch, vLLM***
 ***JAX support coming very soon***
 
-WoolyAI can be deployed and used as a service in your organization, supporting multiple teams and models. There are three main ways to deploy WoolyAI:
+WoolyAI can be deployed on your GPU hosts(on-prem or in cloud). There are three main ways to deploy WoolyAI:
 
 1. WoolyAI Kubernetes GPU Operator (useful for small, medium, and large scale deployments **with** Kubernetes available)
 2. WoolyAI Controller (useful for small, medium, and large scale deployments **without** Kubernetes available)
-3. Direct to WoolyAI Server (useful for small scale deployments with one GPU node)
+3. Direct to WoolyAI Server (useful for small scale deployments with single GPU setup)
 
 ### WoolyAI Kubernetes GPU Operator
 
