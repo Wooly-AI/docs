@@ -33,18 +33,23 @@
     },
     {
       type: 'doc',
+      label: 'Deployment Options',
+      id: 'Root/Deployment Options',
+    },
+    {
+      type: 'doc',
       label: 'GPU Auditor 📊',
       id: 'Root/GPU Auditor',
     },
     {
       type: 'link',
-      label: 'WoolyAI GPU Operator',
+      label: 'WoolyAI Kubernetes GPU Operator',
       href: 'https://github.com/Wooly-AI/woolyai-gpu-operator',
     },
     {
       type: 'category',
       label: 'WoolyAI Server',
-      collapsed: false,
+      collapsed: true,
       items: [
         'Root/Server/Set Up The Server',
         'Root/Server/Troubleshooting',
@@ -55,7 +60,7 @@
     {
       type: 'category',
       label: 'WoolyAI Controller',
-      collapsed: false,
+      collapsed: true,
       items: [
         'Root/Controller/Set Up The Controller',
         'Root/Controller/Troubleshooting',
@@ -66,7 +71,7 @@
     {
       type: 'category',
       label: 'WoolyAI Client Libraries',
-      collapsed: false,
+      collapsed: true,
       items: [
         'Root/Client/Install WoolyAI Client Libraries in ML Containers',
         'Root/Client/Troubleshooting',
