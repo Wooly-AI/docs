@@ -18,7 +18,7 @@ slug: /client/setup
 3. Alongside of the `woolyai-libraries` directory, create a `client-config.toml` file:
 
     ```bash
-    # PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
+# PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
     ## Assign a priority from 0 to 4 for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU.
     # PRIO = 0
     
@@ -53,13 +53,17 @@ slug: /client/setup
     # ADDRESS: The direct server address to use for the client
     ADDRESS = 127.0.0.1
     # PORT: The server port to use for the client
-    PORT = 443
+    PORT = 10000
     # SSL: The SSL mode to use for the client
     SSL = DISABLE
     
     # GPUS: The GPUs to use for the client on the server
     ## When GPUS is commented out, the client will use a single gpu #0
     # GPUS = 0,1,2
+
+    # WOOLYAI_WEIGHTS_DEDUP: Whether to deduplicate weights between clients on the same GPU
+    ## Default: false
+    # WOOLYAI_WEIGHTS_DEDUP = true
     ```
 
 4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
