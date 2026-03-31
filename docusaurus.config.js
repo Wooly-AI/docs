@@ -28,10 +28,12 @@ const config = {
   onBrokenLinks: 'throw',
 
   markdown: {
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
   },
+  themes: ['@docusaurus/theme-mermaid'],
 
   // Only noIndex when on staging branch
   noIndex: process.env.GITHUB_REF_NAME === 'staging' || process.env.BRANCH === 'staging',

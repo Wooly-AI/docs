@@ -57,7 +57,8 @@ slug: /client/setup
     # SSL: The SSL mode to use for the client
     SSL = DISABLE
     
-    # GPUS: The GPUs to use for the client on the server
+    # GPUS: Comma-separated GPU indices as seen by WoolyAI Server (not your job scheduler).
+    ## Indices match the server's device list (often all GPUs on the node unless the server was started with a restricted CUDA_VISIBLE_DEVICES or Docker --gpus list).
     ## When GPUS is commented out, the client will use a single gpu #0
     # GPUS = 0,1,2
 

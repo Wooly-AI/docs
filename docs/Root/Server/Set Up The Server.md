@@ -63,6 +63,10 @@ docker run -d --name woolyai-server \
 woolyai/server:cuda12.9.1-latest
 ```
 
+:::info
+With **`--gpus all`**, the server sees **every GPU on the host** that Docker exposes. To attach to a **subset** only, narrow visibility before or at launch (for example **`CUDA_VISIBLE_DEVICES`** on the host, Docker **`--gpus "device=..."`**, or **`CUDA_VISIBLE_DEVICES`** inside the container). Wooly **client** libraries can further select devices with **`GPUS`** in **`client-config.toml`** (see [client setup](/client/setup)); on Slurm clusters, also see [Partitioning GPUs](/usage-guides/slurm#partitioning-gpus-server-scope-client-gpus-and-slurm) in the Slurm usage guide.
+:::
+
 5. Check the logs with `docker logs woolyai-server` to make sure it started properly. You should see `"server listening on"` if it worked.
 
 :::info

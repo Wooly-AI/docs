@@ -42,6 +42,12 @@
       id: 'Root/GPU Auditor',
     },
     {
+      type: 'category',
+      label: 'Usage Guides',
+      collapsed: true,
+      items: ['Root/Usage Guides/slurm'],
+    },
+    {
       type: 'link',
       label: 'WoolyAI Kubernetes GPU Operator',
       href: 'https://github.com/Wooly-AI/woolyai-gpu-operator',
