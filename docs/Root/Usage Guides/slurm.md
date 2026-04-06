@@ -7,53 +7,79 @@ title: Slurm
 
 ## Overview
 
-What you need in one picture: Slurm still owns scheduling and GPU allocation; on each Wooly GPU node the **administrator** runs WoolyAI Server, installs the client on disk, and configures **TaskProlog** so job steps pick up the client environment automatically. The **user** submits normal batch jobs; the application talks to the server through the client libraries.
+What you need in one picture: Slurm still owns scheduling and GPU allocation; on each Wooly GPU node the **administrator** runs WoolyAI Server, installs the client on disk, and configures **TaskProlog** so job steps that **opt in** (a custom submit-time variable) pick up the client libraries and config without hand-rolling `export` lines in every script. Other jobs on the same node are unchanged. The **user** submits normal batch jobs and sets the flag when the workload uses Wooly; the application talks to the server through the client libraries.
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": true, "useMaxWidth": true}}}%%
-flowchart TB
-  SCH[Slurm scheduler: nodes, partitions, GPU GRES]
-  subgraph NODE["Each Wooly GPU compute node"]
-    direction TB
-    SRV[WoolyAI Server in Docker]
-    INS[Client libraries and client-config.toml on disk]
-    TP[TaskProlog in slurm.conf]
-    JOB[User batch job step]
+sequenceDiagram
+  autonumber
+  participant User
+  participant Sch as Slurm scheduler
+  participant Slurmd as slurmd on GPU node
+  participant Prolog as TaskProlog
+  participant Step as Job step process
+  participant Srv as WoolyAI Server
+  participant GPU as Node GPUs
+
+  User->>Sch: Submit batch job USE_WOOLY=1 + woolyai_vram GRES
+  Sch->>Slurmd: Place step on node + woolyai_vram pool
+  Slurmd->>Prolog: Run before task starts
+  alt Wooly opt-in USE_WOOLY = 1
+    Prolog-->>Slurmd: Stdout export lines for task env
+  else No Wooly
+    Prolog-->>Slurmd: No stdout no extra env
   end
-  SCH -->|allocation and devices| JOB
-  TP -->|LD_LIBRARY_PATH and WOOLYAI_CLIENT_CONFIG| JOB
-  INS -.->|runtime load| JOB
-  JOB -->|GPU work via Wooly client| SRV
-  SRV --> GPUS[Physical GPUs]
+  Slurmd->>Step: Launch task with Slurm + merged env
+  Note over Step: Load client from disk via LD_PRELOAD LIB_WOOLY_PATH and config path
+  Step->>Srv: Wooly client to server
+  Srv->>GPU: Shared runtime access
 ```
 
 This guide assumes you already run [Slurm](https://slurm.schedmd.com/) with **GPU scheduling** available on your nodes (for example through [GRES](https://slurm.schedmd.com/gres.html)). It focuses on **WoolyAI Server** on GPU nodes and **WoolyAI client libraries** used by batch jobs on those nodes.
 
-Slurm decides **which jobs may use which GPUs**. WoolyAI Server performs **runtime sharing** of those GPUs for workloads that use the client libraries.
+Slurm schedules **where** jobs run and (with **`woolyai_vram`**) how much **VRAM budget** each Wooly job consumes from a per-node pool. **WoolyAI Server** performs **runtime sharing** of GPUs; **`CUDA_VISIBLE_DEVICES` is not used for Wooly server-side GPU assignment**—design capacity around **`woolyai_vram`**, **node Features**, **`--constraint`**, and **`wooly-client-config.toml`** (including optional **`GPUS`**). Slurm may still apply **device cgroups** on job steps depending on partition config; that is separate from Wooly admission.
 
-## How the pieces fit together
+## WoolyAI capacity: `woolyai_vram` GRES and node features
 
-1. **Slurm** allocates nodes, CPUs, memory, and GPU devices (or MIG instances). It sets `CUDA_VISIBLE_DEVICES` and cgroups so each job sees only its assigned devices.
-2. **WoolyAI Server** runs on each GPU node (typically as a long-lived Docker container) and mediates access to the GPUs for client processes. By default the server is started with access to **all GPUs on that node** (for example Docker **`--gpus all`**). If you start the server with a restricted view (for example **`CUDA_VISIBLE_DEVICES`** or **`--gpus "device=..."`** on the container), the server only ever manages **that subset**.
-3. **WoolyAI client libraries** (`.so` files) must be **installed on each GPU node ahead of time** (cluster administrator). Jobs on the host load those libraries from disk; they are not installed or unpacked when the job starts. In **`client-config.toml`**, optional **`GPUS`** selects **which GPU indices on the server** the client uses (comma-separated, server-side numbering). If **`GPUS`** is omitted, the client uses the default described in [client setup](/client/setup) (typically a single server GPU index **`0`**).
+Standard Slurm **`gpu`** GRES **exclusively** assigns discrete devices. For Wooly-only workloads you typically want a **fungible VRAM pool** instead: jobs request **`--gres=woolyai_vram:<MiB>`**, Slurm decrements that pool for scheduling, and Wooly multiplexes real GPU use without Slurm binding specific devices for that resource.
+
+### Admin: `GresTypes` and `gres.conf`
+
+1. Add **`woolyai_vram`** to **`GresTypes`** in **`slurm.conf`** (comma-separated with any existing types, e.g. **`GresTypes=gpu,woolyai_vram`**).
+2. On each Wooly GPU node, define the pool in **`gres.conf`**. Example (alongside NVML GPU autodetection):
+
+   ```text
+   AutoDetect=nvml
+   Name=woolyai_vram Count=120000
+   ```
+
+   **`Count`** is the total schedulable **MiB** for **`woolyai_vram`** on that node (site policy: raw sum of GPU memory, a lower cap, etc.). Run **`slurmd -C`** and merge the reported **`Gres=`** into your **`NodeName=`** lines as required by your Slurm version.
+
+3. Reload: **`scontrol reconfigure`**; restart **`slurmd`** on nodes if needed.
+
+### Users: request VRAM only
+
+Submitters set **`--gres=woolyai_vram:40000`** (example). They **do not** put **`WOOLYAI_RESERVED_VRAM_MIB`** in **`#SBATCH --export`**; **TaskProlog** (below) should set **`WOOLYAI_RESERVED_VRAM_MIB`** from the job’s allocated **`woolyai_vram`** so Wooly matches Slurm.
+
+### Minimum GPUs on the host (e.g. NCCL)
+
+To require **at least N physical GPUs** on the node **without** exclusive **`--gres=gpu:N`**, use **node Features** and **`--constraint`**:
+
+- **Admin:** Set **`Feature=`** on each Wooly node, e.g. **`woolyai,woolyai_gpu_count_1`** or **`woolyai,woolyai_gpu_count_2`**, consistent site-wide.
+- **Users:** **`#SBATCH --constraint=woolyai_gpu_count_2`** when they need a host with at least two GPUs. Combine with **`--gres=woolyai_vram:...`** as usual. Slurm **filters** nodes; it does **not** treat this like exclusive **`gpu:2`**.
 
 ### Partitioning GPUs: server scope, client `GPUS`, and Slurm
 
-These layers are independent. If you partition GPUs (by job, by queue, or by config), keep them aligned.
-
 | Layer | What it controls |
 | --- | --- |
-| **Server launch** | Which physical devices the **server process** sees (often all node GPUs; can be narrowed with **`CUDA_VISIBLE_DEVICES`** or Docker **`--gpus`** when starting the container). |
-| **Client `GPUS` in `client-config.toml`** | Which of **the server’s** GPU indices this client targets (for example **`GPUS = 1`** or **`GPUS = 0,1`**). See [client setup](/client/setup). |
-| **Slurm job** | Which devices the **job step** is allowed to use and how **`CUDA_VISIBLE_DEVICES`** is set for processes on the node. |
+| **Server launch** | Which physical devices the **server process** sees (often all node GPUs; can be narrowed with Docker **`--gpus`** or similar when starting the container). |
+| **Client `GPUS` in `wooly-client-config.toml`** | Which **server** GPU indices this client targets. See [client setup](/client/setup). |
+| **Slurm job** | **VRAM budget** via **`woolyai_vram`**, and **host topology** via **Features** / **`--constraint`**. |
 
 **Practical patterns**
 
-- **Simplest:** Server sees **all** Wooly node GPUs; shared **`client-config.toml`** leaves **`GPUS` unset** (or set once per site after you verify behavior with your Slurm driver ordering). Slurm still enforces **which node and how many GPUs** the job requested; confirm in testing that client and Slurm agree on device mapping (see [NVIDIA `CUDA_DEVICE_ORDER`](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars) if indices disagree).
-- **Explicit client partition:** Set **`GPUS`** in **`client-config.toml`** (or a per-job config) to the **server indices** that correspond to the GPUs Slurm gave this allocation. Required when the default client behavior does not match how you split GPUs across jobs.
-- **Hard server partition:** Run the server with **fewer GPUs visible** at container start so it **cannot** touch the rest of the node (for example a Wooly pool on two of eight cards). Client **`GPUS`** then refers only to **that server’s** renumbered or visible set.
-
-Slurm partitioning and Wooly **`GPUS`** both slice access; mismatches show up as wrong GPU, failures, or cross-job interference. Document your site’s chosen pattern for users.
+- Align **`woolyai_vram`** **`Count`** and TaskProlog-derived **`WOOLYAI_RESERVED_VRAM_MIB`** with Wooly server capacity.
+- Use **`wooly-client-config.toml`** **`GPUS`** when client defaults do not match your host topology.
+- Do not use exclusive **`--gres=gpu:N`** on Wooly queues if you want non-exclusive GPU tracking; use **Features** for “at least N GPUs” instead.
 
 :::info One consumption model per GPU
 
@@ -63,7 +89,7 @@ Do not run WoolyAI multiplexing on the same physical GPU as unrelated exclusive 
 
 ## Prerequisites
 
-- Slurm scheduling GPU resources the way your site expects (partitions, `--gres`, `--gpus-per-node`, etc.).
+- Slurm scheduling GPU resources the way your site expects (partitions, **`--gres`** including **`woolyai_vram`** for Wooly VRAM pools, **`--constraint`** for node **Features**, etc.).
 - NVIDIA drivers on GPU nodes, plus Docker (or your chosen runtime) for WoolyAI Server.
 - A WoolyAI license and server image. See [Set up the WoolyAI Server](/server/setup).
 
@@ -83,89 +109,110 @@ On every Slurm GPU node that will run WoolyAI jobs:
 
 **Cluster administrators** should install the client on **every GPU node** that runs WoolyAI jobs, before users submit work. Do not rely on jobs downloading or installing libraries at execution time.
 
-1. Download the libraries from [WoolyAI client libraries releases](https://github.com/Wooly-AI/woolyai-client-libraries/releases) and place them in a **stable path on the node** (for example `/opt/woolyai/lib` or your environment-modules tree).
-2. Install a **`client-config.toml`** on the node (or one per node if addresses differ) with defaults for that host:
-   - **`ADDRESS` and `PORT`** (or **controller** settings) so clients reach the WoolyAI Server on that node.
-   - Optional **`GPUS`**: comma-separated **server-side** GPU indices for clients that should target specific cards. Omit **`GPUS`** for the default client behavior (see [client setup](/client/setup)). If you partition GPUs with Slurm or with a **server** that only sees a subset of the node, set **`GPUS`** (or use multiple config files) so it matches your allocation model; see [Partitioning GPUs](#partitioning-gpus-server-scope-client-gpus-and-slurm) above.
+1. Follow the instructions in [Install WoolyAI client libraries](/client/setup) to install the client libraries on the node up until the step after where you create the `wooly-client-config.toml` file. You don't need to run a docker container for slurm.
+   - We highly recommend placing the client libraries in `/usr/local/lib/woolyai` and the client config in `/usr/local/etc/`.
 
-Step-by-step install options (containers vs host paths) are in [Install WoolyAI client libraries](/client/setup). For Slurm, treat the **compute node filesystem** as the install target unless your site builds Apptainer/Singularity images that already include the same library build.
-
-The next section shows how to set **`LD_LIBRARY_PATH`** and **`WOOLYAI_CLIENT_CONFIG`** for every job step with **TaskProlog**, so users do not need to export them in batch scripts.
+The next section shows how **TaskProlog** injects Wooly-related environment (for example **`WOOLYAI_CLIENT_CONFIG`**, **`LD_PRELOAD`**, **`LIB_WOOLY_PATH`**) via **stdout `export` lines** only when jobs opt in with a **custom variable** at submit time, so users do not set those variables manually in every script.
 
 ## 3. Inject the client environment with TaskProlog
 
-Use Slurm’s **`TaskProlog`** so every job step gets **`LD_LIBRARY_PATH`** and **`WOOLYAI_CLIENT_CONFIG`** without users exporting them in batch scripts. Slurm runs the task prolog as the job’s user and parses **standard output**; lines of the form **`export name=value`** become environment variables for that task (see the [Prolog and Epilog Guide](https://slurm.schedmd.com/prolog_epilog.html)).
+Slurm’s **`TaskProlog`** is one script path in **`slurm.conf`**; it runs for **every** job step on that node. To apply Wooly’s environment **only** when a job asks for it, the script checks a **custom variable** the user sets at submit time (here **`USE_WOOLY=1`**). If the variable is unset or not `1`, the script exits without printing anything and the task environment is unchanged.
 
-1. On each WoolyAI GPU node, install an executable script (example path **`/etc/slurm/woolyai-task-prolog.sh`**) owned by root, mode `0755`.
+Slurm runs the task prolog as the job’s user and parses **standard output**; lines of the form **`export name=value`** become environment variables for that task (see the [Prolog and Epilog Guide](https://slurm.schedmd.com/prolog_epilog.html)). **Plain `export` inside the prolog shell does nothing for the job**—only text **printed to stdout** is applied. Use **`echo "export VAR=..."`** (and send any debug text to **stderr**, e.g. **`echo "..." >&2`**, so it is not mistaken for an assignment).
+
+**Users opt in** by passing the variable into the job environment, for example:
+
+```bash
+#SBATCH --export=ALL,USE_WOOLY=1
+```
+
+Use **`ALL`** (or whatever your site needs) so the job keeps its usual environment; append **`,USE_WOOLY=1`** so TaskProlog sees it. If your cluster uses a restrictive default for **`--export`**, document the correct form for your submitters.
+
+Submitters request VRAM with **`--gres=woolyai_vram:<MiB>`**; TaskProlog sets **`WOOLYAI_RESERVED_VRAM_MIB`** from that allocation (see example below). Do not rely on users exporting **`WOOLYAI_RESERVED_VRAM_MIB`** manually unless you skip **`woolyai_vram`** GRES.
+
+1. On each WoolyAI GPU node, install a root-owned script at **`/usr/local/bin/woolyai-task-prolog.sh`** (or your path) and make it executable (**`chmod 755`**).
 2. In **`slurm.conf`** on those nodes, set a fully qualified path (Slurm does not search `PATH` for prolog programs):
 
    ```text
-   TaskProlog=/etc/slurm/woolyai-task-prolog.sh
+   TaskProlog=/usr/local/bin/woolyai-task-prolog.sh
    ```
 
    If only some nodes run WoolyAI, use a **node-specific** `slurm.conf` fragment, **`Include`**, or your config management so **`TaskProlog`** is set only on those hosts.
 
-3. Example script: adjust paths and optional partition allowlist for your site.
+3. Example script: adjust paths and the opt-in variable name if your site standardizes something else (for example **`WOOLYAI_ENABLE`**).
 
-   ```bash
-   #!/bin/bash
-   # WoolyAI TaskProlog: prepend client libs and point at admin-installed config.
+```bash
+#!/usr/bin/env bash
+set -eo pipefail
+# WoolyAI TaskProlog: inject env only when the job requested Wooly (USE_WOOLY=1).
+# Slurm parses stdout for "export name=value" lines; do not use plain export alone.
 
-   # Optional: only set Wooly env on selected partitions (edit names).
-   # case "${SLURM_JOB_PARTITION:-}" in
-   #   gpu-wooly|wooly*) ;;
-   #   *) exit 0 ;;
-   # esac
+if [[ "${USE_WOOLY:-}" != "1" ]]; then
+  exit 0
+fi
 
-   WOOLYAI_LIB=/opt/woolyai/lib
-   WOOLYAI_CLIENT_CONFIG=/opt/woolyai/etc/client-config.toml
+# Map allocated woolyai_vram (MiB) -> WOOLYAI_RESERVED_VRAM_MIB.
+# VRAM is required for Wooly jobs: if mapping fails, fail TaskProlog and cancel task.
+_woolyai_vram_mib=""
+if [[ -z "${SLURM_JOB_ID:-}" ]] || ! command -v scontrol >/dev/null 2>&1; then
+  echo "ERROR: cannot resolve woolyai_vram allocation (missing SLURM_JOB_ID or scontrol)." >&2
+  exit 1
+fi
+_job_line=$(scontrol show job "${SLURM_JOB_ID}" -o 2>/dev/null || true)
+_woolyai_vram_mib=""
+if [[ "${_job_line}" =~ AllocTRES=[^[:space:]]*gres/woolyai_vram[:=]([0-9]+) ]]; then
+  _woolyai_vram_mib="${BASH_REMATCH[1]}"
+elif [[ "${_job_line}" =~ TresPerNode=[^[:space:]]*gres/woolyai_vram[:=]([0-9]+) ]]; then
+  _woolyai_vram_mib="${BASH_REMATCH[1]}"
+fi
+if [[ -z "${_woolyai_vram_mib}" ]]; then
+  echo "ERROR: woolyai_vram allocation not found for job ${SLURM_JOB_ID}; refusing to run without WOOLYAI_RESERVED_VRAM_MIB." >&2
+  exit 1
+fi
+echo "export WOOLYAI_RESERVED_VRAM_MIB=${_woolyai_vram_mib}"
 
-   # Prepend Wooly libs; $LD_LIBRARY_PATH expands when this script runs (user task env).
-   echo "export LD_LIBRARY_PATH=${WOOLYAI_LIB}:${LD_LIBRARY_PATH:-}"
-   echo "export WOOLYAI_CLIENT_CONFIG=${WOOLYAI_CLIENT_CONFIG}"
-   ```
+echo "export WOOLYAI_DEBUG=${WOOLYAI_DEBUG:-}"
+echo "export WOOLYAI_CLIENT_CONFIG=/usr/local/etc/wooly-client-config.toml"
+echo "export LD_PRELOAD=/usr/local/lib/libpreload_dlopen.so"
+echo "export LIB_WOOLY_PATH=/usr/local/lib"
+```
 
-   Slurm reads those **`export`** lines from stdout and applies them to the task, as in the [SchedMD TaskProlog example](https://slurm.schedmd.com/prolog_epilog.html).
+   Slurm reads those **`export`** lines from **stdout** and applies them to the task, as in the [SchedMD TaskProlog example](https://slurm.schedmd.com/prolog_epilog.html).
 
 4. Reload or restart **`slurmd`** after changing **`TaskProlog`**.
 
-If you do not use TaskProlog, users can still set **`LD_LIBRARY_PATH`** and **`WOOLYAI_CLIENT_CONFIG`** in the job script, or you can use **environment modules** or **SPANK** on the node.
+You can **layer** an extra check (for example an allowlist of **`SLURM_JOB_PARTITION`**) inside the same script if you want defense in depth.
 
-**`GPUS` in `client-config.toml`** selects **server GPU indices**, not Slurm job IDs. It must stay consistent with **which GPUs the server manages** and **Slurm’s `CUDA_VISIBLE_DEVICES`** for that step whenever you partition by job. See [Partitioning GPUs](#partitioning-gpus-server-scope-client-gpus-and-slurm).
+This guide assumes TaskProlog is used to inject Wooly environment. If your site does not use TaskProlog, provide equivalent automatic injection with **environment modules** or **SPANK** (including **`WOOLYAI_CLIENT_CONFIG`**, **`LD_PRELOAD`**, **`LIB_WOOLY_PATH`**, and **`WOOLYAI_RESERVED_VRAM_MIB`**).
 
 ## 4. Example batch script
 
-Adjust partition names and GRES for your site. With **TaskProlog** configured as in section 3, you do not need **`export LD_LIBRARY_PATH`** or **`export WOOLYAI_CLIENT_CONFIG`** in the script.
+Adjust partition names for your site. With **TaskProlog** configured as in section 3, Wooly jobs need **`USE_WOOLY=1`** in the job environment (via **`#SBATCH --export`**) but do not need **`LD_PRELOAD`**, **`LIB_WOOLY_PATH`**, or **`WOOLYAI_CLIENT_CONFIG`** in the script body. Request VRAM with **`--gres=woolyai_vram:<MiB>`**; TaskProlog sets **`WOOLYAI_RESERVED_VRAM_MIB`**. For multi-GPU hosts (e.g. NCCL), add **`--constraint=woolyai_gpu_count_2`** if your admins defined that **Feature**.
 
 ```bash
 #!/bin/bash
 #SBATCH --job-name=wooly-test
 #SBATCH --partition=gpu-wooly
+#SBATCH --export=ALL,USE_WOOLY=1,WOOLYAI_DEBUG=1
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:1
+#SBATCH --ntasks=1
+#SBATCH --gres=woolyai_vram:40000
 #SBATCH --time=01:00:00
 
 set -euo pipefail
 
-# Slurm sets CUDA_VISIBLE_DEVICES for the job. If client-config.toml sets GPUS,
-# those indices are on the server; they must match how you partition this job.
+# wooly-client-config.toml GPUS (optional) targets server GPU indices.
 
 python your_training_or_inference.py
 ```
 
 If jobs run **inside Apptainer/Singularity**, the image must see the same libraries and config (bake them into the image or **bind-mount** the admin directories from the host). The administrator still provisions those bits on the node or in the approved image; the job script should not perform a fresh client install.
 
-## 5. Optional integrations
+## 5. Slurm cgroups and device policy
+
+**Wooly does not use `CUDA_VISIBLE_DEVICES` for server-side assignment**; do not center Wooly capacity docs on that variable. Slurm may still apply **device cgroups** to job steps depending on partition settings and whether jobs request standard **`gpu`** GRES. Document your site’s policy for Wooly GPU nodes (for example how **`task/cgroup`** interacts with **`/dev/nvidia*`** on a Wooly-only partition). That policy is **orthogonal** to **`woolyai_vram`** scheduling.
+
+## 6. Optional integrations
 
 - **Cluster Prolog / Epilog** (`slurm.conf` **Prolog** / **Epilog**, not TaskProlog): Run as root on the node for health checks, logging, or cleanup. See the [Prolog and Epilog Guide](https://slurm.schedmd.com/prolog_epilog.html).
-- **Custom GRES**: If you need Slurm to track “Wooly seats” or VRAM budgets separately from physical GPUs, you can define an additional GRES type and keep its counts aligned with policy (and with WoolyAI Server capacity). This is site-specific and may require **job submit plugins** or documentation so users request resources consistently.
 - **WoolyAI Controller**: If you use the controller for routing, configure the client’s `CONTROLLER_URL` and related fields per [client setup](/client/setup) instead of direct `ADDRESS` / `PORT`.
-
-## Troubleshooting
-
-- **Wooly env vars missing in the job**: Confirm **`TaskProlog`** is set in **`slurm.conf`** on the compute node, the script path is absolute and executable, and **`slurmd`** was restarted. A non-zero exit from the task prolog **cancels the task**; check **`slurmd`** logs. If you use a partition guard in the script, confirm the job’s **`SLURM_JOB_PARTITION`** matches.
-- **Wrong GPU or no GPU**: Compare **which GPUs the server** was started with (Docker **`--gpus`**, server-side **`CUDA_VISIBLE_DEVICES`**), **client `GPUS`** (server indices), Slurm’s **`CUDA_VISIBLE_DEVICES`**, and **`gres.conf` / `AutoDetect` ordering**. See [NVIDIA notes on `CUDA_DEVICE_ORDER=PCI_BUS_ID`](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars) if indices mismatch across tools. Review [Partitioning GPUs](#partitioning-gpus-server-scope-client-gpus-and-slurm).
-- **Connection refused to server**: Confirm server listen address, firewall, and whether jobs use host networking versus container bridge.
-- **Conflict with other workloads**: Ensure WoolyAI partitions do not share GPUs with exclusive non-Wooly jobs or with Slurm MPS/shard on the same device.
-
-For WoolyAI-specific issues, see [Server troubleshooting](/server/troubleshooting) and [Client troubleshooting](/client/troubleshooting).

@@ -1,18 +1,14 @@
 ---
-slug: /client/setup-ml-containers
+slug: /client/setup
 ---
 
 ### Prerequisites
 
-- A Wooly Controller URL (optional; you can use a direct connection to the GPU node running the WoolyAI Server).
-- Docker installed on the machine where you will run you containers. It must have a GPU available to mount into the container.
+- NVIDIA GPU with CUDA 12.9.x or 13.x installed.
   
-***Note*** : There is an option to also run your ML CUDA containers(with WoolyAI Client libraries installed inside) on CPU Only infrastructure without any GPUs. In such a deployment the GPU execution requests are sent over the network to your GPU nodes running with the WoolyAI Server.
-
 ### Setup
 
 1. Create a directory for the client libraries to be stored in: `mkdir woolyai-libraries`
-
 
 2. Download the latest version of the WoolyAI Client libraries from [https://github.com/Wooly-AI/woolyai-client-libraries/releases](https://github.com/Wooly-AI/woolyai-client-libraries/releases) into the `woolyai-libraries` directory.
 
@@ -25,7 +21,11 @@ slug: /client/setup-ml-containers
     curl -O -L https://github.com/Wooly-AI/woolyai-client-libraries/releases/download/nvidia-arm64-0.2.1/libwooly.so
     ```
 
-3. **Alongside** the `woolyai-libraries` directory, create a `wooly-client-config.toml` file:
+3. **Alongside** the `woolyai-libraries` directory, create a `~/.config/wooly/config` file:
+
+:::info
+You can set WOOLYAI_CLIENT_CONFIG to the path of the config file to use a different path.
+:::
 
     ```bash
     # PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
@@ -79,42 +79,20 @@ slug: /client/setup-ml-containers
 
 4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
 
-3. Start your container, and make sure the folder is mounted properly
-
+3. Set the environment variables for WoolyAI:
     ```bash
-    # run the container
-    docker run -dit \
-        --restart unless-stopped \
-        --network=host \
-        --pull always \
-        --name woolyai-container \
-        --gpus all \
-        -v "$(pwd)/woolyai-libraries":"/woolyai" \
-        -v "$(pwd)/wooly-client-config.toml":"/root/.config/wooly/config" \
-        nvidia/cuda:12.9.1-cudnn-devel-ubuntu24.04
+    export LD_PRELOAD="${PWD}/woolyai-libraries/libpreload_dlopen.so"
+    export LIB_WOOLY_PATH="${PWD}/woolyai-libraries/"
     ```
 
-4. Exec into the container and set the environment variables for WoolyAI:
-    ```bash
-    docker exec -it woolyai-container bash
-    ```
+5. Create a venv and then install torch and test script (`test.py`):
 
     ```bash
-    export DEBIAN_FRONTEND="noninteractive"
-    apt update && apt install -y vim python3 python3-pip
-    
-    mkdir -p /etc/pip.conf.d
-    echo '[global]' > /etc/pip.conf
-    echo 'break-system-packages = true' >> /etc/pip.conf
+    python3 -m venv woolyai-venv
+    source woolyai-venv/bin/activate
     pip install --index-url https://download.pytorch.org/whl/cu129 'torch>=2.6'
     pip install numpy
-
-    # These exports are required to enable WoolyAI. Otherwise you will be hitting the main server GPU.
-    export LD_PRELOAD="/woolyai/libpreload_dlopen.so"
-    export LIB_WOOLY_PATH="/woolyai/"
     ```
-
-5. Create a test script (`test.py`):
 
     ```python
     import torch
@@ -154,6 +132,4 @@ slug: /client/setup-ml-containers
 
 ## Notes
 
-- When running ML CUDA Container(with WoolyAI Client libraries installed inside) on remotely connected CPU only machines and with kernels executing on remote GPU, the model weights are transferred over the network to the GPU VRAM and also the commands(kernel) to run on model weights.
 - Set the PRIO flag in the config file to assign a priority from 0 (highest priority) to 4 (lowest priority) for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes.
-
