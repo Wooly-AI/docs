@@ -54,6 +54,34 @@
     },
     {
       type: 'category',
+      label: 'WoolyAI Client Libraries',
+      collapsed: true,
+      items: [
+        {
+          type: 'category',
+          label: 'Installation',
+          collapsed: false,
+          items: [
+            'Root/Client/Install WoolyAI Client Libraries',
+            'Root/Client/Install WoolyAI Client Libraries in ML Containers',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Features',
+          collapsed: false,
+          items: [
+            'Root/Client/Weight Dedup',
+            'Root/Client/VRAM Overcommit',
+          ],
+        },
+        'Root/Client/Troubleshooting',
+        'Root/Client/Release Notes',
+        'Root/Client/Acknowledgments',
+      ],
+    },
+    {
+      type: 'category',
       label: 'WoolyAI Server',
       collapsed: true,
       items: [
@@ -89,35 +117,7 @@
         'Root/Controller/Release Notes',
         'Root/Controller/Acknowledgments',
       ],
-    },
-    {
-      type: 'category',
-      label: 'WoolyAI Client Libraries',
-      collapsed: true,
-      items: [
-        {
-          type: 'category',
-          label: 'Installation',
-          collapsed: false,
-          items: [
-            'Root/Client/Install WoolyAI Client Libraries',
-            'Root/Client/Install WoolyAI Client Libraries in ML Containers',
-          ],
-        },
-        {
-          type: 'category',
-          label: 'Features',
-          collapsed: false,
-          items: [
-            'Root/Client/Weight Dedup',
-            'Root/Client/VRAM Overcommit',
-          ],
-        },
-        'Root/Client/Troubleshooting',
-        'Root/Client/Release Notes',
-        'Root/Client/Acknowledgments',
-      ],
-    },
+    }
   ]
 };
 

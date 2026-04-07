@@ -54,6 +54,8 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
+          /** Shared MDX fragments included from other pages (not standalone routes). */
+          exclude: ['**/partials/**'],
           lastVersion: 'current',
           versions: {
             current: {

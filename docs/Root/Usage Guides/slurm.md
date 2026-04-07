@@ -57,14 +57,14 @@ For Wooly queues, use a VRAM pool (`woolyai_vram`) instead of exclusive per-devi
 - Request VRAM with `--gres=woolyai_vram:<MiB>` (example: `--gres=woolyai_vram:40000`).
 - Do **not** set `WOOLYAI_RESERVED_VRAM_MIB` manually; TaskProlog should derive it from the allocation.
 
-## 2. Require minimum host GPU count (optional)
+### Require minimum host GPU count (optional)
 
 If a workload needs at least N physical GPUs on the host (for example NCCL) without exclusive `--gres=gpu:N`:
 
 - Admins define features such as `woolyai_gpu_count_1`, `woolyai_gpu_count_2`.
 - Users set `#SBATCH --constraint=woolyai_gpu_count_2` and still request `--gres=woolyai_vram:...`.
 
-## 3. Run WoolyAI Server on each Wooly GPU node
+## 2. Run WoolyAI Server on each Wooly GPU node
 
 On every Wooly node:
 
@@ -74,7 +74,7 @@ On every Wooly node:
 
 Run the server as a persistent node service (daemon/systemd), not inside each `sbatch` job, unless your site intentionally uses per-job server lifecycle.
 
-## 4. Install Wooly client libraries on each Wooly GPU node
+## 3. Install Wooly client libraries on each Wooly GPU node
 
 Admins install once on each Wooly node before users run jobs.
 
@@ -83,7 +83,7 @@ Admins install once on each Wooly node before users run jobs.
    - libs: `/usr/local/lib/woolyai`
    - config: `/usr/local/etc/`
 
-## 5. Inject environment with `TaskProlog`
+## 4. Inject environment with `TaskProlog`
 
 Use `TaskProlog` to inject Wooly env vars only for opted-in jobs.
 

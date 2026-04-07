@@ -1,0 +1,53 @@
+```bash
+# PRIO: The priority the task gets on the server (default: 0, which is the highest priority)
+## Assign a priority from 0 to 4 for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU.
+# PRIO = 0
+
+# GPU_COUNT: (Multi-GPU mode) Count of GPUs to execute the client's task across (default: 1)
+# GPU_COUNT = 2
+
+###################
+# Controller config
+###################
+
+# Note: If using the controller, you need to disable ADDRESS and PORT in the config
+
+# CONTROLLER_URL: The URL of the controller
+## When CONTROLLER_URL is commented out, the client will go directly to the server and not use a controller
+## NOTE CONTROLLER ONLY: Without REQUIRED_VRAM, you'll see "controller assignment failed: failed to parse response JSON: [json.exception.parse_error.101] parse error at line 1, column 5: syntax error while parsing value - invalid literal; last read: '400 B'; expected end of input"
+# CONTROLLER_URL=http://127.0.0.1:8080
+
+# CONTROLLER_NODE_GROUP_IDS: The IDs of the node groups to use for the client
+# CONTROLLER_NODE_GROUP_IDS = nvidia,fast-networking
+
+# REQUIRED_VRAM (required): Required VRAM for the client in MB
+# REQUIRED_VRAM = 50000
+
+# GPU_MODE: This determines if this client request needs exclusive use of the GPU or not (default: Shared)
+## Do not confuse with Multi-GPU mode (GPU_COUNT). This is to tell the controller whether to allow other tasks to be assigned alongside of it on the same GPU.
+# GPU_MODE = Exclusive
+
+########################
+# Controller-less config
+########################
+
+# ADDRESS: The direct server address to use for the client
+ADDRESS = 127.0.0.1
+# PORT: The server port to use for the client
+PORT = 10000
+# SSL: The SSL mode to use for the client
+SSL = DISABLE
+
+# GPUS: Comma-separated GPU indices as seen by WoolyAI Server (not your job scheduler).
+## Indices match the server's device list (often all GPUs on the node unless the server was started with a restricted CUDA_VISIBLE_DEVICES or Docker --gpus list).
+## When GPUS is commented out, the client will use a single gpu #0
+# GPUS = 0,1,2
+
+# WOOLYAI_WEIGHTS_DEDUP: Whether to deduplicate weights between clients on the same GPU; all clients need to have this set to use deduplication.
+## Default: false
+# WOOLYAI_WEIGHTS_DEDUP = true
+
+# WOOLYAI_SWAP_FROM_VRAM: Whether to swap weights from VRAM to disk when the GPU is full
+## Default: 1
+# WOOLYAI_SWAP_FROM_VRAM = 1
+```

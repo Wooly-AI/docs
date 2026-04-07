@@ -1,0 +1,56 @@
+---
+slug: /client/setup
+---
+
+import ClientLibCurlDownloads from './partials/client-lib-curl-downloads.mdx';
+import ClientConfigFileBody from './partials/client-config-file-body.mdx';
+import ClientTorchTestScript from './partials/client-torch-test-script.mdx';
+import ClientTorchRunOutput from './partials/client-torch-run-output.mdx';
+
+## Prerequisites
+
+- NVIDIA GPU with CUDA 12.9.x or 13.x installed.
+
+## Setup
+
+1. Create a directory for the client libraries to be stored in: `mkdir woolyai-libraries`
+
+2. Download the latest version of the WoolyAI Client libraries from [https://github.com/Wooly-AI/woolyai-client-libraries/releases](https://github.com/Wooly-AI/woolyai-client-libraries/releases) into the `woolyai-libraries` directory.
+
+   <ClientLibCurlDownloads />
+
+3. **Alongside** the `woolyai-libraries` directory, create a `~/.config/wooly/config` file:
+
+:::info
+You can set WOOLYAI_CLIENT_CONFIG to the path of the config file to use a different path.
+:::
+
+   <ClientConfigFileBody />
+
+4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
+
+5. Set the environment variables for WoolyAI:
+
+    ```bash
+    export LD_PRELOAD="${PWD}/woolyai-libraries/libpreload_dlopen.so"
+    export LIB_WOOLY_PATH="${PWD}/woolyai-libraries/"
+    ```
+
+6. Create a venv and then install torch and test script (`test.py`):
+
+    ```bash
+    python3 -m venv woolyai-venv
+    source woolyai-venv/bin/activate
+    pip install --index-url https://download.pytorch.org/whl/cu129 'torch>=2.6'
+    pip install numpy
+    ```
+
+    <ClientTorchTestScript />
+
+7. Run the test:
+
+    <ClientTorchRunOutput />
+
+## Notes
+
+- Set the PRIO flag in the config file to assign a priority from 0 (highest priority) to 4 (lowest priority) for execution on a shared GPU pool. WoolyAI server uses the PRIO value to determine priority while allocating GPU compute core and VRAM resources for when there are concurrent jobs running on the same GPU. WoolyAI Controller uses PRIO value to schedule the Client request across GPU nodes.
