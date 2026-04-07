@@ -42,9 +42,15 @@ For Wooly queues, use a VRAM pool (`woolyai_vram`) instead of exclusive per-devi
    ```
 
    - `Count` is total schedulable MiB on that node.
-   - Run `slurmd -C` and merge reported `Gres=` values into `NodeName=` lines if required by your Slurm version.
+  
+3. Run `slurmd -C` and merge reported `Gres=` values into `NodeName=` lines if required by your Slurm version.
 
-3. Reload Slurm:
+  ```text
+  NodeName=spark-befc NodeAddr=99.87.000.00 State=UNKNOWN CPUs=20 Boards=1 SocketsPerBoard=1 CoresPerSocket=20 ThreadsPerCore=1 RealMemory=124610 Gres=woolyai_vram:120000
+  NodeName=spark-1977 NodeAddr=99.87.000.00 State=UNKNOWN CPUs=20 Boards=1 SocketsPerBoard=1 CoresPerSocket=20 ThreadsPerCore=1 RealMemory=124610 Gres=woolyai_vram:120000
+  ```
+
+4. Reload Slurm:
 
    ```bash
    scontrol reconfigure
