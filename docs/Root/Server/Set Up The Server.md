@@ -9,7 +9,7 @@ slug: /server/setup
 - Docker installed on the GPU host machine.
 - Choose the proper docker image from the [WoolyAI Server Docker Hub](https://hub.docker.com/r/woolyai/server/tags). We provide images for NVIDIA at specific driver versions. Generally, you use as close as possible to your
 
-### Setup
+## Setup
 
 1. Optional(Only needed for Model Weight Dedup feature) - Create a directory for the server VRAM cache.
 
@@ -38,16 +38,13 @@ LISTEN_ADDR = tcp::443
 # NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108
 # NODE_ADDRESS is the address of the node the client will connect to
 # NODE_ADDRESS = 127.0.0.1
-
-# Global cache behaviour: OFF, RECORD, or REPLAY (default).
-GLOBAL_CACHE_MODE = OFF
 ```
 
 3. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.
 
 4. Run the Container
 
-### NVIDIA
+## NVIDIA
 
 We provide multiple cuda versions for you to use. Be sure to the appropriate version for your GPU by checking the [WoolyAI Server Docker Hub](https://hub.docker.com/r/woolyai/server/tags). Currently, you can find 12.9.1 and 13.1.1.
 
@@ -62,6 +59,10 @@ docker run -d --name woolyai-server \
 -v "./woolyai-server-license.json:/home/automation/.wooly/license.json:ro" \
 woolyai/server:cuda12.9.1-latest
 ```
+
+:::info
+With **`--gpus all`**, the server sees **every GPU on the host** that Docker exposes. To attach to a **subset** only, narrow visibility before or at launch (for example **`CUDA_VISIBLE_DEVICES`** on the host, Docker **`--gpus "device=..."`**, or **`CUDA_VISIBLE_DEVICES`** inside the container). Wooly **client** libraries can further select devices with **`GPUS`** in **`wooly-client-config.toml`** (see [client setup](/client/setup)); on Slurm clusters, also see the [Slurm usage guide](/usage-guides/slurm) for `woolyai_vram`, features, and client `GPUS`.
+:::
 
 5. Check the logs with `docker logs woolyai-server` to make sure it started properly. You should see `"server listening on"` if it worked.
 

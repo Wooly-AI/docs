@@ -28,10 +28,12 @@ const config = {
   onBrokenLinks: 'throw',
 
   markdown: {
+    mermaid: true,
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
   },
+  themes: ['@docusaurus/theme-mermaid'],
 
   // Only noIndex when on staging branch
   noIndex: process.env.GITHUB_REF_NAME === 'staging' || process.env.BRANCH === 'staging',
@@ -52,6 +54,8 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
+          /** Shared MDX fragments included from other pages (not standalone routes). */
+          exclude: ['**/partials/**'],
           lastVersion: 'current',
           versions: {
             current: {
@@ -143,6 +147,12 @@ const config = {
       prism: {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
+      },
+      // Only `##` appears in the in-doc table of contents (right rail / mobile).
+      // Keeps the nav from listing every `###` subsection.
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 2,
       },
       algolia: process.env.NODE_ENV === 'production'
         ? {
