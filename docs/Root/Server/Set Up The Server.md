@@ -38,9 +38,6 @@ LISTEN_ADDR = tcp::443
 # NODE_ID = 159e6f46-9398-11f0-bca3-6b6ea1493108
 # NODE_ADDRESS is the address of the node the client will connect to
 # NODE_ADDRESS = 127.0.0.1
-
-# Global cache behaviour: OFF, RECORD, or REPLAY (default).
-GLOBAL_CACHE_MODE = OFF
 ```
 
 3. Make sure you have the `woolyai-server-license.json` file in the current directory. You can get it from WoolyAI support.

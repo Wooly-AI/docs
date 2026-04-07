@@ -81,6 +81,8 @@
       items: [
         'Root/Client/Install WoolyAI Client Libraries',
         'Root/Client/Install WoolyAI Client Libraries in ML Containers',
+        'Root/Client/Weight Dedup',
+        'Root/Client/VRAM Overcommit',
         'Root/Client/Troubleshooting',
         'Root/Client/Release Notes',
         'Root/Client/Acknowledgments',

@@ -72,9 +72,13 @@ slug: /client/setup-ml-containers
     ## When GPUS is commented out, the client will use a single gpu #0
     # GPUS = 0,1,2
 
-    # WOOLYAI_WEIGHTS_DEDUP: Whether to deduplicate weights between clients on the same GPU
+    # WOOLYAI_WEIGHTS_DEDUP: Whether to deduplicate weights between clients on the same GPU; all clients need to have this set to use deduplication.
     ## Default: false
     # WOOLYAI_WEIGHTS_DEDUP = true
+
+    # WOOLYAI_SWAP_FROM_VRAM: Whether to swap weights from VRAM to disk when the GPU is full
+    ## Default: 1
+    # WOOLYAI_SWAP_FROM_VRAM = 1
     ```
 
 4. Update the ADDRESS and PORT if necessary. Keep it default if you are running on the same machine as the WoolyAI Server.
