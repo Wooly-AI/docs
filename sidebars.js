@@ -44,7 +44,7 @@
     {
       type: 'category',
       label: 'Usage Guides',
-      collapsed: true,
+      collapsed: false,
       items: ['Root/Usage Guides/slurm'],
     },
     {
@@ -57,7 +57,18 @@
       label: 'WoolyAI Server',
       collapsed: true,
       items: [
-        'Root/Server/Set Up The Server',
+        {
+          type: 'category',
+          label: 'Installation',
+          collapsed: false,
+          items: ['Root/Server/Set Up The Server'],
+        },
+        {
+          type: 'category',
+          label: 'Guides',
+          collapsed: false,
+          items: ['Root/Server/Using the VRAM Model Cache Tool'],
+        },
         'Root/Server/Troubleshooting',
         'Root/Server/Release Notes',
         'Root/Server/Acknowledgments',
@@ -68,7 +79,12 @@
       label: 'WoolyAI Controller',
       collapsed: true,
       items: [
-        'Root/Controller/Set Up The Controller',
+        {
+          type: 'category',
+          label: 'Installation',
+          collapsed: false,
+          items: ['Root/Controller/Set Up The Controller'],
+        },
         'Root/Controller/Troubleshooting',
         'Root/Controller/Release Notes',
         'Root/Controller/Acknowledgments',
@@ -79,10 +95,24 @@
       label: 'WoolyAI Client Libraries',
       collapsed: true,
       items: [
-        'Root/Client/Install WoolyAI Client Libraries',
-        'Root/Client/Install WoolyAI Client Libraries in ML Containers',
-        'Root/Client/Weight Dedup',
-        'Root/Client/VRAM Overcommit',
+        {
+          type: 'category',
+          label: 'Installation',
+          collapsed: false,
+          items: [
+            'Root/Client/Install WoolyAI Client Libraries',
+            'Root/Client/Install WoolyAI Client Libraries in ML Containers',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Features',
+          collapsed: false,
+          items: [
+            'Root/Client/Weight Dedup',
+            'Root/Client/VRAM Overcommit',
+          ],
+        },
         'Root/Client/Troubleshooting',
         'Root/Client/Release Notes',
         'Root/Client/Acknowledgments',

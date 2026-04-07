@@ -2,11 +2,11 @@
 slug: /client/setup
 ---
 
-### Prerequisites
+## Prerequisites
 
 - NVIDIA GPU with CUDA 12.9.x or 13.x installed.
   
-### Setup
+## Setup
 
 1. Create a directory for the client libraries to be stored in: `mkdir woolyai-libraries`
 

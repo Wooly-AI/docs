@@ -2,14 +2,14 @@
 slug: /client/setup-ml-containers
 ---
 
-### Prerequisites
+## Prerequisites
 
 - A Wooly Controller URL (optional; you can use a direct connection to the GPU node running the WoolyAI Server).
 - Docker installed on the machine where you will run you containers. It must have a GPU available to mount into the container.
   
 ***Note*** : There is an option to also run your ML CUDA containers(with WoolyAI Client libraries installed inside) on CPU Only infrastructure without any GPUs. In such a deployment the GPU execution requests are sent over the network to your GPU nodes running with the WoolyAI Server.
 
-### Setup
+## Setup
 
 1. Create a directory for the client libraries to be stored in: `mkdir woolyai-libraries`
 

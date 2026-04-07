@@ -146,6 +146,12 @@ const config = {
         theme: prismThemes.github,
         // darkTheme: prismThemes.dracula,
       },
+      // Only `##` appears in the in-doc table of contents (right rail / mobile).
+      // Keeps the nav from listing every `###` subsection.
+      tableOfContents: {
+        minHeadingLevel: 2,
+        maxHeadingLevel: 2,
+      },
       algolia: process.env.NODE_ENV === 'production'
         ? {
             appId: 'U0AILZ2DL1',

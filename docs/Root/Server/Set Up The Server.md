@@ -9,7 +9,7 @@ slug: /server/setup
 - Docker installed on the GPU host machine.
 - Choose the proper docker image from the [WoolyAI Server Docker Hub](https://hub.docker.com/r/woolyai/server/tags). We provide images for NVIDIA at specific driver versions. Generally, you use as close as possible to your
 
-### Setup
+## Setup
 
 1. Optional(Only needed for Model Weight Dedup feature) - Create a directory for the server VRAM cache.
 
@@ -44,7 +44,7 @@ LISTEN_ADDR = tcp::443
 
 4. Run the Container
 
-### NVIDIA
+## NVIDIA
 
 We provide multiple cuda versions for you to use. Be sure to the appropriate version for your GPU by checking the [WoolyAI Server Docker Hub](https://hub.docker.com/r/woolyai/server/tags). Currently, you can find 12.9.1 and 13.1.1.
 
@@ -61,7 +61,7 @@ woolyai/server:cuda12.9.1-latest
 ```
 
 :::info
-With **`--gpus all`**, the server sees **every GPU on the host** that Docker exposes. To attach to a **subset** only, narrow visibility before or at launch (for example **`CUDA_VISIBLE_DEVICES`** on the host, Docker **`--gpus "device=..."`**, or **`CUDA_VISIBLE_DEVICES`** inside the container). Wooly **client** libraries can further select devices with **`GPUS`** in **`wooly-client-config.toml`** (see [client setup](/client/setup)); on Slurm clusters, also see [Partitioning GPUs](/usage-guides/slurm#partitioning-gpus-server-scope-client-gpus-and-slurm) in the Slurm usage guide.
+With **`--gpus all`**, the server sees **every GPU on the host** that Docker exposes. To attach to a **subset** only, narrow visibility before or at launch (for example **`CUDA_VISIBLE_DEVICES`** on the host, Docker **`--gpus "device=..."`**, or **`CUDA_VISIBLE_DEVICES`** inside the container). Wooly **client** libraries can further select devices with **`GPUS`** in **`wooly-client-config.toml`** (see [client setup](/client/setup)); on Slurm clusters, also see the [Slurm usage guide](/usage-guides/slurm) for `woolyai_vram`, features, and client `GPUS`.
 :::
 
 5. Check the logs with `docker logs woolyai-server` to make sure it started properly. You should see `"server listening on"` if it worked.
