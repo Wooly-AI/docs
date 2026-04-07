@@ -2,8 +2,6 @@
 slug: /client/vram-overcommit
 ---
 
-## VRAM Overcommit
-
 VRAM Overcommit is a feature that allows you to overcommit the VRAM of the GPU. This is useful for reducing memory usage and improving performance.
 
 ## How to use vram overcommit
