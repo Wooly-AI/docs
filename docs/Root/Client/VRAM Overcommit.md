@@ -83,4 +83,15 @@ metadata:
 > `woolyai.com/swap-from-vram`, so you should set the annotation instead of
 > manually adding the env var in pod spec.
 
+### WoolyAI Controller
+
+[Official Documentation](/controller/setup)
+
+WoolyAI Controller is a component that manages the WoolyAI Client. It is responsible for managing the WoolyAI Client and the WoolyAI Server.
+
+WoolyAI Controller uses a node-level **vram-overcommit-percent** policy to place more workloads per GPU than physical VRAM alone would allow. In practice, the percentage is extra schedulable headroom per GPU:
+
+- `0` means no extra headroom (strict physical VRAM).
+- `20` means scheduler can use up to `120%` of total VRAM for swappable jobs.
+- `50` means scheduler can use up to `150%`, and so on.
 ---
