@@ -25,7 +25,9 @@ Fine-tuned deltas or mutable overlays
 
 ## When to use weight dedup
 Multiple inference stacks serving the same base model
+
 Multi-team environments with repeated model families
+
 LoRA-style deployments where the base model is shared and only lightweight task-specific state differs
   
 ## How to use weight dedup
