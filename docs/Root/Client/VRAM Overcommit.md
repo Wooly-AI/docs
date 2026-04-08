@@ -39,7 +39,7 @@ This reduces starvation and helps maintain more predictable behavior across mult
 
 ## How to Use VRAM Overcommit
 
-By default, the VRAM Overcommit is enabled in every WoolyAI Client. You can set the `WOOLYAI_SWAP_FROM_VRAM` environment variable to `0` in the WoolyAI Client configuration file if you want to disable the VRAM Overcommit.
+By default, the swap is enabled in every WoolyAI Client. You can set the `WOOLYAI_SWAP_FROM_VRAM` environment variable to `0` in the WoolyAI Client configuration file if you want to disable the VRAM Overcommit and swap.
 
 ### WoolyAI GPU Operator
 
