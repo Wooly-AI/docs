@@ -88,7 +88,7 @@ helm upgrade woolyai charts/woolyai-gpu-operator \
 kubectl label node <gpu-node> woolyai.com/vram-overcommit-percent=50 --overwrite
 ```
 
-### WoolyAI Controller (non-Kubernetes routing)
+### WoolyAI Controller
 
 Use this path when clients and servers connect to the **standalone WoolyAI Controller** (Docker or Kubernetes deployment from the [controller setup](/controller/setup) guide). Overcommit is stored in the controller and applied when the controller schedules tasks onto registered GPU nodes.
 
