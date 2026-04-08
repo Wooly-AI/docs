@@ -43,6 +43,8 @@ By default, the VRAM Overcommit is enabled in every WoolyAI Client. You can set 
 
 ### WoolyAI GPU Operator
 
+[Official Documentation](https://github.com/Wooly-AI/woolyai-gpu-operator/blob/main/README.md)
+
 WoolyAI uses a node-level **vram-overcommit-percent** policy to place more
 workloads per GPU than physical VRAM alone would allow. In practice, the
 percentage is extra schedulable headroom per GPU:
