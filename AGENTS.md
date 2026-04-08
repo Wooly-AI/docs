@@ -1,0 +1,1 @@
+- No em-dash in text.

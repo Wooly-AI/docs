@@ -47,19 +47,19 @@ Once deployed, you will find the `30422` NATS port you'll need to point your Woo
 
 Once running, It will display a dashboard with information about the GPU nodes running the WoolyAI Servers, ML jobs/tasks, and GPU resource metrics like Utilization and Starvation(WoolyAI custom metric) percentages. Along with the Dashboard, you'll find Tasks, Nodes, and Groups. 
 
-### **Tasks**
+### Tasks
 
 ![Tasks](/img/controller-tasks.png)
 
 This is where you can see all the GPU execution requests from your ML CUDA containers running with WoolyAi Client libraries. Task list shows all running jobs on the GPU, pending/queued and completed jobs.
 
-### **Nodes**
+### Nodes
 
 ![Nodes](/img/controller-nodes.png)
 
 This is where you can see all the GPU hosts running WoolyAI Servers that are currently connected to the controller as well as information about them like how many GPUs they have available and how much they are currently being used.
 
-### **Groups**
+### Groups
 
 ![Groups](/img/controller-groups.png)
 
@@ -70,15 +70,88 @@ This is where you can see all the groups that exist for the GPU Nodes runing Woo
 
 Once the WoolyAI Controller is running, you can connect your WoolyAI Server and your ML CUDA containers(with WoolyAI Client libraries installed inside) to it. This is done by modifying both the Server and Client configs with the Controller URL restarting the containers.
 
-### Server Config
+#### Server Config
 
 In the server config, you'll set the `Controller integration` values like `CONTROLLER_NATS_URL`, `NODE_NAME`, etc. They are clearly labeled in the config file.
 
-### Client Config
+#### Client Config
 
 The client config is much easier. You'll simply set `WOOLYAI_CONTROLLER_URL` and any other required values in the same section.
 
 Once restarted, check the `docker logs` command for both Server and Client and make sure they were able to communicate.
+
+## VRAM overcommit and swap (Controller) {#vram-overcommit-and-swap-controller}
+
+These settings apply only to the **standalone WoolyAI Controller** (this page). They are **not** the same as Kubernetes GPU Operator labels or pod annotations. See [VRAM Overcommit](/client/vram-overcommit) for the operator path.
+
+### Startup default: environment variable
+
+On the **controller** container (for example in `docker-compose.yml` or the downloaded `deployment.yaml`), you can set:
+
+| Variable | Default | Valid range | Purpose |
+|----------|---------|-------------|---------|
+| `CONTROLLER_DEFAULT_VRAM_OVERCOMMIT_PERCENT` | `0` | `0`–`1000` | Global VRAM overcommit percentage when no value has been persisted to etcd yet |
+
+Example (compose-style):
+
+```yaml
+environment:
+  # CONTROLLER_DEFAULT_VRAM_OVERCOMMIT_PERCENT: "0"  # default: 0 (no overcommit); valid: 0-1000
+  CONTROLLER_DEFAULT_VRAM_OVERCOMMIT_PERCENT: "30"
+```
+
+**How this interacts with the API:** `GET /api/v1/config` uses the value from this environment variable **only while** the controller has **no** configuration stored in etcd yet (fresh install). After you successfully **`PUT /api/v1/config`**, the persisted setting in etcd is **authoritative** and the env var is no longer applied for the live default.
+
+### How the percentage works
+
+The controller treats `default_vram_overcommit_percent` (and per-node `overcommit_vram_percent`) as **extra VRAM headroom** on top of physical memory for **swappable** tasks. Same idea as “20% ⇒ ~120% effective capacity” for scheduling. Non-swappable tasks (`noswap: 1`) are placed using **physical** free VRAM only.
+
+Valid range for the global default is **0–1000** (percentage, per-node overrides use the same numeric range).
+
+### Global configuration (REST)
+
+Read the current default:
+
+```http
+GET /api/v1/config
+```
+
+Response includes `default_vram_overcommit_percent` (integer).
+
+Set the cluster-wide default (example: 30% extra headroom):
+
+```http
+PUT /api/v1/config
+Content-Type: application/json
+
+{"default_vram_overcommit_percent": 30}
+```
+
+### Per-node override (REST)
+
+Override overcommit for one registered GPU node (`{node_id}` is the node’s UUID from the API or UI):
+
+```http
+PUT /api/v1/nodes/{node_id}/config
+Content-Type: application/json
+
+{"overcommit_vram_percent": 50}
+```
+
+Use `0` to **disable** overcommit on that node regardless of the global default. To clear a node override and inherit the global default again, use the API semantics your client supports for unsetting the field (see OpenAPI or controller docs if you need `null`).
+
+### Per-task swap mode (REST)
+
+When **creating or updating a task**, you can set:
+
+- `noswap`: `0` — task may use overcommit headroom when the controller schedules it (default swappable behavior).
+- `noswap`: `1` — task must fit in **physical** free VRAM only; controller will not count overcommit toward that task.
+
+Client-side swap behavior for workloads that talk to the server **without** going through the controller task API is still controlled via `WOOLYAI_SWAP_FROM_VRAM` in the [client configuration](/client/setup).
+
+:::info
+If you use the Controller web UI, check **Nodes** and **Settings** (or equivalent) for the same values exposed as forms; the REST API above is the stable contract.
+:::
 
 ## FAQ
 
